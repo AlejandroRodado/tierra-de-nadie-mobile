@@ -1,18 +1,309 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#160e0c"><meta name="description" content="Explora la tercera planta de Tierra de Nadie, una historia de Alejandro Rodado."><title>Tierra de Nadie · Alejandro Rodado</title><link rel="stylesheet" href="styles.css"><script src="script.js" defer></script>
+    <!-- CONFIGURACIÓN -->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#160e0c">
+    <meta name="description"
+          content="Explora la tercera planta de Tierra de Nadie, una historia de Alejandro Rodado.">
+
+    <title>Tierra de Nadie · Alejandro Rodado</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
-<main class="app">
-<section class="portada pantalla" id="portada" aria-labelledby="titulo"><div class="velo"></div><div class="portada__texto"><h1 id="titulo">TIERRA DE <span>NADIE</span></h1><p>UNA HISTORIA DE <span>ALEJANDRO RODADO</span></p></div><button class="boton-entrar" id="entrar" type="button">ENTRAR AL HOSPITAL <span aria-hidden="true">→</span></button></section>
-<section class="hospital pantalla" id="hospital" aria-labelledby="hospital-titulo" hidden>
-<header class="barra"><button type="button" id="volver" class="icono-boton" aria-label="Volver a la portada">←</button><div><span class="micro">TIERRA DE NADIE</span><strong>PLANTA 3</strong></div><button type="button" id="novedadesBtn" class="icono-boton" aria-label="Ver novedades">✦</button></header>
-<div class="hospital__intro"><p class="etiqueta">HOSPITAL · TERCERA PLANTA</p><h2 id="hospital-titulo" tabindex="-1">Hay puertas que guardan historias.</h2><p>Explora el pasillo. Algunas puertas aún no pueden abrirse.</p></div>
-<div class="pasillo" aria-label="Pasillo interactivo del hospital"><div class="pasillo__luz"></div><div class="puertas"><button class="puerta" data-room="312" type="button"><span class="placa">312</span><span class="puerta__nombre">Habitación 312</span><span class="puerta__estado">Explorar ↗</span></button><button class="puerta cerrada" data-room="315" type="button"><span class="placa">315</span><span class="puerta__nombre">Habitación 315</span><span class="puerta__estado">⌁ Cerrada</span></button></div><div class="pasillo__suelo"></div><div class="pasillo__final">EL FINAL DEL PASILLO</div></div>
-<div class="destinos"><button class="destino" data-room="azotea" type="button"><span>☼</span><span><strong>La azotea</strong><small>Un lugar para mirar el atardecer</small></span><span>↗</span></button><button class="destino" data-room="enfermeria" type="button"><span>✚</span><span><strong>Control de enfermería</strong><small>Próxima revelación</small></span><span>⌁</span></button></div>
-<footer class="pie">UNA HISTORIA DE ALEJANDRO RODADO</footer>
-</section>
-<div class="modal" id="modal" hidden><div class="modal__fondo" data-close="true"></div><section class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" tabindex="-1"><button class="modal__cerrar" id="cerrar" type="button" aria-label="Cerrar">✕</button><p class="etiqueta" id="modalEtiqueta">EXPEDIENTE</p><h2 id="modalTitulo"></h2><p id="modalTexto"></p><div id="modalExtra"></div><button class="modal__volver" id="cerrarAbajo" type="button">Volver al pasillo →</button></section></div>
-</main>
-</body></html>
+    <main class="app">
+
+        <!-- ======================================
+             1. PORTADA ORIGINAL
+        ======================================= -->
+        <section class="portada pantalla"
+                 id="portada"
+                 aria-labelledby="titulo">
+
+            <div class="velo"></div>
+
+            <div class="portada__texto">
+                <h1 id="titulo">
+                    TIERRA DE <span>NADIE</span>
+                </h1>
+
+                <p>
+                    UNA HISTORIA DE
+                    <span>ALEJANDRO RODADO</span>
+                </p>
+            </div>
+
+            <button class="boton-entrar"
+                    id="entrar"
+                    type="button">
+                ENTRAR AL HOSPITAL
+                <span aria-hidden="true">→</span>
+            </button>
+
+        </section>
+
+
+        <!-- ======================================
+             2. HOSPITAL Y PASILLO ORIGINAL
+        ======================================= -->
+        <section class="hospital pantalla"
+                 id="hospital"
+                 aria-labelledby="hospital-titulo"
+                 hidden>
+
+            <header class="barra">
+
+                <button class="icono-boton"
+                        id="volver"
+                        type="button"
+                        aria-label="Volver a la portada">
+                    ←
+                </button>
+
+                <div>
+                    <span class="micro">TIERRA DE NADIE</span>
+                    <strong>PLANTA 3</strong>
+                </div>
+
+                <button class="icono-boton"
+                        id="novedadesBtn"
+                        type="button"
+                        aria-label="Ver novedades">
+                    ✦
+                </button>
+
+            </header>
+
+            <div class="hospital__intro">
+
+                <p class="etiqueta">
+                    HOSPITAL · TERCERA PLANTA
+                </p>
+
+                <h2 id="hospital-titulo" tabindex="-1">
+                    Hay puertas que guardan historias.
+                </h2>
+
+                <p>
+                    Explora el pasillo.
+                    Algunas historias aún esperan.
+                </p>
+
+            </div>
+
+            <!-- PUERTAS ORIGINALES -->
+            <div class="pasillo"
+                 aria-label="Pasillo interactivo del hospital">
+
+                <div class="pasillo__luz"></div>
+
+                <div class="puertas">
+
+                    <button class="puerta"
+                            data-room="312"
+                            type="button">
+
+                        <span class="placa">312</span>
+                        <span class="puerta__nombre">
+                            Habitación 312
+                        </span>
+                        <span class="puerta__estado">
+                            Explorar ↗
+                        </span>
+
+                    </button>
+
+                    
+<!-- ======================================
+     PUERTA UCI - FINAL DEL PASILLO
+======================================= -->
+
+            <button class="puerta puerta--uci"
+                    data-room="uci"
+                    type="button">
+
+               <span class="placa">UCI</span>
+
+            </button>
+
+
+                    <button class="puerta cerrada"
+                            data-room="315"
+                            type="button">
+
+                        <span class="placa">315</span>
+                        <span class="puerta__nombre">
+                            Habitación 315
+                        </span>
+                        <span class="puerta__estado">
+                            Explorar ↗
+                        </span>
+
+                    </button>
+
+                </div>
+
+                <div class="pasillo__suelo"></div>
+
+                <div class="pasillo__final">
+                    EL FINAL DEL PASILLO
+                </div>
+
+            </div>
+
+            <!-- DESTINOS ORIGINALES -->
+            <div class="destinos">
+
+                <button class="destino"
+                        data-room="azotea"
+                        type="button">
+
+                    <span>☼</span>
+
+                    <span>
+                        <strong>La azotea</strong>
+                        <small>Un lugar para mirar el atardecer</small>
+                    </span>
+
+                    <span>↗</span>
+
+                </button>
+
+                <button class="destino"
+                        data-room="psicologia"
+                        type="button">
+
+                    <span>✚</span>
+
+                    <span>
+                        <strong>Gabinete de psicología</strong>
+                        <small>Hay cosas que cuesta decir.</small>
+                    </span>
+
+                    <span>↗</span>
+
+                </button>
+
+            </div>
+
+            <footer class="pie">
+                UNA HISTORIA DE ALEJANDRO RODADO
+            </footer>
+
+        </section>
+
+
+        <!-- ======================================
+             3. NUEVA PANTALLA DE ESTANCIA
+        ======================================= -->
+        <section class="estancia pantalla"
+                 id="estancia"
+                 aria-labelledby="estanciaTitulo"
+                 hidden>
+
+            <header class="barra">
+
+                <button class="icono-boton"
+                        id="volverPasillo"
+                        type="button"
+                        aria-label="Volver al pasillo">
+                    ←
+                </button>
+
+                <div>
+                    <span class="micro">TIERRA DE NADIE</span>
+                    <strong>PLANTA 3</strong>
+                </div>
+
+                <span class="barra__espacio" aria-hidden="true"></span>
+
+            </header>
+
+            <!-- FOTOGRAFÍA DE FONDO -->
+            <div class="estancia__escena" id="estanciaEscena">
+
+                <div class="estancia__contenido">
+
+                    <p class="etiqueta" id="estanciaEtiqueta">
+                        TERCERA PLANTA
+                    </p>
+
+                    <h2 id="estanciaTitulo" tabindex="-1"></h2>
+
+                    <p id="estanciaFrase"></p>
+
+                </div>
+
+            </div>
+
+            <!-- PESTAÑAS DE CADA ESTANCIA -->
+            <div class="estancia__opciones">
+
+                <p class="etiqueta">DESCUBRE LA HISTORIA</p>
+
+                <div class="estancia__botones"
+                     id="estanciaBotones">
+                </div>
+
+            </div>
+
+            <footer class="pie">
+                UNA HISTORIA DE ALEJANDRO RODADO
+            </footer>
+
+        </section>
+
+
+        <!-- ======================================
+             4. MODAL DE PRESENTACIÓN
+        ======================================= -->
+        <div class="modal" id="modal" hidden>
+
+            <div class="modal__fondo"
+                 data-close="true">
+            </div>
+
+            <section class="modal__panel"
+                     role="dialog"
+                     aria-modal="true"
+                     aria-labelledby="modalTitulo"
+                     tabindex="-1">
+
+                <button class="modal__cerrar"
+                        id="cerrar"
+                        type="button"
+                        aria-label="Cerrar">
+                    ✕
+                </button>
+
+                <p class="etiqueta" id="modalEtiqueta">
+                    EXPEDIENTE
+                </p>
+
+                <h2 id="modalTitulo"></h2>
+
+                <p id="modalTexto"></p>
+
+                <div id="modalExtra"></div>
+
+                <button class="modal__volver"
+                        id="cerrarAbajo"
+                        type="button">
+                    Volver →
+                </button>
+
+            </section>
+
+        </div>
+
+    </main>
+</body>
+
+</html>
