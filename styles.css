@@ -1,3 +1,813 @@
+
+/* ==========================================
+   TIERRA DE NADIE
+   Archivo: styles.css
+   Versión: 0.3.0
+========================================== */
+
+
+/* ==========================================
+   1. FUENTES
+========================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap');
-:root{color-scheme:dark;font-family:Montserrat,Arial,sans-serif;background:#160e0c;color:#f8eee7}*{box-sizing:border-box}html,body{margin:0;min-width:320px;min-height:100%}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #ffd4a3;outline-offset:4px}[hidden]{display:none!important}.pantalla{min-height:100vh;min-height:100dvh}.portada{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;isolation:isolate;overflow:hidden;padding:max(16vh,95px) 20px max(10vh,60px);background:#21120e url('img/hospital-movil.png') center/cover no-repeat}.velo{position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,rgba(17,10,9,.56),rgba(20,11,9,.46) 35%,rgba(20,11,9,.08) 54%,rgba(12,7,7,.58))}.portada__texto{width:100%;text-align:center;text-shadow:0 2px 16px #000c;animation:aparecer 1.1s ease both}h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400}h1{font-size:clamp(3.5rem,11vw,6.7rem);letter-spacing:.065em;line-height:.9;margin:0}h1 span{display:block}.portada__texto p{font-size:clamp(.63rem,2.5vw,.9rem);line-height:1.9;letter-spacing:.22em;margin:24px auto 0;max-width:30rem}.portada__texto p span{display:block}.boton-entrar{width:min(100%,370px);min-height:66px;padding:16px 20px;color:#fff9f3;background:#150b0a66;border:1px solid #fff5e8;border-radius:5px;letter-spacing:.18em;font-size:.77rem;font-weight:500;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 4px 28px #0003;transition:background .25s,transform .25s;animation:aparecer 1.3s .25s ease both}.boton-entrar span{font-size:1.5rem}.boton-entrar:hover{background:#6e3923bf;transform:translateY(-3px)}.portada.saliendo{animation:salir .6s ease forwards;pointer-events:none}
-.hospital{background:linear-gradient(#14151ad9,#14151af0),url('img/hospital-movil.png') center/cover fixed;position:relative}.hospital.entrando{animation:aparecer .65s ease both}.barra{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px max(18px,env(safe-area-inset-right));border-bottom:1px solid #ffffff22;background:#0b1118aa}.barra>div{text-align:center;display:grid;gap:5px}.micro{font-size:.57rem;letter-spacing:.24em;color:#c4a994}.barra strong{font-family:'Cormorant Garamond',Georgia,serif;letter-spacing:.17em;font-size:1.2rem;font-weight:500}.icono-boton{width:42px;height:42px;background:#ffffff0e;border:1px solid #ffffff44;border-radius:50%;color:#fff;font-size:1.25rem}.hospital__intro{text-align:center;padding:40px 20px 24px;max-width:700px;margin:auto}.etiqueta{color:#e6b58e;font-size:.66rem;letter-spacing:.24em;font-weight:600}.hospital__intro h2{font-size:clamp(2.7rem,8vw,4.5rem);line-height:.95;margin:15px auto}.hospital__intro>p:last-child{font-size:.86rem;line-height:1.8;color:#d8c7bc}.pasillo{height:clamp(340px,54vh,550px);position:relative;overflow:hidden;margin:0 auto;width:min(100%,1050px);background:linear-gradient(180deg,#0b1319 0%,#27313a 35%,#765342 67%,#211918 100%);isolation:isolate;border-top:1px solid #ffffff25;border-bottom:1px solid #ffffff25}.pasillo::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#080d13 0%,transparent 36%,transparent 64%,#080d13 100%);pointer-events:none}.pasillo__luz{position:absolute;width:42%;height:70%;left:29%;top:4%;background:radial-gradient(ellipse,#f4b37991,transparent 70%);filter:blur(15px);pointer-events:none}.puertas{position:absolute;inset:6% 6% 16%;display:flex;justify-content:space-between;gap:15%;align-items:stretch;perspective:650px}.puerta{position:relative;width:37%;max-width:290px;background:linear-gradient(100deg,#2b2626,#57473f 70%,#211c1c);border:5px solid #171a1d;box-shadow:inset 0 0 35px #0009,0 15px 35px #0009;color:#f8ede3;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 8px;transition:filter .2s,transform .2s}.puerta:first-child{transform:perspective(650px) rotateY(10deg)}.puerta:last-child{transform:perspective(650px) rotateY(-10deg)}.puerta:hover{filter:brightness(1.35)}.puerta::after{content:'';position:absolute;right:12%;top:51%;width:9px;height:9px;border-radius:50%;background:#c8ad86;box-shadow:0 0 5px #000}.placa{border:1px solid #c3ae9a;background:#151719;padding:6px 15px;letter-spacing:.14em;font-size:1.05rem}.puerta__nombre{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.15rem,4vw,1.75rem);margin-top:auto;text-align:center}.puerta__estado{font-size:.62rem;letter-spacing:.1em;color:#f3bd92;margin-bottom:12px}.cerrada{filter:brightness(.65)}.pasillo__suelo{position:absolute;bottom:-18%;left:21%;width:58%;height:35%;background:radial-gradient(ellipse,#e1a06d55,transparent 70%);pointer-events:none}.pasillo__final{position:absolute;bottom:11px;left:0;right:0;text-align:center;font-size:.52rem;letter-spacing:.25em;color:#ffffff80;pointer-events:none}.destinos{display:grid;gap:12px;padding:25px 20px;max-width:1050px;margin:auto}.destino{display:flex;align-items:center;gap:18px;text-align:left;padding:20px;background:#ffffff0c;border:1px solid #ffffff2b;border-radius:5px;color:#fff}.destino>span:first-child{font-size:1.7rem;color:#d7a67f}.destino>span:nth-child(2){flex:1;display:grid;gap:6px}.destino strong{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;font-weight:500}.destino small{color:#d2beb1;font-size:.72rem}.destino>span:last-child{color:#e9bb97}.destino:hover{background:#ffffff1a}.pie{text-align:center;padding:24px;font-size:.57rem;letter-spacing:.2em;color:#c4a994}.modal-abierto{overflow:hidden}.modal{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:18px}.modal__fondo{position:absolute;inset:0;background:#050709dc;backdrop-filter:blur(7px)}.modal__panel{position:relative;background:linear-gradient(160deg,#293039,#17171b);border:1px solid #b08c714f;border-radius:7px;padding:48px 26px 30px;width:min(100%,540px);max-height:90dvh;overflow:auto;box-shadow:0 20px 90px #000b}.modal__cerrar{position:absolute;right:15px;top:13px;background:transparent;border:0;color:#fff;font-size:1.25rem;padding:10px}.modal__panel h2{font-size:clamp(2.8rem,9vw,4rem);line-height:1;margin:16px 0}.modal__panel>p:not(.etiqueta){font-size:.93rem;line-height:1.9;color:#e3d7d0}#modalExtra{margin-top:25px;padding:17px;border-left:2px solid #d9a781;background:#ffffff0a;font-size:.8rem;line-height:1.8;color:#ebc9af}.modal__volver{margin-top:25px;width:100%;padding:17px;background:#a86d4d;border:0;color:#fff;letter-spacing:.06em}@keyframes aparecer{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}@keyframes salir{to{opacity:0;transform:scale(1.045)}}@media(min-width:700px){.portada{background-image:url('img/hospital-desktop.png');padding-top:17vh;padding-bottom:16vh}h1 span{display:inline}h1 span::before{content:' '}.portada__texto p span{display:inline}.portada__texto p span::before{content:' '}.hospital{background-image:linear-gradient(#14151ad9,#14151af0),url('img/hospital-desktop.png')}.destinos{grid-template-columns:1fr 1fr}.pasillo{border:1px solid #ffffff25;border-radius:6px}.puertas{inset:6% 14% 16%}}@media(max-height:600px){.portada{padding-top:55px;padding-bottom:35px}.boton-entrar{min-height:55px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+
+/* ==========================================
+   2. CONFIGURACIÓN GENERAL
+========================================== */
+
+:root {
+    color-scheme: dark;
+    font-family: Montserrat, Arial, sans-serif;
+    background: #160e0c;
+    color: #f8eee7;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100%;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+button:focus-visible {
+    outline: 3px solid #ffd4a3;
+    outline-offset: 4px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.pantalla {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+h1,
+h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+}
+
+
+/* ==========================================
+   3. PANTALLA DE BIENVENIDA
+========================================== */
+
+.portada {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    isolation: isolate;
+    overflow: hidden;
+
+    padding: max(16vh, 95px) 20px max(10vh, 60px);
+
+    background: #21120e url('img/hospital-movil.png') center / cover no-repeat;
+}
+
+.velo {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+
+    background: linear-gradient(
+        180deg,
+        rgba(17, 10, 9, .56),
+        rgba(20, 11, 9, .46) 35%,
+        rgba(20, 11, 9, .08) 54%,
+        rgba(12, 7, 7, .58)
+    );
+}
+
+
+/* ==========================================
+   4. TÍTULO Y AUTOR
+========================================== */
+
+.portada__texto {
+    width: 100%;
+    text-align: center;
+    text-shadow: 0 2px 16px #000c;
+
+    animation: aparecer 1.1s ease both;
+}
+
+h1 {
+    font-size: clamp(3.5rem, 11vw, 6.7rem);
+    letter-spacing: .065em;
+    line-height: .9;
+    margin: 0;
+}
+
+h1 span {
+    display: block;
+}
+
+.portada__texto p {
+    font-size: clamp(.63rem, 2.5vw, .9rem);
+    line-height: 1.9;
+    letter-spacing: .22em;
+
+    margin: 24px auto 0;
+    max-width: 30rem;
+}
+
+.portada__texto p span {
+    display: block;
+}
+
+
+/* ==========================================
+   5. BOTÓN DE ENTRADA
+========================================== */
+
+.boton-entrar {
+    width: min(100%, 370px);
+    min-height: 66px;
+
+    padding: 16px 20px;
+
+    color: #fff9f3;
+    background: #150b0a66;
+
+    border: 1px solid #fff5e8;
+    border-radius: 5px;
+
+    letter-spacing: .18em;
+    font-size: .77rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    box-shadow: 0 4px 28px #0003;
+
+    transition:
+        background .25s,
+        transform .25s;
+
+    animation: aparecer 1.3s .25s ease both;
+}
+
+.boton-entrar span {
+    font-size: 1.5rem;
+}
+
+.boton-entrar:hover {
+    background: #6e3923bf;
+    transform: translateY(-3px);
+}
+
+.portada.saliendo {
+    animation: salir .6s ease forwards;
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   6. HOSPITAL - TERCERA PLANTA
+========================================== */
+
+.hospital {
+    position: relative;
+
+    background:
+        linear-gradient(#14151ad9, #14151af0),
+        url('img/hospital-movil.png') center / cover fixed;
+}
+
+.hospital.entrando {
+    animation: aparecer .65s ease both;
+}
+
+
+/* ==========================================
+   7. BARRA DE NAVEGACIÓN
+========================================== */
+
+.barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding: 18px max(18px, env(safe-area-inset-right));
+
+    border-bottom: 1px solid #ffffff22;
+    background: #0b1118aa;
+}
+
+.barra > div {
+    text-align: center;
+    display: grid;
+    gap: 5px;
+}
+
+.micro {
+    font-size: .57rem;
+    letter-spacing: .24em;
+    color: #c4a994;
+}
+
+.barra strong {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: .17em;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.icono-boton {
+    width: 42px;
+    height: 42px;
+
+    background: #ffffff0e;
+    border: 1px solid #ffffff44;
+    border-radius: 50%;
+
+    color: #fff;
+    font-size: 1.25rem;
+}
+
+
+/* ==========================================
+   8. INTRODUCCIÓN AL HOSPITAL
+========================================== */
+
+.hospital__intro {
+    text-align: center;
+
+    padding: 40px 20px 24px;
+    max-width: 700px;
+    margin: auto;
+}
+
+.etiqueta {
+    color: #e6b58e;
+    font-size: .66rem;
+    letter-spacing: .24em;
+    font-weight: 600;
+}
+
+.hospital__intro h2 {
+    font-size: clamp(2.7rem, 8vw, 4.5rem);
+    line-height: .95;
+    margin: 15px auto;
+}
+
+.hospital__intro > p:last-child {
+    font-size: .86rem;
+    line-height: 1.8;
+    color: #d8c7bc;
+}
+
+
+/* ==========================================
+   9. PASILLO INTERACTIVO
+   Escenario fotográfico v0.3.0
+========================================== */
+
+.pasillo {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    width: min(100%, 1050px);
+    height: clamp(470px, 68dvh, 760px);
+
+    margin: 0 auto;
+
+    background:
+        #15110f
+        url('img/hospital-movil.png')
+        center center / cover no-repeat;
+
+    border: 1px solid #ffffff30;
+    border-radius: 6px;
+}
+
+.pasillo::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+
+    background: linear-gradient(
+        180deg,
+        #090a0b60 0%,
+        transparent 35%,
+        #0b0b0c8c 100%
+    );
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   10. ELEMENTOS DEL PASILLO
+========================================== */
+
+/* Elementos decorativos antiguos ocultos */
+
+.pasillo__luz,
+.pasillo__suelo {
+    display: none;
+}
+
+/* Contenedor de las puertas */
+
+.puertas {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+
+    display: block;
+    perspective: none;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   11. PUERTAS INTERACTIVAS
+========================================== */
+
+.puerta,
+.puerta:first-child,
+.puerta:last-child {
+    position: absolute;
+    transform: none;
+
+    width: auto;
+    max-width: none;
+    min-width: 125px;
+    min-height: 78px;
+
+    padding: 12px 14px;
+    gap: 6px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: #11171cbd;
+
+    border: 1px solid #f1d4bb9c;
+    border-radius: 5px;
+
+    box-shadow: 0 8px 28px #0008;
+    backdrop-filter: blur(8px);
+
+    color: #f8ede3;
+
+    pointer-events: auto;
+
+    transition:
+        filter .2s,
+        transform .2s;
+}
+
+/* Posición de las habitaciones */
+
+.puerta:first-child {
+    left: 5%;
+    top: 35%;
+}
+
+.puerta:last-child {
+    right: 5%;
+    top: 48%;
+}
+
+/* Efecto al pasar el cursor */
+
+.puerta:hover {
+    filter: brightness(1.35);
+}
+
+/* Ocultar antiguos tiradores decorativos */
+
+.puerta::after {
+    display: none;
+}
+
+
+/* ==========================================
+   12. CONTENIDO DE LAS PUERTAS
+========================================== */
+
+.placa {
+    border: 1px solid #c3ae9a;
+    background: #151719;
+
+    padding: 3px 12px;
+
+    letter-spacing: .14em;
+    font-size: .9rem;
+}
+
+.puerta__nombre {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem;
+
+    margin: 0;
+    text-align: center;
+}
+
+.puerta__estado {
+    margin: 0;
+
+    font-size: .6rem;
+    letter-spacing: .1em;
+    color: #f3bd92;
+}
+
+
+/* ==========================================
+   13. HABITACIONES BLOQUEADAS
+========================================== */
+
+.puerta.cerrada {
+    filter: none;
+
+    background: #121316d9;
+    border-color: #ffffff60;
+}
+
+
+/* ==========================================
+   14. INDICADOR DEL PASILLO
+========================================== */
+
+.pasillo__final {
+    position: absolute;
+    z-index: 1;
+
+    bottom: 14px;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    font-size: .52rem;
+    letter-spacing: .25em;
+
+    color: #ffffff80;
+    text-shadow: 0 2px 8px #000;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   15. OTROS DESTINOS DEL HOSPITAL
+========================================== */
+
+.destinos {
+    display: grid;
+    gap: 12px;
+
+    padding: 25px 20px;
+
+    max-width: 1050px;
+    margin: auto;
+}
+
+.destino {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    text-align: left;
+    padding: 20px;
+
+    background: #ffffff0c;
+    border: 1px solid #ffffff2b;
+    border-radius: 5px;
+
+    color: #fff;
+}
+
+.destino > span:first-child {
+    font-size: 1.7rem;
+    color: #d7a67f;
+}
+
+.destino > span:nth-child(2) {
+    flex: 1;
+
+    display: grid;
+    gap: 6px;
+}
+
+.destino strong {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.destino small {
+    color: #d2beb1;
+    font-size: .72rem;
+}
+
+.destino > span:last-child {
+    color: #e9bb97;
+}
+
+.destino:hover {
+    background: #ffffff1a;
+}
+
+
+/* ==========================================
+   16. PIE DE PÁGINA
+========================================== */
+
+.pie {
+    text-align: center;
+
+    padding: 24px;
+
+    font-size: .57rem;
+    letter-spacing: .2em;
+
+    color: #c4a994;
+}
+
+
+/* ==========================================
+   17. VENTANA MODAL
+========================================== */
+
+.modal-abierto {
+    overflow: hidden;
+}
+
+.modal {
+    position: fixed;
+    z-index: 20;
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    padding: 18px;
+}
+
+.modal__fondo {
+    position: absolute;
+    inset: 0;
+
+    background: #050709dc;
+    backdrop-filter: blur(7px);
+}
+
+.modal__panel {
+    position: relative;
+
+    width: min(100%, 540px);
+    max-height: 90dvh;
+
+    padding: 48px 26px 30px;
+
+    background: linear-gradient(
+        160deg,
+        #293039,
+        #17171b
+    );
+
+    border: 1px solid #b08c714f;
+    border-radius: 7px;
+
+    overflow: auto;
+
+    box-shadow: 0 20px 90px #000b;
+}
+
+
+/* ==========================================
+   18. CONTENIDO DEL MODAL
+========================================== */
+
+.modal__cerrar {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+
+    padding: 10px;
+
+    background: transparent;
+    border: 0;
+
+    color: #fff;
+    font-size: 1.25rem;
+}
+
+.modal__panel h2 {
+    font-size: clamp(2.8rem, 9vw, 4rem);
+    line-height: 1;
+
+    margin: 16px 0;
+}
+
+.modal__panel > p:not(.etiqueta) {
+    font-size: .93rem;
+    line-height: 1.9;
+
+    color: #e3d7d0;
+}
+
+#modalExtra {
+    margin-top: 25px;
+    padding: 17px;
+
+    border-left: 2px solid #d9a781;
+    background: #ffffff0a;
+
+    font-size: .8rem;
+    line-height: 1.8;
+
+    color: #ebc9af;
+}
+
+.modal__volver {
+    width: 100%;
+    margin-top: 25px;
+    padding: 17px;
+
+    background: #a86d4d;
+    border: 0;
+
+    color: #fff;
+    letter-spacing: .06em;
+}
+
+
+/* ==========================================
+   19. ANIMACIONES
+========================================== */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes salir {
+
+    to {
+        opacity: 0;
+        transform: scale(1.045);
+    }
+
+}
+
+
+/* ==========================================
+   20. DISEÑO PARA TABLETS Y ORDENADORES
+   Pantallas de 700px o más
+========================================== */
+
+@media (min-width: 700px) {
+
+    /* Portada */
+
+    .portada {
+        background-image: url('img/hospital-desktop.png');
+
+        padding-top: 17vh;
+        padding-bottom: 16vh;
+    }
+
+    h1 span {
+        display: inline;
+    }
+
+    h1 span::before {
+        content: ' ';
+    }
+
+    .portada__texto p span {
+        display: inline;
+    }
+
+    .portada__texto p span::before {
+        content: ' ';
+    }
+
+    /* Hospital */
+
+    .hospital {
+        background-image:
+            linear-gradient(#14151ad9, #14151af0),
+            url('img/hospital-desktop.png');
+    }
+
+    /* Pasillo */
+
+    .pasillo {
+        height: clamp(460px, 65vh, 700px);
+
+        background-image: url('img/hospital-desktop.png');
+    }
+
+    /* Posiciones de las habitaciones */
+
+    .puerta:first-child {
+        left: 12%;
+        top: 30%;
+    }
+
+    .puerta:last-child {
+        right: 16%;
+        top: 41%;
+    }
+
+    /* Otros destinos */
+
+    .destinos {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+/* ==========================================
+   21. PANTALLAS DE POCA ALTURA
+========================================== */
+
+@media (max-height: 600px) {
+
+    .portada {
+        padding-top: 55px;
+        padding-bottom: 35px;
+    }
+
+    .boton-entrar {
+        min-height: 55px;
+    }
+
+}
+
+
+/* ==========================================
+   22. MÓVILES PEQUEÑOS
+   Pantallas de hasta 390px
+========================================== */
+
+@media (max-width: 390px) {
+
+    .puerta,
+    .puerta:first-child,
+    .puerta:last-child {
+        min-width: 110px;
+        padding: 9px 8px;
+    }
+
+    .puerta__nombre {
+        font-size: .99rem;
+    }
+
+}
+
+
+/* ==========================================
+   23. ACCESIBILIDAD
+   REDUCIR MOVIMIENTO
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+
+}
