@@ -986,3 +986,13 @@ document.getElementById('opinionNombre').value =
 
 document.getElementById('opinionMensaje').value =
     document.getElementById('opinionMensaje').value.trim();
+
+    /* ==========================================
+   CORRECCIÓN HOVER HABITACIÓN 315
+========================================== */
+
+.puertas .puerta:last-child:hover,
+.puertas .puerta.cerrada:hover {
+    filter: brightness(1.35);
+    cursor: pointer;
+}
