@@ -1,9 +1,8 @@
-
 /* ==========================================
    CONEXIÓN CON SUPABASE
 ========================================== */
 
-const SUPABASE_URL = 'https://xahzdkklnrfdrphwdxzo.supabase.co/rest/v1/';
+const SUPABASE_URL = 'https://xahzdkklnrfdrphwdxzo.supabase.co';
 
 const SUPABASE_PUBLIC_KEY = 'sb_publishable_hzZqLiatGxCcFKcNnmMH0g_2gT7nJ3C';
 
@@ -780,15 +779,15 @@ formOpinion.addEventListener('submit', async (evento) => {
 
     publicarOpinion.disabled = false;
 
-    if (error) {
+   if (error) {
 
-        opinionEstado.textContent =
-            'No se ha podido publicar. Inténtalo de nuevo.';
+    opinionEstado.textContent =
+        'Error al publicar: ' + error.message;
 
-        console.error(error);
-        return;
+    console.error('ERROR SUPABASE:', error);
+    return;
 
-    }
+}
 
     ultimaPublicacion = Date.now();
 
@@ -979,3 +978,11 @@ async function iniciarSistemaOpiniones() {
 }
 
 iniciarSistemaOpiniones();
+
+
+// Eliminar espacios iniciales de los campos de opinión
+document.getElementById('opinionNombre').value =
+    document.getElementById('opinionNombre').value.trim();
+
+document.getElementById('opinionMensaje').value =
+    document.getElementById('opinionMensaje').value.trim();
