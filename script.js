@@ -52,7 +52,7 @@ const estancias = {
 'uci': {
     etiqueta: 'HOSPITAL · CUIDADOS INTENSIVOS',
     titulo: 'UCI',
-    frase: 'Hay días que lo cambian todo.',
+    frase: 'Unidad de Cuidados Intensivos.',
     imagen: 'img/uci.png',
 
     opciones: [
@@ -67,7 +67,7 @@ const estancias = {
     '312': {
         etiqueta: 'HOSPITAL · HABITACIÓN 312',
         titulo: 'Habitación 312',
-        frase: 'Aquí empezó todo.',
+        frase: 'Habitación del chico.',
         imagen: 'img/habitacion-312.png',
 
         opciones: [
@@ -81,7 +81,7 @@ const estancias = {
     '315': {
         etiqueta: 'HOSPITAL · HABITACIÓN 315',
         titulo: 'Habitación 315',
-        frase: 'Hay cosas que todavía no se cuentan.',
+        frase: 'Habitación del niño.',
         imagen: 'img/habitacion-315.png',
 
         opciones: [
@@ -95,7 +95,7 @@ const estancias = {
     'azotea': {
         etiqueta: 'HOSPITAL · AZOTEA',
         titulo: 'La azotea',
-        frase: 'Desde aquí, todo parecía más pequeño.',
+        frase: 'Donde el sol huye de la oscuridad.',
         imagen: 'img/azotea.png',
 
         opciones: [
@@ -113,7 +113,7 @@ const estancias = {
     'psicologia': {
         etiqueta: 'HOSPITAL · GABINETE DE PSICOLOGÍA',
         titulo: 'Gabinete de psicología',
-        frase: 'Hay silencios que también hablan.',
+        frase: 'Dr. Mikel.',
         imagen: 'img/gabinete.png',
 
         opciones: [
@@ -141,7 +141,7 @@ const fichas = {
 publicacion: {
     etiqueta: 'TIERRA DE NADIE · PUBLICACIÓN',
     titulo: 'Fecha de publicación',
-    texto: 'Todo tiene un principio.',
+    texto: 'Próxima actualización el xx de xxxx de 2026 a las 21:30.',
     extra: [
         'xx/xx/xxxx'
     ]
@@ -151,57 +151,79 @@ publicacion: {
     chico: {
         etiqueta: 'EXPEDIENTE · PERSONAJE',
         titulo: 'El chico',
-        texto: 'Hay historias que empiezan sin querer.',
+        texto: 'El de las chanclas con calcetines. El pequeño. El misterioso. El callado.',
         extra: [
-            'Nombre: pendiente de revelar.',
-            'Edad: pendiente de revelar.',
-            'Su historia: próximamente.'
+            'Nombre: ???',
+            'Edad: 12 años.',
+            'Su historia: consumido por el miedo, la aceptación social y manías absurdas, el chico tendrá que luchar por esconder su verdad todo lo que pueda. Intentando demostrar así que, a veces, los silencios pueden gritarnos más que las palabras.'
         ]
     },
 
     nino: {
         etiqueta: 'EXPEDIENTE · PERSONAJE',
         titulo: 'El niño',
-        texto: 'No todos los niños tienen la misma infancia.',
+        texto: 'El rubio. El mayor. El ansioso. El protagonista.',
         extra: [
-            'Nombre: pendiente de revelar.',
-            'Edad: pendiente de revelar.',
-            'Su historia: próximamente.'
+            'Nombre: "El niño".',
+            'Edad: 16 años.',
+            'Su historia: tras enfrentarse durante 7 noches al pintor, el niño ahora debe anclarse a la realidad enfrentándose a sus días de estancia en la tercera planta de un hospital.'
         ]
     },
 
     psicologo: {
         etiqueta: 'EXPEDIENTE · PERSONAJE',
         titulo: 'El psicólogo',
-        texto: 'Escuchar también tiene consecuencias.',
+        texto: 'El señor con gabardina. El de las gafas. El de la voz calmada. El que intenta escuchar',
         extra: [
-            'Nombre: pendiente de revelar.',
+            'Nombre: Mikel.',
             'Gabardina y gafas redondas.',
-            'Su historia: próximamente.'
+            'Su historia: durante sus sesiones de terapia, el psicólogo intenta comprender las complejidades de sus pacientes dando voz y camino a una alternativa diferente para conocer a las personas.'
         ]
     },
 
     capitulos: {
         etiqueta: 'ARCHIVO · ÍNDICE',
         titulo: 'Los capítulos',
-        texto: 'Cada capítulo guarda algo.',
+        texto: 'Cada capítulo contiene una parte narrativa, un poema y un código QR.',
         extra: [
-            'Capítulo 1 — Pendiente de revelar.',
-            'Capítulo 2 — Pendiente de revelar.',
-            'Capítulo 3 — Pendiente de revelar.',
-            'El índice completo llegará después.'
+            'PRÓLOGO — NO ME HABLEN.',
+            'Capítulo 1 — La carta.',
+            'Capítulo 2 — Volver a escribirte.',
+            'Capítulo 3 — Volver a quererte.',
+            'Capítulo 4 — Mmm.',
+            'Capítulo 5 — VHS.',
+            'Capítulo 6 — Corazón temblando.',
+            'Capítulo 7 — SI ESTUVIÉRAMOS JUNTOS (Interludio).',
+            'Capítulo 8 — Escritor.',
+            'Capítulo 9 — Enamorado.',
+            'Capítulo 10 — Exagerado.',
+            'Capítulo 11 — Diferente.',
+            'Capítulo 12 — Saudade.',
+            'Capítulo 13 — El monstruo.',
+            'EPÍLOGO — TIERRA DE NADIE.',
         ]
     },
 
     sinopsis: {
         etiqueta: 'ARCHIVO · HISTORIA',
         titulo: 'Detrás de cada capítulo',
-        texto: 'No todo sucede dentro de una habitación.',
+        texto: '¿Qué esconde cada poema?',
         extra: [
-            'Capítulo 1 — Sinopsis pendiente.',
-            'Capítulo 2 — Sinopsis pendiente.',
-            'Capítulo 3 — Sinopsis pendiente.',
-            'Próximamente se publicarán las descripciones.'
+            '0. NO ME HABLEN: Sobre la ansiedad, el aislamiento y la necesidad de estar solo sin querer sentirse olvidado.',
+            '1. La carta: Sobre el miedo a confesar lo que sentimos y perder a alguien que queremos.',
+            '2. Volver a escribirte: Sobre el arrepentimiento de haber perdido a alguien y las ganas de recuperar lo que hubo.',
+            '3. Volver a quererte: Sobre las dificultades de volver a confiar y querer después de haber sufrido.',
+            '4. Mmm: Sobre el miedo a dormir, las pesadillas y los monstruos que aparecen por la noche, en formato de nana.',
+            '5. VHS: Sobre la nostalgia de la infancia y los recuerdos de una felicidad que ya no existe.',
+            '6. Corazón temblando: Sobre el dolor de perder a alguien que queríamos y el miedo a no poder olvidarlo.',
+            '7. SI ESTUVIÉRAMOS JUNTOS (Interludio): Sobre imaginar una relación imposible y sufrir por aquello que nunca llegará a ocurrir.',
+            '8. Escritor: Sobre utilizar la escritura para expresar aquello que nunca hemos sabido contar. PERSONAL.',
+            '9. Enamorado:  Sobre el miedo a enamorarse, mostrarse vulnerable y volver a salir herido. PERSONAL.',
+            '10. Exagerado: Sobre sentirse incomprendido cuando los demás minimizan nuestros problemas y emociones. PERSONAL.',
+            '11. Diferente: Sobre sentirse distinto a los demás y no conseguir entender lo que nos está pasando. PERSONAL.',
+            '12. Saudade: Sobre echar de menos nuestra antigua vida y desear volver a sentirnos como antes.',
+            '13. El monstruo: ???',
+            '14. TIERRA DE NADIE: ???',
         ]
     },
 
