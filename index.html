@@ -14,7 +14,9 @@
     <title>Tierra de Nadie · Alejandro Rodado</title>
 
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer>
+    </script>
+<script src="script.js" defer></script>
 </head>
 
 <body>
@@ -285,6 +287,138 @@
                 <p id="modalTexto"></p>
 
                 <div id="modalExtra"></div>
+
+                
+<!-- ======================================
+     OPINIONES DE LOS LECTORES
+======================================= -->
+
+<section class="opiniones" id="opiniones">
+
+    <div class="opiniones__cabecera">
+        <p class="etiqueta">LA VOZ DE LOS LECTORES</p>
+        <h3>¿Qué te ha parecido?</h3>
+        <p>
+            Cada historia se vive de una manera.
+            Cuéntanos la tuya.
+        </p>
+    </div>
+
+    <!-- FORMULARIO PÚBLICO -->
+    <form id="formOpinion" class="opiniones__formulario">
+
+        <label for="opinionNombre">Tu nombre</label>
+
+        <input
+            id="opinionNombre"
+            name="nombre"
+            type="text"
+            maxlength="40"
+            minlength="2"
+            autocomplete="name"
+            placeholder="Escribe tu nombre"
+            required
+        >
+
+        <label for="opinionMensaje">Tu opinión</label>
+
+        <textarea
+            id="opinionMensaje"
+            name="mensaje"
+            rows="4"
+            minlength="3"
+            maxlength="1000"
+            placeholder="¿Qué te ha transmitido?"
+            required>
+        </textarea>
+
+        <button type="submit" id="publicarOpinion">
+            Publicar opinión →
+        </button>
+
+        <p class="opiniones__aviso">
+            Tu nombre y comentario serán públicos.
+            No incluyas información personal.
+        </p>
+
+        <p id="opinionEstado"
+           class="opiniones__estado"
+           role="status"
+           aria-live="polite">
+        </p>
+
+    </form>
+
+    <!-- COMENTARIOS PUBLICADOS -->
+    <div class="opiniones__publicadas">
+
+        <h3>Opiniones publicadas</h3>
+
+        <div id="listaOpiniones"
+             aria-live="polite">
+        </div>
+
+    </div>
+
+    <!-- ADMINISTRACIÓN -->
+    <div class="opiniones__administracion">
+
+        <button
+            type="button"
+            id="accesoAdmin"
+            class="opiniones__acceso">
+            Administración
+        </button>
+
+        <form id="formAdmin"
+              class="opiniones__login"
+              hidden>
+
+            <label for="adminEmail">
+                Correo electrónico
+            </label>
+
+            <input
+                id="adminEmail"
+                type="email"
+                autocomplete="username"
+                required
+            >
+
+            <label for="adminPassword">
+                Contraseña
+            </label>
+
+            <input
+                id="adminPassword"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">
+                Iniciar sesión
+            </button>
+
+        </form>
+
+        <button
+            type="button"
+            id="salirAdmin"
+            class="opiniones__acceso"
+            hidden>
+            Cerrar sesión de administrador
+        </button>
+
+        <p id="adminEstado"
+           class="opiniones__estado"
+           role="status">
+        </p>
+
+    </div>
+
+</section>
+
 
                 <button class="modal__volver"
                         id="cerrarAbajo"

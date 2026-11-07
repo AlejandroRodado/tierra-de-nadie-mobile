@@ -445,3 +445,242 @@
     }
 
 }
+
+
+
+/* ==========================================
+   TIERRA DE NADIE
+   SISTEMA DE OPINIONES
+========================================== */
+
+
+/* 1. CONTENEDOR GENERAL */
+
+.opiniones {
+    margin-top: 35px;
+    padding-top: 30px;
+
+    border-top: 1px solid #ffffff26;
+}
+
+.opiniones__cabecera {
+    margin-bottom: 25px;
+}
+
+.opiniones h3 {
+    margin: 10px 0;
+
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 500;
+
+    color: #fff0e3;
+}
+
+.opiniones__cabecera > p:last-child {
+    color: #cbb9ad;
+    font-size: .8rem;
+    line-height: 1.7;
+}
+
+
+/* 2. FORMULARIO */
+
+.opiniones__formulario,
+.opiniones__login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.opiniones label {
+    font-size: .7rem;
+    letter-spacing: .06em;
+
+    color: #e9c4a8;
+}
+
+.opiniones input,
+.opiniones textarea {
+    width: 100%;
+    padding: 14px;
+
+    background: #101217;
+    border: 1px solid #ffffff35;
+    border-radius: 4px;
+
+    color: #fff;
+    font: inherit;
+    font-size: .85rem;
+}
+
+.opiniones textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.opiniones input:focus,
+.opiniones textarea:focus {
+    outline: 2px solid #d6a580;
+    outline-offset: 2px;
+}
+
+.opiniones__formulario > button,
+.opiniones__login > button {
+    margin-top: 8px;
+    padding: 16px;
+
+    background: #a86d4d;
+    border: 0;
+    border-radius: 4px;
+
+    color: white;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.opiniones__formulario > button:hover,
+.opiniones__login > button:hover {
+    background: #bd805e;
+}
+
+.opiniones button:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+.opiniones__aviso {
+    margin: 0;
+
+    color: #a99c95;
+    font-size: .67rem;
+    line-height: 1.6;
+}
+
+.opiniones__estado {
+    min-height: 1em;
+
+    color: #e9c4a8;
+    font-size: .76rem;
+    line-height: 1.6;
+}
+
+
+/* 3. COMENTARIOS PUBLICADOS */
+
+.opiniones__publicadas {
+    margin-top: 35px;
+}
+
+#listaOpiniones {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.opinion {
+    padding: 17px;
+
+    background: #ffffff0a;
+    border: 1px solid #ffffff24;
+    border-radius: 5px;
+}
+
+.opinion__cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.opinion__autor {
+    font-size: .85rem;
+    font-weight: 600;
+
+    color: #f5d0b6;
+}
+
+.opinion__fecha {
+    display: block;
+    margin-top: 5px;
+
+    color: #a99c95;
+    font-size: .65rem;
+}
+
+.opinion__mensaje {
+    margin: 14px 0 0;
+
+    color: #e5d9d2;
+    font-size: .83rem;
+    line-height: 1.8;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.opinion__eliminar {
+    flex-shrink: 0;
+
+    padding: 6px 9px;
+
+    background: transparent;
+    border: 1px solid #b87979;
+    border-radius: 4px;
+
+    color: #f0b1b1;
+    font-size: .68rem;
+}
+
+.opinion__eliminar:hover {
+    background: #742d2d55;
+}
+
+.opiniones__vacio {
+    color: #b8a99e;
+    font-size: .8rem;
+    line-height: 1.7;
+}
+
+
+/* 4. ADMINISTRACIÓN */
+
+.opiniones__administracion {
+    margin-top: 30px;
+    padding-top: 20px;
+
+    border-top: 1px solid #ffffff18;
+}
+
+.opiniones__acceso {
+    padding: 8px 0;
+
+    background: transparent;
+    border: 0;
+
+    color: #bca797;
+    font-size: .7rem;
+
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.opiniones__login {
+    margin-top: 18px;
+}
+
+
+/* 5. MÓVILES */
+
+@media (max-width: 390px) {
+
+    .opiniones h3 {
+        font-size: 1.8rem;
+    }
+
+    .opinion {
+        padding: 13px;
+    }
+
+}
+

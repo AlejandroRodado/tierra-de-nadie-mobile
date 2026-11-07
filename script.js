@@ -1,5 +1,26 @@
 
 /* ==========================================
+   CONEXIÓN CON SUPABASE
+========================================== */
+
+const SUPABASE_URL = 'https://xahzdkklnrfdrphwdxzo.supabase.co/rest/v1/';
+
+const SUPABASE_PUBLIC_KEY = 'sb_publishable_hzZqLiatGxCcFKcNnmMH0g_2gT7nJ3C';
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLIC_KEY
+);
+
+let fichaOpinionesActual = null;
+let esAdministrador = false;
+let ultimaPublicacion = 0;
+let solicitudOpiniones = 0;
+
+
+
+
+/* ==========================================
    TIERRA DE NADIE
    Archivo: script.js
    Versión: 0.4.0
@@ -411,6 +432,11 @@ function abrirFicha(id) {
 
     document.getElementById('cerrar').focus();
 
+    // Cargar las opiniones de esta ficha
+seleccionarFichaOpiniones(id);
+
+document.getElementById('opiniones').hidden = id === 'novedades';
+
 }
 
 
@@ -497,10 +523,10 @@ document.addEventListener('keydown', (evento) => {
     if (evento.key === 'Tab') {
 
         const elementos = [
-            ...modal.querySelectorAll(
-                'button:not([disabled])'
-            )
-        ];
+    ...modal.querySelectorAll(
+        'button:not([disabled]):not([hidden]), input:not([disabled]), textarea:not([disabled])'
+    )
+].filter(elemento => elemento.getClientRects().length > 0);
 
         if (elementos.length === 0) {
             return;
@@ -530,3 +556,426 @@ document.addEventListener('keydown', (evento) => {
     }
 
 });
+
+
+
+/* ==========================================
+   TIERRA DE NADIE
+   SISTEMA DE OPINIONES
+========================================== */
+
+
+/* ==========================================
+   1. ELEMENTOS DEL FORMULARIO
+========================================== */
+
+const formOpinion = document.getElementById('formOpinion');
+const opinionNombre = document.getElementById('opinionNombre');
+const opinionMensaje = document.getElementById('opinionMensaje');
+const publicarOpinion = document.getElementById('publicarOpinion');
+
+const listaOpiniones = document.getElementById('listaOpiniones');
+const opinionEstado = document.getElementById('opinionEstado');
+
+const accesoAdmin = document.getElementById('accesoAdmin');
+const formAdmin = document.getElementById('formAdmin');
+const adminEmail = document.getElementById('adminEmail');
+const adminPassword = document.getElementById('adminPassword');
+const salirAdmin = document.getElementById('salirAdmin');
+const adminEstado = document.getElementById('adminEstado');
+
+
+/* ==========================================
+   2. SELECCIONAR FICHA
+========================================== */
+
+async function seleccionarFichaOpiniones(id) {
+
+    fichaOpinionesActual = id;
+    opinionEstado.textContent = '';
+
+    await cargarOpiniones();
+
+}
+
+
+/* ==========================================
+   3. CONSULTAR OPINIONES
+========================================== */
+
+async function cargarOpiniones() {
+
+    const ficha = fichaOpinionesActual;
+
+    if (!ficha) {
+        return;
+    }
+
+    const solicitud = ++solicitudOpiniones;
+
+    listaOpiniones.replaceChildren();
+    listaOpiniones.textContent = 'Cargando opiniones...';
+
+    const { data, error } = await db
+        .from('comentarios')
+        .select('id, nombre, mensaje, creado_en')
+        .eq('ficha', ficha)
+        .order('creado_en', { ascending: false })
+        .limit(100);
+
+    // Evitar mostrar resultados de otra ficha
+    if (
+        solicitud !== solicitudOpiniones ||
+        ficha !== fichaOpinionesActual
+    ) {
+        return;
+    }
+
+    listaOpiniones.replaceChildren();
+
+    if (error) {
+        listaOpiniones.textContent =
+            'No se han podido cargar las opiniones.';
+        console.error(error);
+        return;
+    }
+
+    if (data.length === 0) {
+
+        const vacio = document.createElement('p');
+
+        vacio.className = 'opiniones__vacio';
+        vacio.textContent =
+            'Todavía no hay opiniones. Puedes escribir la primera.';
+
+        listaOpiniones.appendChild(vacio);
+        return;
+    }
+
+    data.forEach(comentario => {
+
+        const tarjeta = crearTarjetaOpinion(comentario);
+
+        listaOpiniones.appendChild(tarjeta);
+
+    });
+
+}
+
+
+/* ==========================================
+   4. CREAR TARJETA DE OPINIÓN
+========================================== */
+
+function crearTarjetaOpinion(comentario) {
+
+    const tarjeta = document.createElement('article');
+    tarjeta.className = 'opinion';
+
+    const cabecera = document.createElement('div');
+    cabecera.className = 'opinion__cabecera';
+
+    const datos = document.createElement('div');
+
+    const autor = document.createElement('strong');
+    autor.className = 'opinion__autor';
+    autor.textContent = comentario.nombre;
+
+    const fecha = document.createElement('time');
+    fecha.className = 'opinion__fecha';
+
+    const fechaReal = new Date(comentario.creado_en);
+
+    fecha.dateTime = comentario.creado_en;
+
+    fecha.textContent = fechaReal.toLocaleDateString(
+        'es-ES',
+        {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        }
+    );
+
+    datos.append(autor, fecha);
+    cabecera.appendChild(datos);
+
+    // El botón solo aparece para el administrador
+    if (esAdministrador) {
+
+        const eliminar = document.createElement('button');
+
+        eliminar.type = 'button';
+        eliminar.className = 'opinion__eliminar';
+        eliminar.textContent = 'Eliminar';
+
+        eliminar.addEventListener('click', () => {
+            eliminarOpinion(comentario.id);
+        });
+
+        cabecera.appendChild(eliminar);
+
+    }
+
+    const mensaje = document.createElement('p');
+
+    mensaje.className = 'opinion__mensaje';
+    mensaje.textContent = comentario.mensaje;
+
+    tarjeta.append(cabecera, mensaje);
+
+    return tarjeta;
+
+}
+
+
+/* ==========================================
+   5. PUBLICAR UNA OPINIÓN
+========================================== */
+
+formOpinion.addEventListener('submit', async (evento) => {
+
+    evento.preventDefault();
+
+    if (!fichaOpinionesActual) {
+        return;
+    }
+
+    const nombre = opinionNombre.value.trim();
+    const mensaje = opinionMensaje.value.trim();
+
+    if (
+        nombre.length < 2 ||
+        nombre.length > 40 ||
+        mensaje.length < 3 ||
+        mensaje.length > 1000
+    ) {
+        opinionEstado.textContent =
+            'Revisa la longitud del nombre y del comentario.';
+        return;
+    }
+
+    // Pequeña protección local contra envíos repetidos
+    if (Date.now() - ultimaPublicacion < 15000) {
+
+        opinionEstado.textContent =
+            'Espera unos segundos antes de volver a publicar.';
+
+        return;
+
+    }
+
+    publicarOpinion.disabled = true;
+    opinionEstado.textContent = 'Publicando...';
+
+    const fichaPublicada = fichaOpinionesActual;
+
+    const { error } = await db
+        .from('comentarios')
+        .insert({
+            ficha: fichaPublicada,
+            nombre: nombre,
+            mensaje: mensaje
+        });
+
+    publicarOpinion.disabled = false;
+
+    if (error) {
+
+        opinionEstado.textContent =
+            'No se ha podido publicar. Inténtalo de nuevo.';
+
+        console.error(error);
+        return;
+
+    }
+
+    ultimaPublicacion = Date.now();
+
+    opinionMensaje.value = '';
+
+    opinionEstado.textContent =
+        'Tu opinión se ha publicado correctamente.';
+
+    if (fichaOpinionesActual === fichaPublicada) {
+        await cargarOpiniones();
+    }
+
+});
+
+
+/* ==========================================
+   6. COMPROBAR ADMINISTRADOR
+========================================== */
+
+async function comprobarAdministrador() {
+
+    const { data: usuario, error: errorUsuario } =
+        await db.auth.getUser();
+
+    if (errorUsuario || !usuario.user) {
+        esAdministrador = false;
+    } else {
+
+        const { data, error } = await db
+            .rpc('es_admin_comentarios');
+
+        esAdministrador = !error && data === true;
+
+    }
+
+    accesoAdmin.hidden = esAdministrador;
+    salirAdmin.hidden = !esAdministrador;
+
+    return esAdministrador;
+
+}
+
+
+/* ==========================================
+   7. ABRIR ACCESO DE ADMINISTRACIÓN
+========================================== */
+
+accesoAdmin.addEventListener('click', () => {
+
+    formAdmin.hidden = !formAdmin.hidden;
+
+    adminEstado.textContent = '';
+
+    if (!formAdmin.hidden) {
+        adminEmail.focus();
+    }
+
+});
+
+
+/* ==========================================
+   8. INICIAR SESIÓN DE ADMINISTRADOR
+========================================== */
+
+formAdmin.addEventListener('submit', async (evento) => {
+
+    evento.preventDefault();
+
+    adminEstado.textContent = 'Comprobando acceso...';
+
+    const { error } = await db.auth.signInWithPassword({
+        email: adminEmail.value.trim(),
+        password: adminPassword.value
+    });
+
+    // No conservar la contraseña en el formulario
+    adminPassword.value = '';
+
+    if (error) {
+
+        adminEstado.textContent =
+            'No se ha podido iniciar sesión.';
+
+        return;
+
+    }
+
+    await comprobarAdministrador();
+
+    if (!esAdministrador) {
+
+        await db.auth.signOut();
+
+        adminEstado.textContent =
+            'Esta cuenta no tiene permisos de administrador.';
+
+        return;
+
+    }
+
+    formAdmin.hidden = true;
+    adminEstado.textContent =
+        'Sesión de administrador iniciada.';
+
+    await cargarOpiniones();
+
+});
+
+
+/* ==========================================
+   9. ELIMINAR OPINIONES
+========================================== */
+
+async function eliminarOpinion(id) {
+
+    if (!esAdministrador) {
+        return;
+    }
+
+    const confirmar = window.confirm(
+        '¿Quieres eliminar definitivamente esta opinión?'
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    adminEstado.textContent = 'Eliminando comentario...';
+
+    const { data, error } = await db
+        .from('comentarios')
+        .delete()
+        .eq('id', id)
+        .select('id');
+
+    if (error || !data || data.length === 0) {
+
+        adminEstado.textContent =
+            'No se ha podido eliminar el comentario.';
+
+        console.error(error);
+        return;
+
+    }
+
+    adminEstado.textContent = 'Comentario eliminado.';
+
+    await cargarOpiniones();
+
+}
+
+
+/* ==========================================
+   10. CERRAR SESIÓN
+========================================== */
+
+salirAdmin.addEventListener('click', async () => {
+
+    const { error } = await db.auth.signOut();
+
+    if (error) {
+        adminEstado.textContent =
+            'No se ha podido cerrar la sesión.';
+        return;
+    }
+
+    esAdministrador = false;
+
+    formAdmin.hidden = true;
+    accesoAdmin.hidden = false;
+    salirAdmin.hidden = true;
+
+    adminEstado.textContent = 'Sesión cerrada.';
+
+    await cargarOpiniones();
+
+});
+
+
+/* ==========================================
+   11. RECUPERAR SESIÓN EXISTENTE
+========================================== */
+
+async function iniciarSistemaOpiniones() {
+
+    await comprobarAdministrador();
+
+}
+
+iniciarSistemaOpiniones();
