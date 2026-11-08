@@ -104,6 +104,7 @@
             <div class="pasillo"
                  aria-label="Pasillo interactivo del hospital">
 
+
                 <div class="pasillo__luz"></div>
 
                 <div class="puertas">
@@ -154,6 +155,11 @@
 
             </div>
 
+            
+<!-- ==========================================
+     V0.6.0 · ACCESO AL ARCHIVO SECRETO
+========================================== -->
+
             <!-- DESTINOS ORIGINALES -->
             <div class="destinos">
 
@@ -165,7 +171,6 @@
 
                     <span>
                         <strong>La azotea</strong>
-                        <small>"Aquí es donde suelo ver yo el atardecer"</small>
                     </span>
 
                     <span>↗</span>
@@ -187,6 +192,32 @@
                 </button>
 
             </div>
+
+            <div class="archivo-entrada">
+    <p class="archivo-entrada__etiqueta">
+        SOLO ACCESIBLE SI DISPONES DE UN EJEMPLAR
+    </p>
+
+    <button
+        class="archivo-acceso"
+        id="abrirArchivo"
+        type="button"
+        aria-label="Acceder a las CAJAS"
+    >
+        <span class="archivo-acceso__libro" aria-hidden="true">
+            <span class="archivo-acceso__lomo">T · D · N</span>
+        </span>
+
+        <span class="archivo-entrada__contenido">
+            <strong>LAS 15 CAJAS</strong>
+            <small>Adéntrate en la vida del escritor con las contraseñas que esconden los finales de los capítulos.</small>
+        </span>
+
+        <span class="archivo-entrada__flecha" aria-hidden="true">↗</span>
+    </button>
+</div>
+
+            
 
             <footer class="pie">
                 UNA HISTORIA DE ALEJANDRO RODADO
@@ -249,12 +280,99 @@
 
             </div>
 
-            <footer class="pie">
+                        <footer class="pie">
                 UNA HISTORIA DE ALEJANDRO RODADO
             </footer>
 
         </section>
+            
+<!-- ==========================================
+     V0.6.0 · ARCHIVO DE LAS 14 CAJAS
+========================================== -->
 
+<section
+    class="archivo pantalla"
+    id="archivo"
+    aria-labelledby="archivoTitulo"
+    hidden
+>
+    <header class="barra">
+        <button type="button" id="volverArchivo" class="volver">
+            ← VOLVER AL PASILLO
+        </button>
+        <span>ARCHIVO CONFIDENCIAL</span>
+    </header>
+
+    <div class="archivo__contenido">
+
+        <p class="archivo__etiqueta">
+            TIERRA DE NADIE · ACCESO RESTRINGIDO
+        </p>
+
+        <h1 id="archivoTitulo" tabindex="-1">Las catorce cajas</h1>
+
+        <p class="archivo__introduccion">
+            Introduce la contraseña de cada caja para descubrir su contenido. Las contraseñas se encuentran al final de los capítulos del libro.
+        </p>
+
+        <!-- JavaScript creará las catorce cajas -->
+        <div class="archivo__cajas" id="archivoCajas"></div>
+
+        <!-- Panel para introducir la contraseña -->
+        <section
+            class="archivo__detalle"
+            id="archivoDetalle"
+            aria-labelledby="archivoCajaTitulo"
+            hidden
+        >
+            <button
+                type="button"
+                class="archivo__cerrar"
+                id="cerrarCaja"
+            >
+                ← VOLVER A LAS CAJAS
+            </button>
+
+            <p class="archivo__etiqueta">EXPEDIENTE PERSONAL</p>
+
+            <h2 id="archivoCajaTitulo">Caja 01</h2>
+
+            <p id="archivoCajaDescripcion">
+                Introduce la contraseña para descubrir su contenido.
+            </p>
+
+            <form id="archivoFormClave">
+                <label for="archivoClave">Contraseña</label>
+
+                <input
+                    id="archivoClave"
+                    type="password"
+                    placeholder="Escribe la contraseña..."
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit">
+                    ABRIR LA CAJA →
+                </button>
+            </form>
+
+            <p
+                class="archivo__mensaje"
+                id="archivoMensaje"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <div
+                class="archivo__revelacion"
+                id="archivoRevelacion"
+                hidden
+            ></div>
+        </section>
+
+        </div>
+</section>
 
         <!-- ======================================
              4. MODAL DE PRESENTACIÓN

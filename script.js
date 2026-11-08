@@ -267,13 +267,12 @@ publicacion: {
 ========================================== */
 
 function mostrarPantalla(pantalla) {
-
     portada.hidden = pantalla !== portada;
     hospital.hidden = pantalla !== hospital;
     estancia.hidden = pantalla !== estancia;
+    archivo.hidden = pantalla !== archivo;
 
     window.scrollTo(0, 0);
-
 }
 
 
@@ -991,8 +990,365 @@ document.getElementById('opinionMensaje').value =
    CORRECCIÓN HOVER HABITACIÓN 315
 ========================================== */
 
-.puertas .puerta:last-child:hover,
-.puertas .puerta.cerrada:hover {
-    filter: brightness(1.35);
-    cursor: pointer;
+
+
+/* ==========================================
+   V0.6.0 · ARCHIVO DE LAS 14 CAJAS
+========================================== */
+
+// ELEMENTOS
+
+const archivo = document.getElementById('archivo');
+const abrirArchivo = document.getElementById('abrirArchivo');
+const volverArchivo = document.getElementById('volverArchivo');
+
+const archivoCajas = document.getElementById('archivoCajas');
+const archivoDetalle = document.getElementById('archivoDetalle');
+const archivoCajaTitulo = document.getElementById('archivoCajaTitulo');
+const archivoCajaDescripcion =
+    document.getElementById('archivoCajaDescripcion');
+
+const cerrarCaja = document.getElementById('cerrarCaja');
+const archivoFormClave = document.getElementById('archivoFormClave');
+const archivoClave = document.getElementById('archivoClave');
+const archivoMensaje = document.getElementById('archivoMensaje');
+const archivoRevelacion =
+    document.getElementById('archivoRevelacion');
+
+
+// DATOS DE LAS CAJAS
+// Contraseñas y contenido de DEMOSTRACIÓN.
+// No introducir aquí recuerdos privados reales.
+
+
+/* ==========================================
+   CONTRASEÑAS PERSONALIZADAS
+   TIERRA DE NADIE · 14 CAJAS
+========================================== */
+
+const cajasArchivo = [
+    {
+        numero: 1,
+        clave: 'atardecer',
+        tipo: 'texto',
+        titulo: 'Caja PRÓLOGO',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 2,
+        clave: 'promesa',
+        tipo: 'texto',
+        titulo: 'Caja 01',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 3,
+        clave: 'pelota',
+        tipo: 'texto',
+        titulo: 'Caja 02',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 4,
+        clave: 'silencio',
+        tipo: 'texto',
+        titulo: 'Caja 03',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 5,
+        clave: 'carta',
+        tipo: 'texto',
+        titulo: 'Caja 04',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 6,
+        clave: 'azotea',
+        tipo: 'texto',
+        titulo: 'Caja 05',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 7,
+        clave: 'recuerdo',
+        tipo: 'texto',
+        titulo: 'Caja 06',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 8,
+        clave: 'hospital',
+        tipo: 'texto',
+        titulo: 'Caja 07',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 9,
+        clave: 'estrella',
+        tipo: 'texto',
+        titulo: 'Caja 08',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 10,
+        clave: 'abrazo',
+        tipo: 'texto',
+        titulo: 'Caja 9',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 11,
+        clave: 'esperanza',
+        tipo: 'texto',
+        titulo: 'Caja 10',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 12,
+        clave: 'infancia',
+        tipo: 'texto',
+        titulo: 'Caja 11',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 13,
+        clave: 'despedida',
+        tipo: 'texto',
+        titulo: 'Caja 12',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 14,
+        clave: 'AIMAR',
+        tipo: 'texto',
+        titulo: 'Caja 14',
+        contenido: 'Próximamente.'
+    },
+    {
+        numero: 15,
+        clave: 'tierradenadie',
+        tipo: 'texto',
+        titulo: 'Caja EPÍLOGO',
+        contenido: 'Próximamente.'
+    }
+];
+
+
+
+// ESTADO
+
+let cajaSeleccionada = null;
+const cajasAbiertas = new Set();
+
+
+// DIBUJAR LAS 14 CAJAS
+
+function dibujarCajas() {
+
+    archivoCajas.replaceChildren();
+
+    cajasArchivo.forEach(caja => {
+
+        const boton = document.createElement('button');
+        boton.type = 'button';
+        boton.className = 'archivo__caja';
+
+        const numero = document.createElement('span');
+        numero.className = 'archivo__caja-numero';
+        numero.textContent =
+            String(caja.numero).padStart(2, '0');
+
+        const estado = document.createElement('span');
+        estado.className = 'archivo__caja-estado';
+
+        estado.textContent = cajasAbiertas.has(caja.numero)
+            ? 'ABIERTA'
+            : 'BLOQUEADA';
+
+        boton.append(numero, estado);
+
+        boton.setAttribute(
+            'aria-label',
+            `Caja ${caja.numero}, ${estado.textContent}`
+        );
+
+        boton.addEventListener('click', () => {
+            seleccionarCaja(caja.numero);
+        });
+
+        archivoCajas.appendChild(boton);
+
+    });
+
 }
+
+
+// ENTRAR AL ARCHIVO
+
+abrirArchivo.addEventListener('click', () => {
+
+    dibujarCajas();
+
+    archivoDetalle.hidden = true;
+
+    mostrarPantalla(archivo);
+
+    document.getElementById('archivoTitulo').focus({
+        preventScroll: true
+    });
+
+});
+
+
+// VOLVER AL HOSPITAL
+
+volverArchivo.addEventListener('click', () => {
+
+    // Quitar el parámetro del QR al volver al pasillo.
+    const url = new URL(window.location.href);
+    url.searchParams.delete('caja');
+    window.history.replaceState({}, '', url);
+
+    mostrarPantalla(hospital);
+    abrirArchivo.focus();
+
+});
+
+
+// SELECCIONAR CAJA
+
+function seleccionarCaja(numero) {
+
+    cajaSeleccionada = cajasArchivo.find(
+        caja => caja.numero === numero
+    );
+
+    if (!cajaSeleccionada) return;
+
+    archivoDetalle.hidden = false;
+    archivoMensaje.textContent = '';
+    archivoClave.value = '';
+
+    archivoCajaTitulo.textContent =
+        `Caja ${String(numero).padStart(2, '0')}`;
+
+    archivoCajaDescripcion.textContent =
+        'Introduce la contraseña que has descubierto al leer el capítulo.';
+
+    if (cajasAbiertas.has(numero)) {
+        revelarCaja(cajaSeleccionada);
+    } else {
+        archivoFormClave.hidden = false;
+        archivoRevelacion.hidden = true;
+        archivoRevelacion.replaceChildren();
+    }
+
+    archivoDetalle.scrollIntoView({
+        behavior: window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        ).matches ? 'instant' : 'smooth',
+        block: 'start'
+    });
+
+}
+
+
+// COMPROBAR CONTRASEÑA
+
+archivoFormClave.addEventListener('submit', evento => {
+
+    evento.preventDefault();
+
+    if (!cajaSeleccionada) return;
+
+    const introducida = archivoClave.value.trim();
+
+    if (introducida !== cajaSeleccionada.clave) {
+
+        archivoMensaje.textContent =
+            'La contraseña no es correcta. Inténtalo de nuevo.';
+
+        archivoClave.value = '';
+        archivoClave.focus();
+
+        return;
+    }
+
+    cajasAbiertas.add(cajaSeleccionada.numero);
+
+    archivoMensaje.textContent =
+        'La caja se ha abierto.';
+
+    dibujarCajas();
+    revelarCaja(cajaSeleccionada);
+
+});
+
+
+// MOSTRAR CONTENIDO DESBLOQUEADO
+
+function revelarCaja(caja) {
+
+    archivoFormClave.hidden = true;
+    archivoRevelacion.hidden = false;
+    archivoRevelacion.replaceChildren();
+
+    const titulo = document.createElement('h3');
+    titulo.textContent = caja.titulo;
+
+    archivoRevelacion.appendChild(titulo);
+
+    if (caja.tipo === 'texto') {
+
+        const parrafo = document.createElement('p');
+        parrafo.textContent = caja.contenido;
+
+        archivoRevelacion.appendChild(parrafo);
+
+    } else if (caja.tipo === 'imagen') {
+
+        const imagen = document.createElement('img');
+
+        imagen.src = caja.archivo;
+        imagen.alt = caja.descripcion || caja.titulo;
+        imagen.loading = 'lazy';
+
+        archivoRevelacion.appendChild(imagen);
+
+    } else if (caja.tipo === 'audio') {
+
+        const audio = document.createElement('audio');
+
+        audio.controls = true;
+        audio.preload = 'none';
+        audio.src = caja.archivo;
+
+        archivoRevelacion.appendChild(audio);
+
+    }
+
+}
+
+
+// CERRAR DETALLE Y VOLVER A LAS CAJAS
+
+cerrarCaja.addEventListener('click', () => {
+
+    archivoDetalle.hidden = true;
+    archivoClave.value = '';
+    archivoMensaje.textContent = '';
+
+    cajaSeleccionada = null;
+
+    archivoCajas.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+
+});
+
+
+// INICIALIZAR
+
+dibujarCajas();

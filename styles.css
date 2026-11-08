@@ -692,3 +692,435 @@
     width: min(95%, 1000px);
     max-width: 1000px;
 }
+
+
+.puertas .puerta:last-child:hover,
+.puertas .puerta.cerrada:hover {
+    filter: brightness(1.35);
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   V0.6.0 · ARCHIVO DE LAS 14 CAJAS
+========================================== */
+
+/* ACCESO SECRETO EN EL PASILLO */
+
+.archivo-acceso {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+
+    padding: 5px;
+    border: 0;
+    background: transparent;
+    color: #e4c7a6;
+    cursor: pointer;
+}
+
+.archivo-acceso__libro {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 46px;
+    height: 60px;
+
+    background: linear-gradient(
+        100deg,
+        #22120d 0%,
+        #553326 25%,
+        #392119 75%,
+        #1a0f0c 100%
+    );
+
+    border: 2px solid #947154;
+    border-left: 6px solid #160e0a;
+    border-radius: 2px 5px 5px 2px;
+
+    box-shadow: 4px 7px 15px #000b;
+    transition: transform .25s, filter .25s;
+}
+
+.archivo-acceso__lomo {
+    writing-mode: vertical-rl;
+    font-family: Georgia, serif;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    color: #e1c5a2;
+}
+
+.archivo-acceso__texto {
+    font-size: .55rem;
+    letter-spacing: .15em;
+    text-shadow: 0 2px 5px black;
+}
+
+.archivo-acceso:hover .archivo-acceso__libro,
+.archivo-acceso:focus-visible .archivo-acceso__libro {
+    transform: translateY(-5px) rotate(-5deg);
+    filter: brightness(1.35);
+}
+
+
+/* PANTALLA DEL ARCHIVO */
+
+.archivo {
+    min-height: 100dvh;
+    background:
+        radial-gradient(
+            ellipse at 50% 15%,
+            #443022 0%,
+            #211912 45%,
+            #0d0d0e 100%
+        );
+    color: #f0e3d3;
+}
+
+.archivo__contenido {
+    width: min(94%, 1080px);
+    margin: 0 auto;
+    padding: 55px 0 90px;
+    text-align: center;
+}
+
+.archivo__etiqueta {
+    font-size: .65rem;
+    letter-spacing: .2em;
+    color: #c5a280;
+}
+
+.archivo__contenido h1 {
+    margin: 15px 0;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.7rem, 7vw, 5rem);
+    font-weight: 400;
+}
+
+.archivo__introduccion {
+    max-width: 580px;
+    margin: 0 auto 45px;
+    color: #c9b7a7;
+    font-size: .85rem;
+    line-height: 1.9;
+}
+
+
+/* CUADRÍCULA DE CAJAS */
+
+.archivo__cajas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.archivo__caja {
+    position: relative;
+    min-height: 170px;
+    padding: 18px 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+
+    background: linear-gradient(
+        145deg,
+        #765438,
+        #4d3526 60%,
+        #2b1e17
+    );
+
+    border: 2px solid #94704b;
+    border-radius: 3px;
+
+    box-shadow:
+        inset 0 0 20px #0005,
+        0 12px 25px #0006;
+
+    color: #f5e6d3;
+    cursor: pointer;
+    transition: transform .25s, filter .25s;
+}
+
+.archivo__caja::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 47%;
+    width: 15%;
+    height: 100%;
+    background: #c49b6350;
+    pointer-events: none;
+}
+
+.archivo__caja:hover,
+.archivo__caja:focus-visible {
+    transform: translateY(-7px);
+    filter: brightness(1.2);
+}
+
+.archivo__caja-numero {
+    z-index: 1;
+    font-family: Georgia, serif;
+    font-size: 1.6rem;
+}
+
+.archivo__caja-estado {
+    z-index: 1;
+    font-size: .65rem;
+    letter-spacing: .08em;
+}
+
+
+/* DETALLE DE CADA CAJA */
+
+.archivo__detalle {
+    max-width: 650px;
+    margin: 50px auto 0;
+    padding: 30px;
+
+    background: #151211;
+    border: 1px solid #816249;
+    border-radius: 5px;
+    box-shadow: 0 20px 60px #0008;
+
+    text-align: left;
+}
+
+.archivo__detalle h2 {
+    margin: 12px 0;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+}
+
+.archivo__detalle > p {
+    color: #c9b7a7;
+    line-height: 1.8;
+}
+
+.archivo__cerrar {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: #e3b78e;
+    cursor: pointer;
+    font-size: .75rem;
+}
+
+#archivoFormClave {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+#archivoFormClave label {
+    font-size: .75rem;
+    color: #dfc4a7;
+}
+
+#archivoClave {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #78604d;
+    border-radius: 4px;
+    background: #24201e;
+    color: white;
+    font: inherit;
+}
+
+#archivoFormClave button {
+    padding: 15px;
+    border: 0;
+    border-radius: 4px;
+    background: #9c684a;
+    color: white;
+    cursor: pointer;
+}
+
+#archivoFormClave button:hover {
+    background: #b57b58;
+}
+
+.archivo__mensaje {
+    min-height: 22px;
+    color: #e5b99a;
+    font-size: .8rem;
+}
+
+.archivo__revelacion {
+    margin-top: 20px;
+    padding: 20px;
+    background: #2c241e;
+    border: 1px solid #69503d;
+    border-radius: 4px;
+    line-height: 1.8;
+}
+
+.archivo__revelacion img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.archivo__revelacion audio {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+/* ADAPTACIÓN A MÓVILES */
+
+@media (max-width: 699px) {
+    .archivo__cajas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .archivo__caja {
+        min-height: 145px;
+    }
+
+    .archivo__detalle {
+        padding: 20px;
+    }
+
+    .archivo-acceso {
+        bottom: 4%;
+    }
+
+    .archivo-acceso__libro {
+        width: 36px;
+        height: 48px;
+    }
+}
+
+/* RESPETAR LA VISIBILIDAD DE ELEMENTOS OCULTOS */
+
+.archivo[hidden],
+.archivo__detalle[hidden],
+.archivo__revelacion[hidden] {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .archivo-acceso__libro,
+    .archivo__caja {
+        transition: none;
+    }
+}
+
+#archivoFormClave[hidden] {
+    display: none !important;
+}
+
+
+/* ==========================================
+   V0.6.0 · ENTRADA INDEPENDIENTE AL ARCHIVO
+========================================== */
+
+.archivo-entrada {
+    width: min(100% - 40px, 1050px);
+    margin: 32px auto 10px;
+    padding: 26px 22px;
+
+    background: linear-gradient(
+        135deg,
+        #211912,
+        #34271d 55%,
+        #171311
+    );
+
+    border: 1px solid #826247;
+    border-radius: 6px;
+    box-shadow: 0 15px 40px #0005;
+}
+
+.archivo-entrada__etiqueta {
+    margin: 0 0 18px;
+    color: #c4a080;
+    font-size: .62rem;
+    letter-spacing: .16em;
+    text-align: center;
+}
+
+.archivo-entrada .archivo-acceso {
+    position: static;
+    transform: none;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+
+    width: 100%;
+    padding: 12px;
+
+    background: #ffffff08;
+    border: 1px solid #ffffff20;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.archivo-entrada .archivo-acceso:hover {
+    background: #ffffff15;
+}
+
+.archivo-entrada .archivo-acceso__libro {
+    flex-shrink: 0;
+    width: 48px;
+    height: 65px;
+}
+
+.archivo-entrada__contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.archivo-entrada__contenido strong {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 500;
+    color: #f1dcc7;
+}
+
+.archivo-entrada__contenido small {
+    color: #c8aa91;
+    font-size: .72rem;
+    line-height: 1.6;
+}
+
+.archivo-entrada__flecha {
+    color: #e6b58e;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 390px) {
+    .archivo-entrada {
+        padding: 18px 12px;
+    }
+
+    .archivo-entrada .archivo-acceso {
+        gap: 12px;
+    }
+
+    .archivo-entrada__contenido small {
+        font-size: .65rem;
+    }
+}
