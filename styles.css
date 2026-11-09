@@ -1484,3 +1484,103 @@
 .puertas [data-room="315"].estancia-bloqueada:active {
     filter: brightness(0.4) saturate(0.3) !important;
 }
+
+
+/* ==========================================
+   V0.8.3 · BLOQUEO COMPLETO DEL ARCHIVO
+========================================== */
+
+.archivo-panel-bloqueado {
+    position: relative !important;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+/* Oscurecer y difuminar todo el contenido */
+.archivo-panel-bloqueado > :not(.archivo-bloqueo-overlay) {
+    filter: blur(8px) brightness(0.35) saturate(0.3);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Capa que cubre toda la tarjeta */
+.archivo-bloqueo-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 9, 12, 0.65);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    cursor: pointer;
+}
+
+/* Indicador centrado */
+.archivo-bloqueo-indicador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #fff;
+    font-size: clamp(13px, 2vw, 18px);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+/* Zzz progresivo */
+.archivo-bloqueo-zzz {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-family: Georgia, serif;
+    font-weight: bold;
+}
+
+.archivo-bloqueo-zzz span {
+    display: inline-block;
+    animation: zzzArchivo 1.8s ease-in-out infinite;
+}
+
+.archivo-bloqueo-zzz span:nth-child(1) {
+    font-size: 26px;
+    animation-delay: 0s;
+}
+
+.archivo-bloqueo-zzz span:nth-child(2) {
+    font-size: 20px;
+    animation-delay: .25s;
+}
+
+.archivo-bloqueo-zzz span:nth-child(3) {
+    font-size: 15px;
+    animation-delay: .5s;
+}
+
+@keyframes zzzArchivo {
+    0%, 100% {
+        opacity: .25;
+        transform: translateY(5px);
+    }
+    45% {
+        opacity: 1;
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 600px) {
+    .archivo-bloqueo-indicador {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .archivo-bloqueo-zzz span {
+        animation: none;
+        opacity: 1;
+    }
+}

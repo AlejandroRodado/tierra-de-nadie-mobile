@@ -1,0 +1,25 @@
+/* TIERRA DE NADIE v0.8.8 — escenografia ambiental del pasillo. */
+.hospital .pasillo { isolation:isolate; }
+.hospital .pasillo-escena { position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none; }
+.hospital .pasillo-escena__techo { position:absolute;inset:0 0 65%;background:linear-gradient(180deg,#070b10cc,transparent),repeating-linear-gradient(90deg,transparent 0 23%,#b7a18a16 23.1% 23.4%,transparent 23.5% 50%);clip-path:polygon(0 0,100% 0,65% 100%,35% 100%); }
+.hospital .pasillo-escena__fluorescente {position:absolute;left:50%;height:3px;transform:translateX(-50%);background:#fff0d0;box-shadow:0 0 9px 3px #ffe6a077,0 0 34px 13px #ffc08d38;animation:tdnFluor 11s infinite;}
+.hospital .pasillo-escena__fluorescente--uno {top:7%;width:29%;}
+.hospital .pasillo-escena__fluorescente--dos {top:19%;width:15%;opacity:.75;animation-delay:-4s;}
+.hospital .pasillo-escena__suelo {position:absolute;inset:65% 0 0;background:linear-gradient(180deg,#6a504548,#100e14d9),repeating-linear-gradient(90deg,transparent 0 12%,#f1c9a015 12.1% 12.3%,transparent 12.5% 25%);clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);}
+.hospital .pasillo-escena__suelo::after {content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,#f29c6a66,transparent 70%);animation:tdnReflejo 8s ease-in-out infinite alternate;}
+.hospital .pasillo-escena__pasamanos {position:absolute;top:58%;height:5px;width:40%;background:linear-gradient(#a7a2a077,#242b31);box-shadow:0 5px 6px #0008;}
+.hospital .pasillo-escena__pasamanos--izq {left:0;transform:rotate(10deg);transform-origin:left center;}
+.hospital .pasillo-escena__pasamanos--der {right:0;transform:rotate(-10deg);transform-origin:right center;}
+.hospital .pasillo-escena__rojo {position:absolute;left:33%;top:12%;width:34%;height:74%;background:radial-gradient(ellipse,#e8554159 0%,#b638302e 35%,transparent 72%);filter:blur(13px);mix-blend-mode:screen;animation:tdnRojo 13s infinite;}
+.hospital .pasillo-escena__sombra {position:absolute;bottom:16%;left:46%;width:7%;height:43%;border-radius:45% 45% 20% 20%;opacity:0;background:#090b10;filter:blur(7px);transform-origin:bottom center;animation:tdnSombra 25s linear infinite;}
+.hospital .pasillo-escena__sombra::before {content:"";position:absolute;top:-20%;left:20%;width:60%;aspect-ratio:1;border-radius:50%;background:#090b10;}
+.hospital .pasillo-escena__sombra--dos {animation-delay:-12s;animation-duration:31s;height:35%;width:5%;filter:blur(8px);}
+/* Escenografia por detras de las puertas: nunca intercepta clics ni indicadores Zzz. */
+.hospital .pasillo .puertas {z-index:3;}
+.hospital .pasillo .pasillo__luz {z-index:1;pointer-events:none;}
+@keyframes tdnFluor {0%,17%,19%,22%,24%,100%{opacity:.85}18%,23%{opacity:.4}20%{opacity:.95}}
+@keyframes tdnReflejo {from{opacity:.35}to{opacity:.8}}
+@keyframes tdnRojo {0%,21%,24%,62%,65%,100%{opacity:.48}22%,63%{opacity:.9}23%,64%{opacity:.2}}
+@keyframes tdnSombra {0%,10%{opacity:0;transform:translateX(-150px) scale(.65)}17%{opacity:.16}30%{opacity:.22;transform:translateX(15px) scale(1)}42%{opacity:0;transform:translateX(180px) scale(.75)}100%{opacity:0}}
+@media (max-width:699px){.hospital .pasillo-escena__sombra{filter:blur(5px)}.hospital .pasillo-escena__pasamanos{width:35%}}
+@media (prefers-reduced-motion:reduce){.hospital .pasillo-escena__sombra{display:none}.hospital .pasillo-escena__rojo,.hospital .pasillo-escena__fluorescente,.hospital .pasillo-escena__suelo::after{animation:none!important}}

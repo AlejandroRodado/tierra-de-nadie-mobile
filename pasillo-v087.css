@@ -1,0 +1,86 @@
+/* TIERRA DE NADIE · v0.8.7 · Mejora visual exclusiva del menú del pasillo.
+   No modifica los bloqueos, Supabase, ni las transiciones de acceso. */
+
+/* Ambiente general: luz cálida y profundidad */
+.hospital { isolation:isolate; overflow:hidden; background-color:#101016; }
+.hospital::before { content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:radial-gradient(ellipse 65% 30% at 50% 22%,rgba(176,96,65,.11),transparent 75%);
+ animation:pasilloAmbiente 9s ease-in-out infinite alternate; }
+.hospital > * { position:relative;z-index:1; }
+.hospital .barra { background:linear-gradient(90deg,rgba(13,13,19,.96),rgba(43,29,28,.91),rgba(13,13,19,.96));
+ border-bottom:1px solid rgba(220,165,122,.25);box-shadow:0 10px 35px #0005; }
+.hospital__intro { padding-top:45px; }
+.hospital__intro .etiqueta { color:#d8ac8c; text-shadow:0 0 14px #bd774640; }
+.hospital__intro h2 { color:#f7eae0; text-shadow:0 3px 25px #000c,0 0 24px #c8895430;
+ animation:pasilloTitulo 7s ease-in-out infinite alternate; }
+.hospital__intro > p:last-child { max-width:530px;margin:0 auto; }
+
+/* Pasillo: luz ambiental sobre el escenario, sin tapar las puertas */
+.hospital .pasillo { border:1px solid rgba(224,174,132,.35); border-radius:9px;
+ box-shadow:0 22px 65px #000a,inset 0 0 70px #0008,0 0 32px #b16c3020;
+ background:linear-gradient(180deg,#0c1118 0%,#222a31 33%,#6d493b 67%,#181318 100%); }
+.hospital .pasillo__luz { width:50%;left:25%;height:78%;top:-6%;
+ background:radial-gradient(ellipse,rgba(251,180,122,.62),rgba(203,95,62,.18) 44%,transparent 72%);
+ filter:blur(19px);animation:pasilloLuz 7s ease-in-out infinite alternate; }
+.hospital .pasillo::before { background:linear-gradient(90deg,#070b10e8,transparent 37%,transparent 63%,#070b10e8); }
+
+/* Puertas: relieve, placas de metal y respuesta a hover */
+.hospital .puertas .puerta { border-color:#15191d;
+ box-shadow:inset 2px 0 8px #fff1,inset -12px 0 30px #0008,inset 0 0 32px #0009,0 15px 38px #000b;
+ transition:filter .35s ease,box-shadow .35s ease,transform .35s ease,border-color .35s ease; }
+.hospital .puertas .puerta:not(.estancia-bloqueada):hover,
+.hospital .puertas .puerta:not(.estancia-bloqueada):focus-visible {
+ border-color:#8d6a54;
+ box-shadow:inset 2px 0 8px #fff2,inset -12px 0 30px #0007,0 18px 42px #000b,0 0 26px #d49a6d50;
+ filter:brightness(1.14); }
+.hospital .puertas .puerta:not(.puerta--uci):first-child:not(.estancia-bloqueada):hover { transform:perspective(650px) rotateY(10deg) translateY(-3px); }
+.hospital .puertas .puerta:not(.puerta--uci):last-child:not(.estancia-bloqueada):hover { transform:perspective(650px) rotateY(-10deg) translateY(-3px); }
+.hospital .puertas .placa { background:linear-gradient(145deg,#34302c,#14171a 70%);border-color:#c5a58c;
+ box-shadow:inset 0 1px 0 #fff2,0 4px 12px #0009; text-shadow:0 0 12px #ffcd8a35;
+ transition:box-shadow .3s ease,border-color .3s ease; }
+.hospital .puertas .puerta:not(.estancia-bloqueada):hover .placa { border-color:#f3c49b;box-shadow:0 0 16px #e2a67560,inset 0 1px 0 #fff3; }
+.hospital .puerta__nombre { text-shadow:0 3px 12px #000c; }
+
+/* UCI: ambiente frío con señal roja pulsante, sin interferir con el cierre */
+.hospital .puertas .puerta--uci { border-color:#141a20; }
+.hospital .puertas .puerta--uci:not(.estancia-bloqueada):hover { transform:translateX(-50%) scale(1.035); }
+.hospital .puerta--uci .placa { position:relative; }
+.hospital .puerta--uci .placa::after { content:"";position:absolute;top:50%;right:-15px;
+ width:6px;height:6px;border-radius:50%;background:#d85e53;box-shadow:0 0 7px #ed554e;
+ animation:pasilloSenal 3s ease-in-out infinite; }
+
+/* Tarjetas inferiores: profundidad, iconos originales y flechas vivas */
+.hospital .destinos { gap:17px;padding-top:31px; }
+.hospital .destino { position:relative;overflow:hidden;min-height:100px;
+ background:linear-gradient(120deg,rgba(56,38,34,.88),rgba(25,22,27,.96));
+ border:1px solid rgba(184,132,96,.48);border-radius:9px;
+ box-shadow:0 13px 28px #0005,inset 0 1px 0 #fff1;
+ transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease,background .3s ease; }
+.hospital .destino::before { content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(115deg,transparent 25%,rgba(255,223,189,.08) 50%,transparent 75%);
+ transform:translateX(-120%);transition:transform .65s ease; }
+.hospital .destino:not(.estancia-bloqueada):hover { transform:translateY(-4px);border-color:#d7a780;
+ box-shadow:0 19px 38px #0008,0 0 19px #c88b5530; }
+.hospital .destino:not(.estancia-bloqueada):hover::before { transform:translateX(120%); }
+.hospital .destino > span:first-child { display:grid;place-items:center;flex:0 0 48px;height:48px;
+ background:#9a654027;border:1px solid #bb8b6550;border-radius:9px; }
+.hospital .destino > span:last-child { font-size:1.35rem;transition:transform .3s ease; }
+.hospital .destino:not(.estancia-bloqueada):hover > span:last-child { transform:translate(3px,-3px); }
+
+/* Las 15 cajas: material envejecido, sin alterar la capa de bloqueo existente */
+.hospital .archivo-entrada { border:1px solid #96704e;border-radius:9px;
+ background:linear-gradient(135deg,#2c2018,#3a2b20 50%,#1a1514);
+ box-shadow:0 20px 48px #0008,inset 0 1px 0 #fff1; }
+.hospital .archivo-entrada .archivo-acceso { border-color:#aa80583d;border-radius:7px;
+ transition:background .3s ease,border-color .3s ease; }
+.hospital .archivo-entrada:not(.archivo-panel-bloqueado) .archivo-acceso:not(:disabled):hover {
+ border-color:#d3a77e;background:#ffffff12; }
+.hospital .archivo-entrada:not(.archivo-panel-bloqueado) .archivo-acceso:not(:disabled):hover .archivo-acceso__libro {
+ filter:brightness(1.25) drop-shadow(0 0 10px #d79b6655); }
+
+@keyframes pasilloAmbiente { from{opacity:.35}to{opacity:1} }
+@keyframes pasilloLuz { from{opacity:.48;transform:scale(.96)}to{opacity:.9;transform:scale(1.05)} }
+@keyframes pasilloTitulo { from{text-shadow:0 3px 25px #000c,0 0 14px #c8895420}to{text-shadow:0 3px 25px #000c,0 0 36px #efb27d66} }
+@keyframes pasilloSenal { 0%,100%{opacity:.4;box-shadow:0 0 3px #ed554e}50%{opacity:1;box-shadow:0 0 13px #ed554e} }
+@media(max-width:699px){.hospital__intro{padding-top:32px}.hospital .pasillo{border-radius:4px}.hospital .destino{min-height:87px}.hospital .destino>span:first-child{flex-basis:42px;height:42px}}
+@media(prefers-reduced-motion:reduce){.hospital::before,.hospital .pasillo__luz,.hospital__intro h2,.hospital .puerta--uci .placa::after{animation:none!important}.hospital .destino,.hospital .destino::before,.hospital .puertas .puerta{transition:none!important}}

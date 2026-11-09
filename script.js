@@ -406,7 +406,7 @@ function actualizarBloqueosEstancias() {
 
                 const texto = document.createElement('span');
                 texto.className = 'indicador-bloqueo__texto';
-                texto.textContent = 'CARGANDO...';
+                texto.textContent = 'DURMIENDO...';
 
                 indicador.append(circulo, texto);
                 boton.appendChild(indicador);
@@ -1291,19 +1291,49 @@ function dibujarCajas() {
 
 // ENTRAR AL ARCHIVO
 
-abrirArchivo.addEventListener('click', () => {
+
+/* ==========================================
+   V0.8.3 · BLOQUEO DEL ARCHIVO
+========================================== */
+
+async function puedeAbrirArchivo() {
+    const { data: disponible, error } =
+        await db.rpc('archivo_disponible');
+
+    if (error) {
+        console.error('Error al consultar el Archivo:', error);
+        return false;
+    }
+
+    if (disponible === true) return true;
+
+    // Acceso anticipado del administrador.
+    const { data: admin, error: errorAdmin } =
+        await db.rpc('es_admin_comentarios');
+
+    return !errorAdmin && admin === true;
+}
+
+function mostrarArchivoBloqueado() {
+    window.alert('CONTENIDO NO DISPONIBLE');
+}
+
+abrirArchivo.addEventListener('click', async () => {
+    const permitido = await puedeAbrirArchivo();
+
+    if (!permitido) {
+    return;
+}
 
     dibujarCajas();
-
     archivoDetalle.hidden = true;
-
     mostrarPantalla(archivo);
 
     document.getElementById('archivoTitulo').focus({
         preventScroll: true
     });
-
 });
+
 
 
 // VOLVER AL HOSPITAL
@@ -1369,8 +1399,10 @@ archivoFormClave.addEventListener('submit', evento => {
 
     const introducida = archivoClave.value.trim();
 
-    if (introducida !== cajaSeleccionada.clave) {
-
+if (
+    introducida.toLocaleLowerCase('es-ES') !==
+    cajaSeleccionada.clave.toLocaleLowerCase('es-ES')
+) {
         archivoMensaje.textContent =
             'La contraseña no es correcta. Inténtalo de nuevo.';
 
@@ -1495,5 +1527,61 @@ document.addEventListener('keydown', evento => {
         !document.getElementById('avisoBloqueo').hidden
     ) {
         cerrarAvisoBloqueo();
+    }
+});
+
+    
+async function actualizarEstadoArchivo() {
+    const permitido = await puedeAbrirArchivo();
+    abrirArchivo.disabled = !permitido;
+
+    // Localizar el panel completo que contiene
+    // el botón de acceso a las quince cajas.
+    const panel = abrirArchivo.parentElement;
+
+    if (!panel) return;
+
+    // Eliminar el bloqueo anterior del botón.
+    abrirArchivo.classList.remove('archivo-bloqueado');
+
+    let overlay = panel.querySelector(
+        ':scope > .archivo-bloqueo-overlay'
+    );
+
+    if (permitido) {
+        panel.classList.remove('archivo-panel-bloqueado');
+
+        if (overlay) overlay.remove();
+        return;
+    }
+
+    panel.classList.add('archivo-panel-bloqueado');
+
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'archivo-bloqueo-overlay';
+
+        overlay.innerHTML = `
+            <div class="archivo-bloqueo-indicador">
+                <span class="archivo-bloqueo-zzz"
+                      aria-hidden="true">
+                    <span>Z</span>
+                    <span>z</span>
+                    <span>z</span>
+                </span>
+                <span>DURMIENDO...</span>
+            </div>
+        `;
+        panel.appendChild(overlay);
+    }
+}
+
+actualizarEstadoArchivo();
+
+setInterval(actualizarEstadoArchivo, 60000);
+
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        actualizarEstadoArchivo();
     }
 });

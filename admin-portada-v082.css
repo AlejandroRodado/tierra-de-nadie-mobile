@@ -1,0 +1,18 @@
+/* TIERRA DE NADIE · Acceso administrador 0.8.2 */
+.tdn-acceso-admin { align-self:center; margin:14px auto 0; padding:10px 14px; border:1px solid #d4b9a777; border-radius:4px; background:#100c0cbb; color:#f0ded0; font:500 .67rem/1.4 inherit; letter-spacing:.14em; cursor:pointer; }
+.tdn-acceso-admin:hover {background:#57352ec9;}
+.tdn-admin-estado {align-self:center; margin:14px auto 0; padding:10px 14px; background:#120d0ddd; border:1px solid #d4b9a777; border-radius:5px; color:#f0ded0; font-size:.7rem; text-align:center; letter-spacing:.07em;}
+.tdn-admin-estado button {display:block; margin:10px auto 0; background:transparent; border:1px solid #d4b9a777; border-radius:4px; color:inherit; padding:8px 12px; cursor:pointer;}
+.tdn-admin-modal[hidden],.tdn-admin-estado[hidden],.tdn-acceso-admin[hidden] {display:none!important;}
+.tdn-admin-modal {position:fixed; inset:0; z-index:99999; display:grid; place-items:center; padding:18px;}
+.tdn-admin-modal__fondo {position:absolute; inset:0; background:#030305e8; backdrop-filter:blur(9px);}
+.tdn-admin-modal__panel {position:relative; width:min(100%,440px); padding:35px 26px; border:1px solid #bd9781; border-radius:8px; background:linear-gradient(145deg,#29242a,#141319); color:#f5eae1; box-shadow:0 20px 80px #000c;}
+.tdn-admin-modal__panel>p:first-of-type {font-size:.62rem;letter-spacing:.16em;color:#d9b19b;}
+.tdn-admin-modal__panel h2 {font-family:Georgia,serif;font-size:clamp(1.8rem,6vw,2.6rem);font-weight:400;margin:15px 0 24px;}
+.tdn-admin-modal__panel form {display:grid;gap:17px;}
+.tdn-admin-modal__panel label {display:grid;gap:8px;font-size:.8rem;}
+.tdn-admin-modal__panel input {width:100%;min-height:44px;padding:10px;border:1px solid #aa9388;border-radius:4px;background:#100f14;color:white;font:inherit;}
+.tdn-admin-modal__panel form button {min-height:46px;background:#a57559;color:white;border:0;border-radius:4px;letter-spacing:.1em;cursor:pointer;}
+.tdn-admin-modal__cerrar {position:absolute;top:10px;right:13px;border:0;background:none;color:white;font-size:1.8rem;cursor:pointer;}
+.tdn-admin-modal__mensaje {font-size:.8rem;line-height:1.5;color:#f0c4b0;}
+body.tdn-admin-modal-abierto {overflow:hidden;}
