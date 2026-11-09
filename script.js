@@ -161,7 +161,7 @@ const fichas = {
 publicacion: {
     etiqueta: 'TIERRA DE NADIE · PUBLICACIÓN',
     titulo: 'Fecha de publicación',
-    texto: 'Próxima actualización el xx de xxxx de 2026 a las 21:30.',
+    texto: 'Conoce la fecha de publicación el Martes 15 de diciembre de 2026 a las 21:00.',
     extra: [
         'xx/xx/xxxx'
     ]
@@ -171,7 +171,7 @@ publicacion: {
     chico: {
         etiqueta: 'EXPEDIENTE · PERSONAJE',
         titulo: 'El chico',
-        texto: 'El de las chanclas con calcetines. El pequeño. El misterioso. El callado.',
+        texto: 'El de las chanclas con calcetines. Pequeño. Misterioso. Callado.',
         extra: [
             'Nombre: ???',
             'Edad: 12 años.',
@@ -182,7 +182,7 @@ publicacion: {
     nino: {
         etiqueta: 'EXPEDIENTE · PERSONAJE',
         titulo: 'El niño',
-        texto: 'El rubio. El mayor. El ansioso. El protagonista.',
+        texto: 'El rubio. Mayor. Ansioso. Protagonista.',
         extra: [
             'Nombre: "El niño".',
             'Edad: 16 años.',
@@ -325,6 +325,111 @@ volver.addEventListener('click', () => {
    7. ABRIR UNA ESTANCIA
 ========================================== */
 
+
+/* ==========================================
+   V0.7.0 · BLOQUEOS TEMPORALES
+========================================== */
+
+const fechasAperturaEstancias = {
+    '312': '2026-11-20T21:00:00+01:00',
+    '315': '2026-11-27T21:00:00+01:00',
+    'uci': null,
+    'psicologia': '2026-12-04T21:30:00+01:00',
+    'azotea': '2026-12-11T21:00:00+01:00'
+};
+
+function estaEstanciaBloqueada(id) {
+    const fecha = fechasAperturaEstancias[id];
+
+    if (!fecha) return false;
+
+    return Date.now() < new Date(fecha).getTime();
+}
+
+function formatearAperturaEstancia(id) {
+    const fecha = new Date(fechasAperturaEstancias[id]);
+
+    return new Intl.DateTimeFormat('es-ES', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Madrid'
+    }).format(fecha);
+}
+
+function mostrarAvisoBloqueo(id) {
+    const aviso = document.getElementById('avisoBloqueo');
+    const titulo = document.getElementById('avisoBloqueoTitulo');
+    const fecha = document.getElementById('avisoBloqueoFecha');
+
+    titulo.textContent = estancias[id].titulo;
+    fecha.textContent = formatearAperturaEstancia(id);
+
+    aviso.hidden = false;
+    document.body.classList.add('bloqueo-abierto');
+
+    document.getElementById('cerrarAvisoBloqueo').focus();
+}
+
+function cerrarAvisoBloqueo() {
+    document.getElementById('avisoBloqueo').hidden = true;
+    document.body.classList.remove('bloqueo-abierto');
+}
+    
+function actualizarBloqueosEstancias() {
+
+    document.querySelectorAll('[data-room]').forEach(boton => {
+
+        const id = boton.dataset.room;
+        const bloqueada = estaEstanciaBloqueada(id);
+
+        // Aplicar o retirar el estado bloqueado.
+        boton.classList.toggle('estancia-bloqueada', bloqueada);
+        boton.setAttribute('aria-disabled', String(bloqueada));
+
+        // Buscar el indicador dentro del botón.
+        let indicador = boton.querySelector('.indicador-bloqueo');
+
+        if (bloqueada) {
+
+            // Crear el indicador una sola vez.
+            if (!indicador) {
+
+                indicador = document.createElement('span');
+                indicador.className = 'indicador-bloqueo';
+
+                const circulo = document.createElement('span');
+                circulo.className = 'indicador-bloqueo__circulo';
+                circulo.setAttribute('aria-hidden', 'true');
+
+                const texto = document.createElement('span');
+                texto.className = 'indicador-bloqueo__texto';
+                texto.textContent = 'CARGANDO...';
+
+                indicador.append(circulo, texto);
+                boton.appendChild(indicador);
+            }
+
+            boton.setAttribute(
+                'title',
+                'Disponible el ' + formatearAperturaEstancia(id)
+            );
+
+        } else {
+
+            // Retirar el indicador cuando llegue la fecha.
+            if (indicador) {
+                indicador.remove();
+            }
+
+            boton.removeAttribute('title');
+        }
+    });
+}
+
+
 function abrirEstancia(id) {
 
     const datos = estancias[id];
@@ -332,6 +437,17 @@ function abrirEstancia(id) {
     if (!datos) {
         return;
     }
+
+    
+    // Comprobar si la estancia ya está disponible.
+    if (estaEstanciaBloqueada(id)) {
+        mostrarAvisoBloqueo(id);
+        return;
+    }
+
+    // Actualizar los estados visuales.
+    actualizarBloqueosEstancias();
+
 
     // Actualizar los textos de la estancia
     estanciaEtiqueta.textContent = datos.etiqueta;
@@ -471,17 +587,6 @@ document.querySelectorAll('[data-room]').forEach(boton => {
 
 });
 
-
-/* ==========================================
-   12. TABLÓN DE NOVEDADES
-========================================== */
-
-document.getElementById('novedadesBtn')
-    .addEventListener('click', () => {
-
-        abrirFicha('novedades');
-
-    });
 
 
 /* ==========================================
@@ -1023,111 +1128,111 @@ const archivoRevelacion =
 
 /* ==========================================
    CONTRASEÑAS PERSONALIZADAS
-   TIERRA DE NADIE · 14 CAJAS
+   TIERRA DE NADIE · 15 CAJAS
 ========================================== */
 
 const cajasArchivo = [
     {
         numero: 1,
-        clave: 'atardecer',
+        clave: 'contar',  //Qué hace el niño para relajarse y calmar su ansiedad (Verbo).
         tipo: 'texto',
         titulo: 'Caja PRÓLOGO',
         contenido: 'Próximamente.'
     },
     {
         numero: 2,
-        clave: 'promesa',
+        clave: 'culpa',  //Qué siente el niño al ver el daño que él mismo se ha causado (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 01',
         contenido: 'Próximamente.'
     },
     {
         numero: 3,
-        clave: 'pelota',
+        clave: 'UCI',  //Lugar donde se hospitalizan a la chica (Sustantivo propio en mayúsculas).
         tipo: 'texto',
         titulo: 'Caja 02',
         contenido: 'Próximamente.'
     },
     {
         numero: 4,
-        clave: 'silencio',
+        clave: 'silencio',  //Herramienta del chico para esconderse de la verdad (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 03',
         contenido: 'Próximamente.'
     },
     {
         numero: 5,
-        clave: 'carta',
+        clave: 'cartas',  //Lo que esconde el niño en su caja (Sustantivo), 
         tipo: 'texto',
         titulo: 'Caja 04',
         contenido: 'Próximamente.'
     },
     {
         numero: 6,
-        clave: 'azotea',
+        clave: 'gabardina',  //Lo que caracteriza a Mikel, el psicólogo del hospital (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 05',
         contenido: 'Próximamente.'
     },
     {
         numero: 7,
-        clave: 'recuerdo',
+        clave: 'jacuzzi',  //Lugar donde se entretienen el chico y el niño (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 06',
         contenido: 'Próximamente.'
     },
     {
         numero: 8,
-        clave: 'hospital',
+        clave: 'calcetines',  //A pesar de llevar chanclas, el chico también los lleva (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 07',
         contenido: 'Próximamente.'
     },
     {
         numero: 9,
-        clave: 'estrella',
+        clave: 'cumpleaños',  //Celebración que a veces cuesta celebrar (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 08',
         contenido: 'Próximamente.'
     },
     {
         numero: 10,
-        clave: 'abrazo',
+        clave: 'vino',  //A veces es de oro, otras veces es de sangre (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 9',
         contenido: 'Próximamente.'
     },
     {
         numero: 11,
-        clave: 'esperanza',
+        clave: 'Almagro',  //Pueblo de Castilla La Mancha que tiene una plaza verde y blanca y un teatro muy reconocido (Sustantivo propio).
         tipo: 'texto',
         titulo: 'Caja 10',
         contenido: 'Próximamente.'
     },
     {
         numero: 12,
-        clave: 'infancia',
+        clave: 'pelota',  //Objeto con el que le gusta jugar al chico (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 11',
         contenido: 'Próximamente.'
     },
     {
         numero: 13,
-        clave: 'despedida',
+        clave: 'despedida',  //A lo que se tiene que enfrentar el niño con el chico (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja 12',
         contenido: 'Próximamente.'
     },
     {
         numero: 14,
-        clave: 'AIMAR',
+        clave: 'AIMAR',  //Nombre del chico (Sustantivo propio en mayúsculas).
         tipo: 'texto',
         titulo: 'Caja 14',
         contenido: 'Próximamente.'
     },
     {
         numero: 15,
-        clave: 'tierradenadie',
+        clave: 'trauma',  //Experiencia que cambia a las personas, generalmente trayendo sensaciones negativas y tristes (Sustantivo).
         tipo: 'texto',
         titulo: 'Caja EPÍLOGO',
         contenido: 'Próximamente.'
@@ -1352,3 +1457,43 @@ cerrarCaja.addEventListener('click', () => {
 // INICIALIZAR
 
 dibujarCajas();
+
+
+
+/* ==========================================
+   INICIALIZACIÓN DE BLOQUEOS
+========================================== */
+
+actualizarBloqueosEstancias();
+
+// Actualizar automáticamente cada minuto.
+setInterval(actualizarBloqueosEstancias, 60000);
+
+// Actualizar cuando el usuario regrese a la pestaña.
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        actualizarBloqueosEstancias();
+    }
+});
+
+// Cerrar el aviso.
+document.getElementById('cerrarAvisoBloqueo')
+    .addEventListener('click', cerrarAvisoBloqueo);
+
+// Cerrar pulsando fuera del contenido.
+document.getElementById('avisoBloqueo')
+    .addEventListener('click', evento => {
+        if (evento.target.id === 'avisoBloqueo') {
+            cerrarAvisoBloqueo();
+        }
+    });
+
+// Cerrar con Escape.
+document.addEventListener('keydown', evento => {
+    if (
+        evento.key === 'Escape' &&
+        !document.getElementById('avisoBloqueo').hidden
+    ) {
+        cerrarAvisoBloqueo();
+    }
+});

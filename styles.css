@@ -693,14 +693,6 @@
     max-width: 1000px;
 }
 
-
-.puertas .puerta:last-child:hover,
-.puertas .puerta.cerrada:hover {
-    filter: brightness(1.35);
-    cursor: pointer;
-}
-
-
 /* ==========================================
    V0.6.0 · ARCHIVO DE LAS 14 CAJAS
 ========================================== */
@@ -1123,4 +1115,372 @@
     .archivo-entrada__contenido small {
         font-size: .65rem;
     }
+}
+
+
+/* ==========================================
+   V0.7.0 · BLOQUEOS TEMPORALES
+========================================== */
+
+/* Indicador visual de estancia bloqueada */
+
+.estancia-bloqueada {
+    cursor: pointer;
+    filter: grayscale(0.45);
+}
+
+
+/* Oscuridad ligeramente menos intensa al pasar
+   el cursor, sin revelar completamente la estancia */
+
+.estancia-bloqueada:hover,
+.estancia-bloqueada:focus-visible {
+    filter: brightness(0.5) saturate(0.4)
+            contrast(1.25);
+}
+
+/* Mantener el mismo efecto cuando se pulsa */
+
+.estancia-bloqueada:active {
+    filter: brightness(0.4) saturate(0.3);
+}
+
+/* Cuando la estancia se desbloquee, recuperará
+   automáticamente su apariencia original */
+
+
+/* Fondo del aviso */
+
+.aviso-bloqueo {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(8, 6, 7, 0.88);
+    backdrop-filter: blur(8px);
+}
+
+.aviso-bloqueo[hidden] {
+    display: none !important;
+}
+
+/* Tarjeta */
+
+.aviso-bloqueo__contenido {
+    width: min(100%, 470px);
+    padding: 42px 30px;
+    text-align: center;
+    background: linear-gradient(
+        160deg,
+        #2b211d,
+        #151112
+    );
+    border: 1px solid #85624c;
+    border-radius: 8px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65);
+}
+
+.aviso-bloqueo__icono {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 36px;
+}
+
+.aviso-bloqueo__etiqueta {
+    color: #c5a38b;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+.aviso-bloqueo__contenido h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(30px, 6vw, 43px);
+    font-weight: 500;
+    color: #f2e4d5;
+    margin-bottom: 20px;
+}
+
+.aviso-bloqueo__mensaje {
+    color: #d0b9a8;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.aviso-bloqueo__fecha {
+    margin: 25px 0;
+    color: #f1c39c;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.aviso-bloqueo__nota {
+    margin-bottom: 28px;
+    color: #a58b7c;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.aviso-bloqueo__cerrar {
+    padding: 13px 28px;
+    border: 1px solid #a17a5c;
+    border-radius: 4px;
+    background: #493426;
+    color: #fff2e6;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.aviso-bloqueo__cerrar:hover {
+    background: #684b36;
+}
+
+.bloqueo-abierto {
+    overflow: hidden;
+}
+
+
+/* ==========================================
+   V0.7.0 · ACCESO NO DISPONIBLE
+========================================== */
+
+
+/* Indicador de acceso restringido */
+
+.indicador-bloqueo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    width: max-content;
+    max-width: 95%;
+    padding: 12px 15px;
+
+    border: 1px solid rgba(212, 170, 130, 0.35);
+    border-radius: 5px;
+
+    background: rgba(12, 13, 15, 0.92);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+    pointer-events: none;
+}
+
+/* Círculo giratorio */
+
+.indicador-bloqueo__circulo {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border: 2px solid rgba(220, 185, 150, 0.22);
+    border-top-color: #d4aa82;
+    border-radius: 50%;
+
+    animation: girarBloqueo 1.5s linear infinite;
+}
+
+/* Texto */
+
+.indicador-bloqueo__texto {
+    color: #ead1b7;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* Animación */
+
+@keyframes girarBloqueo {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Ajustes para las puertas estrechas */
+
+.puerta .indicador-bloqueo {
+    padding: 8px 6px;
+    gap: 6px;
+}
+
+.puerta .indicador-bloqueo__circulo {
+    width: 19px;
+    height: 19px;
+}
+
+.puerta .indicador-bloqueo__texto {
+    font-size: 7px;
+    letter-spacing: 0.4px;
+}
+
+/* Respetar movimiento reducido */
+
+@media (prefers-reduced-motion: reduce) {
+    .indicador-bloqueo__circulo {
+        animation: none;
+    }
+}
+
+
+/* ==========================================
+   V0.7.0 · ESTANCIAS OCULTAS
+========================================== */
+
+/* La estancia conserva su diseño original */
+
+[data-room].estancia-bloqueada {
+    position: relative;
+    cursor: pointer;
+    isolation: isolate;
+}
+
+/* Difuminar todo el contenido original,
+   excepto el indicador CARGANDO... */
+
+[data-room].estancia-bloqueada > :not(.indicador-bloqueo) {
+    filter: blur(9px) brightness(0.35)
+            saturate(0.25);
+
+    transition: filter 0.4s ease;
+}
+
+/* Capa oscura sobre la puerta */
+
+[data-room].estancia-bloqueada::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+
+    background: rgba(7, 9, 12, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    pointer-events: none;
+}
+
+/* El indicador permanece nítido
+   por encima de la oscuridad */
+
+[data-room].estancia-bloqueada > .indicador-bloqueo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 30;
+
+    filter: none !important;
+    opacity: 1;
+}
+
+/* Mantener el misterio al pasar el ratón */
+
+[data-room].estancia-bloqueada:hover::before {
+    background: rgba(7, 9, 12, 0.7);
+}
+
+/* Adaptación para pantallas pequeñas */
+
+@media (max-width: 600px) {
+    [data-room].estancia-bloqueada::before {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+}
+
+
+/* Indicador flotando sobre el contenido oculto */
+
+.indicador-bloqueo {
+    background: rgba(9, 11, 14, 0.88);
+    border: 1px solid rgba(194, 156, 120, 0.35);
+    box-shadow:
+        0 0 25px rgba(0, 0, 0, 0.6),
+        0 0 12px rgba(194, 156, 120, 0.08);
+}
+
+.indicador-bloqueo__circulo {
+    border-top-color: #e0b38b;
+    animation: girarBloqueo 1.3s linear infinite;
+}
+
+.indicador-bloqueo__texto {
+    color: #f1dcc7;
+    letter-spacing: 1.5px;
+}
+
+
+/* ==========================================
+   UCI · DESCUBRIR FECHA DE PUBLICACIÓN
+========================================== */
+
+.uci-descubrir {
+    display: block;
+    margin-top: 39px;
+    padding: 5px 8px;
+
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+    text-align: center;
+
+    color: #e8d1bb;
+    background: rgba(15, 12, 12, 0.72);
+    border: 1px solid rgba(200, 160, 125, 0.3);
+    border-radius: 4px;
+
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .uci-descubrir {
+        font-size: 9px;
+        padding: 4px 6px;
+    }
+}
+
+
+
+
+/* ==========================================
+   V0.7.0 · HOVER HABITACIÓN 315
+========================================== */
+
+/* Estado normal: mantiene el bloqueo visual original */
+.puertas [data-room="315"].estancia-bloqueada {
+    filter: none !important;
+}
+
+/* Al pasar el ratón: oscurecimiento */
+.puertas [data-room="315"].estancia-bloqueada:hover {
+    filter: brightness(0.5) saturate(0.4) !important;
+}
+
+/* Al navegar con teclado */
+.puertas [data-room="315"].estancia-bloqueada:focus-visible {
+    filter: brightness(0.5) saturate(0.4) !important;
+}
+
+/* Al pulsar */
+.puertas [data-room="315"].estancia-bloqueada:active {
+    filter: brightness(0.4) saturate(0.3) !important;
 }

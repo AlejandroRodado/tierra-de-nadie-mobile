@@ -74,13 +74,6 @@
                     <strong>PLANTA 3</strong>
                 </div>
 
-                <button class="icono-boton"
-                        id="novedadesBtn"
-                        type="button"
-                        aria-label="Ver novedades">
-                    ✦
-                </button>
-
             </header>
 
             <div class="hospital__intro">
@@ -134,10 +127,14 @@
 
                <span class="placa">UCI</span>
 
+               <span class="uci-descubrir">
+    Descubrir fecha de publicación
+</span>
+
             </button>
 
 
-                    <button class="puerta cerrada"
+                    <button class="puerta"
                             data-room="315"
                             type="button">
 
@@ -309,7 +306,7 @@
             TIERRA DE NADIE · ACCESO RESTRINGIDO
         </p>
 
-        <h1 id="archivoTitulo" tabindex="-1">Las catorce cajas</h1>
+        <h1 id="archivoTitulo" tabindex="-1">Las 15 cajas</h1>
 
         <p class="archivo__introduccion">
             Introduce la contraseña de cada caja para descubrir su contenido. Las contraseñas se encuentran al final de los capítulos del libro.
@@ -547,6 +544,58 @@
             </section>
 
         </div>
+
+
+<!-- V0.7.0 · AVISO DE ESTANCIA BLOQUEADA -->
+
+<div
+    class="aviso-bloqueo"
+    id="avisoBloqueo"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="avisoBloqueoTitulo"
+    hidden
+>
+    <div class="aviso-bloqueo__contenido">
+
+        <span class="aviso-bloqueo__icono" aria-hidden="true">
+            🔒
+        </span>
+
+        <p class="aviso-bloqueo__etiqueta">
+            HOSPITAL · ACCESO RESTRINGIDO
+        </p>
+
+        <h2 id="avisoBloqueoTitulo">
+            Estancia bloqueada
+        </h2>
+
+        <p class="aviso-bloqueo__mensaje">
+            Esta estancia todavía no está disponible.
+            Su acceso permanecerá restringido hasta el
+            siguiente día:
+        </p>
+
+        <p
+            class="aviso-bloqueo__fecha"
+            id="avisoBloqueoFecha"
+        ></p>
+
+        <p class="aviso-bloqueo__nota">
+            Hay puertas que necesitan tiempo para abrirse.
+        </p>
+
+        <button
+            type="button"
+            id="cerrarAvisoBloqueo"
+            class="aviso-bloqueo__cerrar"
+        >
+            Volver al pasillo
+        </button>
+
+    </div>
+</div>
+
 
     </main>
 </body>
