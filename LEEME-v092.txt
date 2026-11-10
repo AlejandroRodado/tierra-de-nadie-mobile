@@ -1,0 +1,6 @@
+TIERRA DE NADIE v0.9.2 — HABITACIONES VIVAS
+
+Versión completa de tu proyecto, sin la carpeta .git.
+Para actualizar tu web existente basta copiar habitaciones-v092.css y habitaciones-v092.js y añadir sus referencias al index.html (véase el index incluido).
+Las imágenes, datos, botones, contraseñas, Supabase y restricciones de acceso no se han modificado.
+Las animaciones se activan al entrar en cada estancia y se reducen en dispositivos con movimiento reducido.

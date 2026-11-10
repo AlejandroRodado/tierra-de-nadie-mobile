@@ -1,0 +1,31 @@
+/* Tierra de Nadie v0.9.1 · borde anclado y llegada a la UCI */
+/* Se desactiva el borde antiguo, que se desplazaba con el scroll del contenido. */
+#modal .modal__panel::after { content:none !important; animation:none !important; }
+#modal .modal__panel { z-index:2; }
+#modal .tdn91-borde {
+  position:fixed; left:0;top:0;width:0;height:0;box-sizing:border-box;
+  z-index:4;pointer-events:none;border-radius:12px;padding:3px;
+  background:conic-gradient(from var(--tdn90angle), transparent 0deg,transparent 205deg,
+  rgba(215,131,86,.20) 242deg,rgba(255,218,171,.94) 273deg,
+  rgba(184,95,68,.18) 306deg,transparent 335deg);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:tdn90Borde 8s linear infinite;
+}
+#modal[hidden] .tdn91-borde {display:none;}
+#modal.tdn90-saliendo .tdn91-borde {opacity:0;transition:opacity .3s;}
+/* Escena UCI: secuencia breve de luz, foco y entrada de contenido. */
+#estancia.tdn91-uci .estancia__escena {position:relative;isolation:isolate;overflow:hidden;}
+#estancia.tdn91-uci .estancia__escena::after {
+ content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(ellipse at 60% 42%,rgba(175,29,35,.30),transparent 55%),
+ linear-gradient(100deg,transparent 10%,rgba(242,61,53,.20) 49%,transparent 75%);
+ opacity:0;animation:tdn91UciLuz 2.6s ease-in-out both;
+}
+#estancia.tdn91-uci .estancia__contenido {position:relative;z-index:2;animation:tdn91UciEntrada 1.2s cubic-bezier(.18,.8,.2,1) both;}
+#estancia.tdn91-uci .estancia__opciones {animation:tdn91UciOpciones .9s .7s both;}
+@keyframes tdn91UciLuz {0%{opacity:0}12%{opacity:.75}17%{opacity:.12}24%{opacity:.85}35%{opacity:.24}52%{opacity:.6}100%{opacity:.12}}
+@keyframes tdn91UciEntrada {0%{opacity:0;filter:blur(10px);transform:translateY(18px)}55%{opacity:.6;filter:blur(3px)}100%{opacity:1;filter:blur(0);transform:none}}
+@keyframes tdn91UciOpciones {from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:600px){#modal .tdn91-borde{border-radius:10px;padding:2px}}
+@media(prefers-reduced-motion:reduce){#modal .tdn91-borde,#estancia.tdn91-uci .estancia__escena::after,#estancia.tdn91-uci .estancia__contenido,#estancia.tdn91-uci .estancia__opciones{animation:none!important;transition:none!important;filter:none!important;transform:none!important;opacity:1!important}#estancia.tdn91-uci .estancia__escena::after{opacity:0!important}}

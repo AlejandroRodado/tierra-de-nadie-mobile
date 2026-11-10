@@ -1,0 +1,11 @@
+CORRECCIÓN DE NUMERACIÓN VISUAL DE LAS CAJAS
+
+El contenido se asigna ahora según caja.numero (número visible en la tarjeta), no caja.titulo (etiqueta interna desfasada).
+
+Caja visible 02: cuatro imágenes.
+Caja visible 05: audio.
+Caja visible 06: dos vídeos.
+Caja visible 08: Spotify.
+Caja visible 12: tres capturas.
+
+Para actualizar la versión 0.9.3 basta sustituir cajas-v093.js. No se modifican contraseñas ni otros archivos.

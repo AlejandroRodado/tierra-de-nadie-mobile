@@ -1,0 +1,37 @@
+/* TIERRA DE NADIE v0.9.2 — atmósferas dinámicas de las estancias */
+.estancia__escena{--ambiente:rgba(228,102,58,.19);--destello:rgba(255,177,106,.30);position:relative;isolation:isolate;background-image:none!important;background-color:#151014;}
+/* Fotografía en capa separada para mover únicamente el escenario */
+.estancia__escena .tdn92-fotografia{position:absolute;inset:-3%;z-index:-4;background-image:linear-gradient(180deg,rgba(12,8,9,.20),rgba(12,8,9,.12) 35%,rgba(12,8,9,.85)),var(--tdn92-imagen);background-position:center;background-size:cover;pointer-events:none;will-change:transform;animation:tdn92-camara 31s ease-in-out infinite alternate;}
+.estancia__escena .tdn92-ambiente{position:absolute;inset:0;z-index:-3;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 76% 28%,var(--ambiente),transparent 64%);animation:tdn92-respirar 8s ease-in-out infinite alternate;}
+.estancia__escena .tdn92-rayo{position:absolute;inset:-30% -40%;z-index:-2;pointer-events:none;transform-origin:75% 18%;background:linear-gradient(115deg,transparent 30%,var(--destello) 45%,transparent 56%,rgba(255,215,157,.055) 62%,transparent 72%);mix-blend-mode:screen;filter:blur(18px);opacity:.5;animation:tdn92-rayos 13s ease-in-out infinite alternate;}
+.estancia__escena .tdn92-polvo{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.44;background-image:radial-gradient(circle,rgba(255,221,180,.72) .7px,transparent 1.6px),radial-gradient(circle,rgba(255,224,188,.44) 1px,transparent 2px);background-size:113px 137px,187px 173px;background-position:8px 20px,67px 91px;mask-image:linear-gradient(to bottom,transparent 0%,#000 22%,#000 82%,transparent);animation:tdn92-polvo 25s linear infinite;}
+.estancia__escena .tdn92-sombra{position:absolute;z-index:-1;pointer-events:none;top:10%;left:7%;width:32%;height:76%;opacity:.13;filter:blur(24px);background:linear-gradient(90deg,transparent,rgba(6,7,11,.72),transparent);transform:skew(-13deg);animation:tdn92-sombra 19s ease-in-out infinite alternate;}
+.estancia__escena .tdn92-monitor{display:none;position:absolute;z-index:-1;right:15%;top:26%;width:20%;height:18%;pointer-events:none;border-radius:50%;background:radial-gradient(ellipse,rgba(72,246,184,.22),transparent 72%);filter:blur(17px);animation:tdn92-monitor 3.2s steps(3,end) infinite;}
+.estancia__escena .tdn92-lampara{display:none;position:absolute;z-index:-1;right:13%;top:18%;width:45%;height:66%;pointer-events:none;background:radial-gradient(ellipse,rgba(255,192,113,.26),transparent 68%);filter:blur(19px);animation:tdn92-lampara 7s ease-in-out infinite alternate;}
+.estancia__escena .tdn92-nubes{display:none;position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.19;background:radial-gradient(ellipse at 20% 28%,rgba(255,228,192,.5),transparent 26%),radial-gradient(ellipse at 65% 20%,rgba(255,204,179,.36),transparent 30%);filter:blur(30px);animation:tdn92-nubes 42s ease-in-out infinite alternate;}
+.estancia[data-tdn92-room="315"] .estancia__escena{--ambiente:rgba(251,139,93,.23);--destello:rgba(255,176,116,.27)}
+.estancia[data-tdn92-room="312"] .estancia__escena{--ambiente:rgba(173,60,53,.22);--destello:rgba(237,114,91,.24)}
+.estancia[data-tdn92-room="uci"] .estancia__escena{--ambiente:rgba(103,32,47,.18);--destello:rgba(209,52,57,.16)}
+.estancia[data-tdn92-room="uci"] .tdn92-monitor{display:block}
+.estancia[data-tdn92-room="uci"] .tdn92-rayo{animation-duration:9s;opacity:.24}
+.estancia[data-tdn92-room="psicologia"] .estancia__escena{--ambiente:rgba(243,178,104,.16);--destello:rgba(250,187,106,.15)}
+.estancia[data-tdn92-room="psicologia"] .tdn92-lampara{display:block}
+.estancia[data-tdn92-room="azotea"] .estancia__escena{--ambiente:rgba(245,119,78,.18);--destello:rgba(252,178,124,.17)}
+.estancia[data-tdn92-room="azotea"] .tdn92-nubes{display:block}
+.estancia[data-tdn92-room="azotea"] .tdn92-sombra{opacity:.04}
+/* La entrada se activa cada vez que se abre una estancia, antes de tocar las pestañas */
+.estancia.tdn92-entrando .estancia__contenido{animation:tdn92-texto 1.05s .14s both}
+.estancia.tdn92-entrando .estancia__opciones{animation:tdn92-texto .95s .42s both}
+.estancia.tdn92-entrando .tdn92-ambiente{animation:tdn92-encender 1.65s ease-out both,tdn92-respirar 8s 1.65s ease-in-out infinite alternate}
+@keyframes tdn92-camara{from{transform:scale(1.015) translate3d(-.4%,0,0)}to{transform:scale(1.095) translate3d(.5%,-.8%,0)}}
+@keyframes tdn92-respirar{from{opacity:.35}to{opacity:.92}}
+@keyframes tdn92-rayos{from{transform:rotate(-5deg) translateX(-3%);opacity:.17}to{transform:rotate(5deg) translateX(4%);opacity:.68}}
+@keyframes tdn92-polvo{to{background-position:58px -175px,93px -123px}}
+@keyframes tdn92-sombra{from{transform:translateX(-15%) skew(-13deg);opacity:.035}to{transform:translateX(95%) skew(-13deg);opacity:.16}}
+@keyframes tdn92-monitor{0%,100%{opacity:.28}25%{opacity:.9}45%{opacity:.35}65%{opacity:.8}}
+@keyframes tdn92-lampara{from{opacity:.38;transform:scale(.96)}to{opacity:.94;transform:scale(1.08)}}
+@keyframes tdn92-nubes{from{transform:translateX(-12%)}to{transform:translateX(13%)}}
+@keyframes tdn92-texto{from{opacity:0;transform:translateY(24px);filter:blur(7px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes tdn92-encender{from{opacity:0}to{opacity:.9}}
+@media(max-width:650px){.estancia__escena .tdn92-fotografia{animation-duration:39s}.estancia__escena .tdn92-polvo{opacity:.25}.estancia__escena .tdn92-rayo{filter:blur(25px);opacity:.25}.estancia__escena .tdn92-sombra{opacity:.08}}
+@media(prefers-reduced-motion:reduce){.estancia__escena .tdn92-fotografia,.estancia__escena .tdn92-ambiente,.estancia__escena .tdn92-rayo,.estancia__escena .tdn92-polvo,.estancia__escena .tdn92-sombra,.estancia__escena .tdn92-monitor,.estancia__escena .tdn92-lampara,.estancia__escena .tdn92-nubes,.estancia.tdn92-entrando .estancia__contenido,.estancia.tdn92-entrando .estancia__opciones{animation:none!important;filter:none!important}}

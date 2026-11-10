@@ -1436,6 +1436,8 @@ function revelarCaja(caja) {
 
     archivoRevelacion.appendChild(titulo);
 
+    if (window.tdnRenderCaja && window.tdnRenderCaja(caja, archivoRevelacion)) return;
+
     if (caja.tipo === 'texto') {
 
         const parrafo = document.createElement('p');
@@ -1471,6 +1473,7 @@ function revelarCaja(caja) {
 // CERRAR DETALLE Y VOLVER A LAS CAJAS
 
 cerrarCaja.addEventListener('click', () => {
+    archivoRevelacion.querySelectorAll('audio,video').forEach(m => m.pause());
 
     archivoDetalle.hidden = true;
     archivoClave.value = '';

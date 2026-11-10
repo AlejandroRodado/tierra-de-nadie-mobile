@@ -1,0 +1,21 @@
+/* TIERRA DE NADIE 0.8.9 — detalles cinematograficos, no altera bloqueos ni navegacion */
+#hospital .pasillo { --tdn-cursor-x:50%; --tdn-cursor-y:50%; position:relative; }
+#hospital .pasillo .tdn-linterna { position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .4s ease;background:radial-gradient(circle 135px at var(--tdn-cursor-x) var(--tdn-cursor-y),rgba(255,218,170,.19) 0%,rgba(245,162,116,.075) 45%,transparent 100%);mix-blend-mode:screen; }
+@media (hover:hover) and (pointer:fine) {#hospital .pasillo.tdn-cursor-activo .tdn-linterna {opacity:1;}}
+#hospital .pasillo .tdn-senales {position:absolute;inset:0;z-index:2;pointer-events:none;font-family:Montserrat,Arial,sans-serif;}
+#hospital .pasillo .tdn-senal {position:absolute;display:flex;align-items:center;gap:7px;max-width:42%;padding:6px 10px;border:1px solid rgba(217,177,140,.55);border-radius:3px;color:#ead4bc;background:linear-gradient(145deg,rgba(26,29,34,.91),rgba(54,45,42,.91));box-shadow:0 4px 13px #0008,inset 0 1px #fff2;font-size:clamp(8px,1.1vw,11px);font-weight:700;letter-spacing:.10em;text-shadow:0 1px 2px #000;white-space:nowrap;}
+#hospital .pasillo .tdn-senal--planta {top:4%;left:50%;transform:translateX(-50%);}
+#hospital .pasillo .tdn-senal--habitaciones {top:32%;left:3%;transform:rotate(-3deg);}
+#hospital .pasillo .tdn-senal--uci {top:32%;right:3%;transform:rotate(3deg);}
+#hospital .pasillo .tdn-senal--azotea {bottom:7%;right:4%;opacity:.85;}
+#hospital .pasillo .tdn-senal__flecha {color:#eab58d;font-size:1.25em;}
+@media(max-width:560px){#hospital .pasillo .tdn-senal {padding:4px 6px;letter-spacing:.03em;font-size:8px;gap:3px;}#hospital .pasillo .tdn-senal--habitaciones{top:29%;left:1%}#hospital .pasillo .tdn-senal--uci{top:29%;right:1%}#hospital .pasillo .tdn-senal--azotea{bottom:4%;}}
+/* Profundidad de campo: solo cuando hay una ficha/modal visible. El modal queda nitido. */
+body.tdn-ficha-abierta #estancia .estancia__escena,body.tdn-ficha-abierta #estancia .estancia__opciones {filter:blur(3.5px) brightness(.70);transform:scale(1.012);transition:filter .45s ease,transform .45s ease;}
+#estancia .estancia__escena,#estancia .estancia__opciones {transition:filter .45s ease,transform .45s ease;}
+#modal:not([hidden]) .modal__panel {animation:tdn089Enfoque .48s cubic-bezier(.2,.7,.2,1) both;}
+@keyframes tdn089Enfoque {from{opacity:.1;filter:blur(9px);transform:translateY(12px) scale(.97)}to{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}}
+/* Fundido de entrada no bloqueante: conserva el sistema de pantallas existente. */
+.pantalla.tdn089-entrando:not([hidden]) {animation:tdn089Pantalla .58s ease-out both;}
+@keyframes tdn089Pantalla {from{opacity:.20;filter:brightness(.5) blur(3px)}to{opacity:1;filter:brightness(1) blur(0)}}
+@media(prefers-reduced-motion:reduce){#hospital .pasillo .tdn-linterna{display:none!important}#modal:not([hidden]) .modal__panel,.pantalla.tdn089-entrando:not([hidden]){animation:none!important}body.tdn-ficha-abierta #estancia .estancia__escena,body.tdn-ficha-abierta #estancia .estancia__opciones{filter:none;transform:none}}
