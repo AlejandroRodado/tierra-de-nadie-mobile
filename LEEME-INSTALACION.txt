@@ -1,1 +1,17 @@
-Copia index.html y favicon.svg en la raíz de la web. Sobrescribe index.html. Solo se ha añadido la línea del favicon al <head>; el resto del HTML permanece intacto. Si el icono no cambia inmediatamente, recarga con Ctrl+F5.
+TIERRA DE NADIE v0.11.6 — MAÑANA MERECE LA PENA POR... (UCI)
+
+1. Ejecuta CONFIGURAR-SUPABASE-RAZONES.sql en Supabase > SQL Editor.
+2. Copia razones-uci-v0116.js a la raíz de tu proyecto web.
+3. Si tu index.html es el de la v0.11.5 y no lo has cambiado, sustitúyelo por el incluido.
+   Si has cambiado tu index.html, NO lo sobrescribas: elimina la línea
+   <script src="votacion-uci-v0112.js" defer></script>
+   y añade en su lugar:
+   <script src="razones-uci-v0116.js" defer></script>
+4. No subas de nuevo animaciones-v080.js de la versión de sonidos.
+5. Comprueba que tu cliente Supabase `db` funciona y que el acceso administrador usa es_admin_comentarios().
+
+RESULTADO: se elimina el botón de apuestas al no cargar su JS; se añade el tablón en UCI.
+El botón Conocer fecha de publicación se conserva.
+La tabla anterior de apuestas no se borra de Supabase.
+Publicación automática, nombre visible, hasta 300 caracteres, múltiples publicaciones y borrado admin.
+NOTA: no se ha probado contra tu Supabase real. Sin CAPTCHA ni límites de frecuencia, existe riesgo de spam.
