@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#180c16"/><stop offset="1" stop-color="#55221e"/></linearGradient><linearGradient id="sun" x2="0" y2="1"><stop stop-color="#ffb26c"/><stop offset=".55" stop-color="#e8523e"/><stop offset="1" stop-color="#9c202b"/></linearGradient><clipPath id="frame"><rect width="64" height="64" rx="14"/></clipPath></defs>
+<g clip-path="url(#frame)"><rect width="64" height="64" fill="url(#sky)"/><circle cx="32" cy="35" r="19" fill="url(#sun)"/><path d="M0 44 Q14 41 25 46 T64 43 V64 H0Z" fill="#28131c"/><path d="M0 52 Q18 47 33 53 T64 49 V64 H0Z" fill="#120d17"/></g>
+</svg>

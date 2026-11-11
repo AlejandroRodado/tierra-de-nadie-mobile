@@ -31,3 +31,101 @@
 @keyframes tdnRecord{to{transform:rotate(360deg)}}
 @media(max-width:540px){.tdn-caja-grid{grid-template-columns:1fr}.tdn-caja-photo img{height:230px}.tdn-caja-contenido{padding:18px}.tdn-caja-video{padding:7px}}
 @media(prefers-reduced-motion:reduce){.tdn-caja-contenido,.tdn-caja-contenido::before,.tdn-caja-record,.tdn-caja-audio-art.playing i{animation:none!important}.tdn-caja-photo,.tdn-caja-photo img,.tdn-caja-spotify-link{transition:none!important}}
+
+/* Caja 13 · Cuaderno de lugares. Mantener las fotografías originales completas. */
+.tdn-caja-bocetos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,22px);margin-top:24px}
+.tdn-caja-boceto{min-width:0;background:linear-gradient(155deg,#302521,#1b181a);border:1px solid #75594b;border-radius:12px;overflow:hidden;box-shadow:0 12px 28px #0005}
+.tdn-caja-boceto__image{display:block;width:100%;padding:12px;border:0;background:#171416;cursor:zoom-in}
+.tdn-caja-boceto__image img{display:block;width:100%;height:clamp(230px,30vw,430px);object-fit:contain;background:#121113;filter:drop-shadow(0 5px 12px #0007);transition:transform .25s}
+.tdn-caja-boceto__image:hover img,.tdn-caja-boceto__image:focus-visible img{transform:scale(1.018)}
+.tdn-caja-boceto__info{padding:16px 18px 20px}.tdn-caja-boceto__index{font-size:.66rem;letter-spacing:.17em;color:#d5a483}.tdn-caja-boceto__info h4{font-size:1.22rem;color:#f2e4d8;margin:9px 0 6px}.tdn-caja-boceto__info p{margin:0;line-height:1.55;font-size:.9rem;color:#dfc9bb}.tdn-caja-boceto__info .tdn-caja-boceto__location{border-top:1px solid #705349;margin-top:14px;padding-top:12px;font-size:.77rem;color:#c7ad9e}.tdn-caja-boceto__location span{color:#e1b08e}
+@media(max-width:850px){.tdn-caja-bocetos{grid-template-columns:1fr}.tdn-caja-boceto__image img{height:min(70vh,540px)}}
+@media(prefers-reduced-motion:reduce){.tdn-caja-boceto__image img{transition:none}}
+
+/* v0.10.1 · Caja NUMERO 13: panel realmente ancho, sin limitarlo a 650px.
+   :has() solo se activa cuando el contenido de los tres bocetos está visible. */
+.archivo__contenido:has(.tdn-caja-bocetos){
+  width:min(96%,1540px);
+  max-width:none;
+}
+.archivo__detalle:has(.tdn-caja-bocetos){
+  width:100%;
+  max-width:none;
+  box-sizing:border-box;
+  padding:clamp(12px,2.5vw,36px);
+}
+.archivo__revelacion:has(.tdn-caja-bocetos){
+  box-sizing:border-box;
+  width:100%;
+  max-width:none;
+  min-width:0;
+  padding:clamp(8px,1.6vw,22px);
+}
+.archivo__revelacion:has(.tdn-caja-bocetos) .tdn-caja-contenido{
+  box-sizing:border-box;
+  width:100%;
+  min-width:0;
+}
+.archivo__revelacion .tdn-caja-bocetos{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:stretch;
+}
+.archivo__revelacion .tdn-caja-boceto__image img{
+  height:clamp(340px,40vw,680px);
+  width:100%;
+  object-fit:contain;
+}
+@media(max-width:900px){
+  .archivo__revelacion .tdn-caja-bocetos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .archivo__revelacion .tdn-caja-boceto__image img{height:clamp(300px,55vw,600px)}
+}
+@media(max-width:620px){
+  .archivo__contenido:has(.tdn-caja-bocetos){width:96%}
+  .archivo__detalle:has(.tdn-caja-bocetos){padding:12px}
+  .archivo__revelacion .tdn-caja-bocetos{grid-template-columns:1fr}
+  .archivo__revelacion .tdn-caja-boceto__image img{height:min(70dvh,650px)}
+}
+
+
+/* v0.10.2 · Caja NUMERO 14: cuaderno en panel ancho y fotografía sin recortes. */
+.archivo__contenido:has(.tdn-caja-cuaderno){width:min(96%,1360px);max-width:none}
+.archivo__detalle:has(.tdn-caja-cuaderno){width:100%;max-width:none;box-sizing:border-box;padding:clamp(10px,2.5vw,32px)}
+.archivo__revelacion:has(.tdn-caja-cuaderno){width:100%;max-width:none;min-width:0;box-sizing:border-box;padding:clamp(8px,1.5vw,20px)}
+.archivo__revelacion:has(.tdn-caja-cuaderno) .tdn-caja-contenido{width:100%;min-width:0;box-sizing:border-box}
+.tdn-caja-cuaderno{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;min-width:0}
+.tdn-caja-cuaderno__photo{display:block;width:100%;padding:clamp(8px,1.5vw,18px);border:1px solid #795b4a;border-radius:12px;background:#171315;cursor:zoom-in;box-sizing:border-box}
+.tdn-caja-cuaderno__photo img{display:block;width:100%;height:auto;max-height:75dvh;object-fit:contain;margin:auto;border-radius:5px;box-shadow:0 10px 32px #0008}
+.tdn-caja-cuaderno__hint{margin:0;text-align:center;font-size:.7rem;letter-spacing:.15em;color:#cda98f}
+@media(max-width:620px){.archivo__contenido:has(.tdn-caja-cuaderno){width:96%}.archivo__detalle:has(.tdn-caja-cuaderno){padding:10px}.tdn-caja-cuaderno__photo img{max-height:75dvh}}
+
+/* v0.10.3 · Caja NUMERO 07: archivo de correspondencia adaptable. */
+.archivo__contenido:has(.tdn-caja-cartas){width:min(96%,1540px);max-width:none}
+.archivo__detalle:has(.tdn-caja-cartas){width:100%;max-width:none;box-sizing:border-box;padding:clamp(12px,2.5vw,34px)}
+.archivo__revelacion:has(.tdn-caja-cartas){width:100%;max-width:none;min-width:0;box-sizing:border-box;padding:clamp(8px,1.5vw,20px)}
+.archivo__revelacion:has(.tdn-caja-cartas) .tdn-caja-contenido{width:100%;min-width:0;box-sizing:border-box}
+.tdn-caja-cartas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.8vw,24px);margin-top:24px}
+.tdn-caja-carta{min-width:0;background:linear-gradient(155deg,#302521,#171518);border:1px solid #745c4f;border-radius:12px;overflow:hidden;box-shadow:0 12px 28px #0006}
+.tdn-caja-carta__preview{display:block;width:100%;border:0;background:#141114;padding:clamp(8px,1.3vw,16px);cursor:zoom-in;box-sizing:border-box}
+.tdn-caja-carta__preview img{display:block;width:100%;height:clamp(280px,36vw,550px);object-fit:contain;border-radius:3px;transition:transform .25s ease}
+.tdn-caja-carta__preview:hover img,.tdn-caja-carta__preview:focus-visible img{transform:scale(1.015)}
+.tdn-caja-carta__details{padding:15px 17px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.tdn-caja-carta__number{font-size:.7rem;letter-spacing:.12em;color:#d7b59d}
+.tdn-caja-carta__action{font-size:.7rem;letter-spacing:.1em;color:#f0d3b9}
+@media(max-width:950px){.tdn-caja-cartas{grid-template-columns:repeat(2,minmax(0,1fr))}.tdn-caja-carta__preview img{height:clamp(300px,55vw,590px)}}
+@media(max-width:620px){.archivo__contenido:has(.tdn-caja-cartas){width:96%}.archivo__detalle:has(.tdn-caja-cartas){padding:10px}.tdn-caja-cartas{grid-template-columns:1fr}.tdn-caja-carta__preview img{height:min(70dvh,650px)}}
+@media(prefers-reduced-motion:reduce){.tdn-caja-carta__preview img{transition:none}}
+
+/* v0.10.4 · Caja 03: Diario · galería de 7 páginas, ancho disponible */
+.archivo__contenido:has(.tdn-caja-diario){width:min(97%,1540px);max-width:none}
+.archivo__detalle:has(.tdn-caja-diario){width:100%;max-width:none;box-sizing:border-box;padding:clamp(10px,2vw,30px)}
+.archivo__revelacion:has(.tdn-caja-diario){width:100%;max-width:none;min-width:0;box-sizing:border-box;padding:clamp(8px,1.4vw,20px)}
+.archivo__revelacion:has(.tdn-caja-diario) .tdn-caja-contenido{width:100%;max-width:none;min-width:0;box-sizing:border-box}
+.tdn-caja-diario{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.8vw,24px);width:100%;margin-top:24px}
+.tdn-caja-diario__page{min-width:0;overflow:hidden;border:1px solid #745c4f;border-radius:12px;background:linear-gradient(155deg,#302521,#171518);box-shadow:0 12px 28px #0006}
+.tdn-caja-diario__image{display:block;width:100%;box-sizing:border-box;padding:clamp(8px,1.2vw,16px);border:0;background:#141114;cursor:zoom-in}
+.tdn-caja-diario__image img{display:block;width:100%;height:clamp(290px,36vw,590px);object-fit:contain;border-radius:4px;transition:transform .25s ease}
+.tdn-caja-diario__image:hover img,.tdn-caja-diario__image:focus-visible img{transform:scale(1.015)}
+.tdn-caja-diario__footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:15px 17px;font-size:.7rem;letter-spacing:.12em;color:#e5c5ac}
+@media(max-width:950px){.tdn-caja-diario{grid-template-columns:repeat(2,minmax(0,1fr))}.tdn-caja-diario__image img{height:clamp(300px,55vw,620px)}}
+@media(max-width:620px){.archivo__contenido:has(.tdn-caja-diario){width:96%}.archivo__detalle:has(.tdn-caja-diario){padding:10px}.tdn-caja-diario{grid-template-columns:1fr}.tdn-caja-diario__image img{height:min(75dvh,760px)}}
+@media(prefers-reduced-motion:reduce){.tdn-caja-diario__image img{transition:none}}

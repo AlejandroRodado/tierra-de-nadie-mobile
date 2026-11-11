@@ -1,0 +1,1 @@
+Copia index.html y favicon.svg en la raíz de la web. Sobrescribe index.html. Solo se ha añadido la línea del favicon al <head>; el resto del HTML permanece intacto. Si el icono no cambia inmediatamente, recarga con Ctrl+F5.

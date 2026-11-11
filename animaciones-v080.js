@@ -34,6 +34,16 @@
       fotografia.style.setProperty('--tdn-escala', Math.max(window.innerWidth / Math.max(rect.width,1), window.innerHeight / Math.max(rect.height,1)) * 1.45);
       capa.appendChild(fotografia);
     }
+    if (tipo === 'entrada') {
+      const ascensor = document.createElement('div');
+      ascensor.className = 'tdn-ascensor';
+      ascensor.innerHTML = `<div class="tdn-ascensor__cabina"><div class="tdn-ascensor__techo"></div><div class="tdn-ascensor__panel"><span class="tdn-ascensor__direccion">↑</span><span class="tdn-ascensor__numero">0</span><small>SUBIENDO</small></div><div class="tdn-ascensor__botonera"><span>3</span><span>2</span><span>1</span><span>0</span></div><div class="tdn-ascensor__suelo"></div></div>`;
+      capa.appendChild(ascensor);
+      const indicador = ascensor.querySelector('.tdn-ascensor__numero');
+      [1, 2, 3].forEach((numero, i) => setTimeout(() => {
+        if (capa.isConnected) indicador.textContent = String(numero);
+      }, 700 + i * 650));
+    }
     if (tipo === 'pasillo') {
       const plano = document.createElement('div');
       plano.className = 'tdn-plano';
@@ -48,8 +58,8 @@
     document.body.append(capa);
     document.body.classList.add('tdn-en-transicion');
     requestAnimationFrame(() => requestAnimationFrame(() => capa.classList.add('activa')));
-    const duracion = tipo === 'archivo' ? 2300 : tipo === 'azotea' ? 1350 : tipo === 'pasillo' ? 1950 : 1250;
-    setTimeout(() => capa.classList.add('abriendo'), 120);
+    const duracion = tipo === 'entrada' ? 3550 : tipo === 'archivo' ? 2300 : tipo === 'azotea' ? 1350 : tipo === 'pasillo' ? 1950 : 1250;
+    setTimeout(() => capa.classList.add('abriendo'), tipo === 'entrada' ? 2650 : 120);
     setTimeout(() => {
       try { continuar(); } finally {
         const espera = tipo === 'entrada' ? 650 : tipo === 'pasillo' ? 80 : 100;

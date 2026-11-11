@@ -1,0 +1,90 @@
+/* Caja 15 · Álbum interactivo. Aislado del resto de la web. */
+.tdn-album{max-width:1100px;margin:12px auto 0;color:#f4e9d8}
+.tdn-album-cover{min-height:420px;display:grid;place-items:center;perspective:1200px;padding:20px}
+.tdn-album-cover-button{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:22px;width:min(370px,85vw);min-height:440px;padding:40px 24px;border:3px solid #77513a;border-left:17px solid #3c2725;border-radius:6px 16px 16px 6px;background:radial-gradient(ellipse at 55% 30%,#614238,#251b1b 78%);box-shadow:16px 22px 40px #0009,inset 0 0 0 2px #b38a5a66;color:#f3dec0;cursor:pointer;transform:rotate(-3deg);transition:transform .4s,box-shadow .4s;text-align:center}
+.tdn-album-cover-button:hover{transform:rotate(0) translateY(-7px);box-shadow:18px 28px 48px #000b}
+.tdn-album-cover-button strong{font:normal clamp(2.2rem,6vw,3.6rem)/1.04 Georgia,serif;max-width:9ch}
+.tdn-album-cover-mark{font-size:.68rem;letter-spacing:.28em}.tdn-album-cover-button>span:nth-of-type(2){font-size:.8rem;color:#d8c2a6}
+.tdn-album-open-hint{margin-top:40px;font-size:.75rem;letter-spacing:.17em;color:#e7ba91}
+.tdn-album-book{animation:tdnAlbumAppear .65s ease both}
+.tdn-album-leaves{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);position:relative;perspective:1500px;filter:drop-shadow(0 16px 28px #0008);isolation:isolate}
+.tdn-album-leaves:after{content:'';position:absolute;z-index:4;pointer-events:none;top:0;bottom:0;left:calc(50% - 8px);width:16px;background:linear-gradient(90deg,#3e2b20aa,transparent 40%,#533e2b88);opacity:.6}
+.tdn-album-page{min-width:0;min-height:clamp(285px,44vw,570px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:clamp(10px,2.5vw,30px);background:repeating-linear-gradient(0deg,transparent 0 3px,#8e735a05 4px),#eee0c6;color:#554132;border:1px solid #c5aa87;box-shadow:inset 0 0 30px #a1876240}
+.tdn-album-page--left{border-radius:8px 0 0 8px}.tdn-album-page--right{border-radius:0 8px 8px 0}
+.tdn-album-picture{display:grid;place-items:center;max-width:100%;width:100%;height:clamp(180px,33vw,410px);padding:clamp(5px,1vw,12px);border:0;background:#fff9ec;box-shadow:0 5px 14px #3e281e55;cursor:zoom-in;transform:rotate(-.5deg);transition:transform .2s}
+.tdn-album-page--right .tdn-album-picture{transform:rotate(.5deg)}
+.tdn-album-picture:hover{transform:rotate(0) scale(1.018)}
+.tdn-album-picture img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}
+.tdn-album-description{min-height:2.7em;margin:0!important;color:#645241!important;font:italic clamp(.7rem,1.5vw,.95rem)/1.4 Georgia,serif!important;text-align:center}
+.tdn-album-page-number{font:.72rem Georgia,serif;color:#92785c}
+.tdn-album-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:20px}
+.tdn-album-nav button,.tdn-album-close{border:1px solid #ab7e60;border-radius:8px;padding:12px 16px;background:#352623;color:#f4dfc9;cursor:pointer}
+.tdn-album-nav button:disabled{opacity:.3;cursor:default}.tdn-album-status{font-size:.8rem;text-align:center;color:#d6b89e}
+.tdn-album-close{display:block;margin:20px auto 0;background:transparent}
+.tdn-album-turn{position:absolute;z-index:6;top:0;bottom:0;width:50%;pointer-events:none;transform-style:preserve-3d;background:#ead9b9;box-shadow:0 5px 24px #0008}
+.tdn-album-turn--forward{right:0;transform-origin:left center;animation:tdnAlbumForward .7s ease-in-out both}
+.tdn-album-turn--back{left:0;transform-origin:right center;animation:tdnAlbumBack .7s ease-in-out both}
+.tdn-album-turn-face{display:grid;place-items:center;height:100%;padding:10%;background:#eadcc1;backface-visibility:hidden}
+.tdn-album-turn-face img{width:100%;height:75%;object-fit:contain;background:#fff9ed;padding:7px;box-shadow:0 4px 12px #0003}
+@keyframes tdnAlbumAppear{from{opacity:0;transform:scale(.94) rotateX(10deg)}to{opacity:1;transform:none}}
+@keyframes tdnAlbumForward{from{transform:rotateY(0)}to{transform:rotateY(-180deg)}}
+@keyframes tdnAlbumBack{from{transform:rotateY(0)}to{transform:rotateY(180deg)}}
+@media(max-width:600px){.tdn-album-page{min-height:270px;padding:8px 5px}.tdn-album-picture{height:clamp(130px,42vw,240px);padding:4px}.tdn-album-description{font-size:.67rem!important}.tdn-album-status{font-size:.68rem}.tdn-album-nav button{padding:10px 8px;font-size:.72rem}.tdn-album-cover-button{min-height:370px}}
+@media(prefers-reduced-motion:reduce){.tdn-album-book,.tdn-album-turn{animation:none!important}.tdn-album-cover-button,.tdn-album-picture{transition:none!important}}
+
+/* v0.9.7 · El álbum abierto se muestra a pantalla completa */
+.tdn-album-book:not([hidden]){position:fixed!important;inset:0!important;z-index:9500!important;display:flex!important;flex-direction:column;justify-content:center;gap:clamp(10px,2vh,22px);width:100vw!important;max-width:none!important;height:100dvh!important;margin:0!important;padding:clamp(12px,2vw,32px)!important;overflow:auto;background:radial-gradient(ellipse at center,#433128,#130f11 80%);box-sizing:border-box}
+.tdn-album-book .tdn-album-leaves{width:min(100%,1700px);margin:0 auto;flex:1 1 auto;min-height:0;max-height:min(78dvh,900px)}
+.tdn-album-book .tdn-album-page{min-height:0;height:100%;gap:clamp(5px,1.2vh,16px);padding:clamp(8px,2vw,28px)}
+.tdn-album-book .tdn-album-picture{flex:1 1 auto;min-height:0;height:auto;max-height:none}
+.tdn-album-book .tdn-album-description{flex:0 0 auto;min-height:2em;font-size:clamp(.75rem,1.2vw,1.05rem)!important}
+.tdn-album-book .tdn-album-nav{width:min(100%,1500px);margin:0 auto;flex:0 0 auto}
+.tdn-album-book .tdn-album-close{margin:0 auto;flex:0 0 auto}
+@media(max-width:600px){.tdn-album-book:not([hidden]){padding:10px 6px!important}.tdn-album-book .tdn-album-page{padding:8px 5px}.tdn-album-book .tdn-album-description{font-size:.7rem!important}.tdn-album-book .tdn-album-leaves{max-height:75dvh}}
+
+/* v0.9.9 · Encuadre corregido: el libro se monta directamente en body para
+   evitar recortes por transformaciones, overflow y límites del modal padre. */
+body > .tdn-album-book:not([hidden]){
+  position:fixed!important;inset:0!important;z-index:2147483000!important;
+  width:100%!important;height:100dvh!important;max-width:none!important;
+  padding:clamp(12px,2.5vw,32px)!important;box-sizing:border-box!important;
+  display:grid!important;grid-template-rows:minmax(0,1fr) auto auto!important;
+  align-items:stretch!important;justify-items:center!important;
+  gap:clamp(8px,1.5vh,16px)!important;overflow-y:auto!important;
+  background:radial-gradient(ellipse at center,#433128,#130f11 80%)!important;
+}
+body > .tdn-album-book .tdn-album-leaves{
+  width:min(100%,1600px)!important;height:100%!important;min-height:0!important;
+  max-height:none!important;align-self:stretch!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+}
+body > .tdn-album-book .tdn-album-page{
+  box-sizing:border-box!important;min-width:0!important;min-height:0!important;
+  height:100%!important;overflow:hidden!important;
+  display:grid!important;grid-template-rows:minmax(0,1fr) auto auto!important;
+  align-items:center!important;justify-items:stretch!important;
+  gap:clamp(5px,1vh,12px)!important;padding:clamp(8px,1.6vw,26px)!important;
+}
+body > .tdn-album-book .tdn-album-picture{
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;min-width:0!important;min-height:0!important;
+  width:100%!important;height:100%!important;max-height:100%!important;
+  overflow:hidden!important;padding:clamp(5px,.8vw,12px)!important;
+}
+body > .tdn-album-book .tdn-album-picture img{
+  display:block!important;width:100%!important;height:100%!important;
+  min-width:0!important;min-height:0!important;object-fit:contain!important;
+}
+body > .tdn-album-book .tdn-album-description{
+  width:100%!important;max-height:clamp(65px,15vh,150px)!important;
+  min-height:0!important;overflow-y:auto!important;overflow-wrap:anywhere!important;
+  font:italic clamp(.75rem,1.05vw,1rem)/1.35 Georgia,serif!important;
+}
+body > .tdn-album-book .tdn-album-nav{width:min(100%,1600px)!important;margin:0!important}
+body > .tdn-album-book .tdn-album-close{margin:0!important}
+@media(max-width:650px){
+ body > .tdn-album-book:not([hidden]){padding:10px 5px!important;gap:8px!important}
+ body > .tdn-album-book .tdn-album-page{padding:8px 5px!important;gap:6px!important}
+ body > .tdn-album-book .tdn-album-description{font-size:clamp(.62rem,2.3vw,.78rem)!important;max-height:25vh!important}
+ body > .tdn-album-book .tdn-album-nav button{font-size:.72rem;padding:10px 7px}
+}

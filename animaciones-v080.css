@@ -102,3 +102,26 @@ body.tdn-en-transicion{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.tdn-plano,.tdn-plano *,.tdn-plano__flash{transition:none!important}}
 
 .tdn-admin-preview{display:block;margin:10px auto;padding:10px 15px;border:1px solid #c7a584;background:#2a2322;color:#f7e9d8;border-radius:5px;cursor:pointer}.tdn-admin-preview[hidden]{display:none!important}
+
+/* v0.9.7 · Ascensor previo a la apertura original de PLANTA 3 */
+.tdn-transicion--entrada .tdn-transicion__fondo{background:radial-gradient(ellipse at 50% 30%,#44484c,#0b0e13 75%)}
+.tdn-transicion--entrada .tdn-transicion__rotulo{opacity:0;transition:opacity .4s ease;z-index:7}
+.tdn-transicion--entrada.abriendo .tdn-transicion__rotulo{opacity:1;transition-delay:.4s}
+.tdn-transicion--entrada .tdn-transicion__hoja{z-index:8;border-right:1px solid #7b8184;background:linear-gradient(90deg,#1c2227,#697078 52%,#292e33 95%)}
+.tdn-transicion--entrada .tdn-transicion__hoja--der{border-left:1px solid #92979b}
+.tdn-ascensor{position:absolute;inset:0;z-index:9;pointer-events:none;transition:opacity .45s ease}
+.tdn-transicion--entrada.abriendo .tdn-ascensor{opacity:0}
+.tdn-ascensor__cabina{position:absolute;inset:0;background:linear-gradient(110deg,#14181e,#30383e 20%,#161b20 50%,#343b42 83%,#13161a);box-shadow:inset 0 0 110px #000}
+.tdn-ascensor__techo{position:absolute;top:0;width:100%;height:16%;background:linear-gradient(#0d1117,#32383d);box-shadow:0 10px 45px #000a}
+.tdn-ascensor__techo:after{content:'';position:absolute;left:30%;right:30%;bottom:10%;height:5px;background:#d6d5c6;box-shadow:0 0 40px 15px #d7cba933}
+.tdn-ascensor__panel{position:absolute;left:50%;top:30%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:20px;width:min(420px,78vw);padding:20px 18px;border:7px solid #171b1f;border-radius:10px;background:#090e12;box-shadow:0 0 0 2px #72787c,0 15px 45px #000a;color:#ff684c;font:700 clamp(2.4rem,8vw,5rem) monospace;text-shadow:0 0 18px #f44a35aa}
+.tdn-ascensor__direccion{animation:tdn-ascensor-flecha .65s ease-in-out infinite alternate}
+.tdn-ascensor__panel small{position:absolute;bottom:5px;right:10px;color:#b2b8b9;font:600 10px sans-serif;letter-spacing:.22em;text-shadow:none}
+.tdn-ascensor__botonera{position:absolute;right:clamp(12px,9vw,130px);top:58%;display:grid;grid-template-columns:repeat(2,34px);gap:12px;padding:15px;border:2px solid #555d62;background:#1d2228;border-radius:8px;box-shadow:0 12px 35px #0009}
+.tdn-ascensor__botonera span{display:grid;place-items:center;width:34px;height:34px;border:2px solid #7c868b;border-radius:50%;background:#292f35;color:#d7d9d8;font:600 13px sans-serif}
+.tdn-ascensor__botonera span:first-child{border-color:#f1bfa5;box-shadow:0 0 12px #e67a5455}
+.tdn-ascensor__suelo{position:absolute;bottom:0;width:100%;height:12%;background:linear-gradient(#343b41,#15191e);border-top:3px solid #697177}
+.tdn-transicion--entrada .tdn-ascensor__cabina{animation:tdn-ascensor-subida 2.65s ease-in-out both}
+@keyframes tdn-ascensor-flecha{to{transform:translateY(-7px);opacity:.6}}
+@keyframes tdn-ascensor-subida{0%,100%{transform:translateY(0)}15%,80%{transform:translateY(4px)}40%,65%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.tdn-ascensor *{animation:none!important}}
