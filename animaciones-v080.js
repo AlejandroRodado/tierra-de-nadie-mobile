@@ -34,16 +34,6 @@
       fotografia.style.setProperty('--tdn-escala', Math.max(window.innerWidth / Math.max(rect.width,1), window.innerHeight / Math.max(rect.height,1)) * 1.45);
       capa.appendChild(fotografia);
     }
-    if (tipo === 'entrada') {
-      const ascensor = document.createElement('div');
-      ascensor.className = 'tdn-ascensor';
-      ascensor.innerHTML = `<div class="tdn-ascensor__cabina"><div class="tdn-ascensor__techo"></div><div class="tdn-ascensor__panel"><span class="tdn-ascensor__direccion">↑</span><span class="tdn-ascensor__numero">0</span><small>SUBIENDO</small></div><div class="tdn-ascensor__botonera"><span>3</span><span>2</span><span>1</span><span>0</span></div><div class="tdn-ascensor__suelo"></div></div>`;
-      capa.appendChild(ascensor);
-      const indicador = ascensor.querySelector('.tdn-ascensor__numero');
-      [1, 2, 3].forEach((numero, i) => setTimeout(() => {
-        if (capa.isConnected) indicador.textContent = String(numero);
-      }, 700 + i * 650));
-    }
     if (tipo === 'pasillo') {
       const plano = document.createElement('div');
       plano.className = 'tdn-plano';
@@ -55,11 +45,36 @@
       flash.className = 'tdn-plano__flash';
       capa.appendChild(flash);
     }
+    if (tipo === 'azotea') {
+      capa.querySelector('.tdn-transicion__rotulo').textContent = '';
+      const ascensor = document.createElement('div');
+      ascensor.className = 'tdn-ascensor7';
+      ascensor.innerHTML = `<div class="tdn-ascensor7__cabina">
+        <div class="tdn-ascensor7__techo"></div>
+        <div class="tdn-ascensor7__indicador" aria-label="Planta 3">03</div>
+        <div class="tdn-ascensor7__marco">
+          <div class="tdn-ascensor7__exterior"></div>
+          <div class="tdn-ascensor7__puerta tdn-ascensor7__puerta--izq"></div>
+          <div class="tdn-ascensor7__puerta tdn-ascensor7__puerta--der"></div>
+        </div>
+        <div class="tdn-ascensor7__suelo"></div>
+      </div>`;
+      capa.appendChild(ascensor);
+      const indicador = ascensor.querySelector('.tdn-ascensor7__indicador');
+      [3,4,5,6,7].forEach((planta, indice) => {
+        setTimeout(() => {
+          if (!capa.isConnected) return;
+          indicador.textContent = String(planta).padStart(2, '0');
+          indicador.setAttribute('aria-label', 'Planta ' + planta);
+          if (planta === 7) capa.classList.add('tdn-ascensor7__llegada');
+        }, 420 + indice * 580);
+      });
+    }
     document.body.append(capa);
     document.body.classList.add('tdn-en-transicion');
     requestAnimationFrame(() => requestAnimationFrame(() => capa.classList.add('activa')));
-    const duracion = tipo === 'entrada' ? 3550 : tipo === 'archivo' ? 2300 : tipo === 'azotea' ? 1350 : tipo === 'pasillo' ? 1950 : 1250;
-    setTimeout(() => capa.classList.add('abriendo'), tipo === 'entrada' ? 2650 : 120);
+    const duracion = tipo === 'archivo' ? 2300 : tipo === 'azotea' ? 3700 : tipo === 'pasillo' ? 1950 : 1250;
+    setTimeout(() => capa.classList.add('abriendo'), tipo === 'azotea' ? 3000 : 120);
     setTimeout(() => {
       try { continuar(); } finally {
         const espera = tipo === 'entrada' ? 650 : tipo === 'pasillo' ? 80 : 100;
