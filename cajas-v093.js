@@ -3,7 +3,7 @@
   const root='contenido-cajas/';
   const content={
     1:{kind:'notebook',kicker:'UN TESTIMONIO PERSONAL',title:'Cronología de un empeoramiento de salud mental',intro:'Escrito durante un atardecer.',file:'caja01-cronologia.jpeg'},
-    2:{kind:'video-solo',kicker:'UNA PROSA POÉTICA · CAJA 02',title:'EL AGUJERO',intro:'Ponte los cascos, túmbate y prepárate para entrar a mi cabeza.',file:'caja02-el-agujero.mp4'},
+    2:{kind:'album',kicker:'CAJA 02 · ÁLBUM',title:'Álbum de recuerdos',intro:'Treinta y seis fotografías. Una historia que se recorre página a página.'},
     3:{kind:'diary',kicker:'PÁGINAS DE UN CUADERNO',title:'Diario',intro:'Las primeras pesadillas, sueños conscientes y tonterías.',items:[['caja03-diario-01.jpeg','Página 01 del diario'],['caja03-diario-02.jpeg','Página 02 del diario'],['caja03-diario-03.jpeg','Página 03 del diario'],['caja03-diario-04.jpeg','Página 04 del diario'],['caja03-diario-05.jpeg','Página 05 del diario'],['caja03-diario-06.jpeg','Página 06 del diario'],['caja03-diario-07.jpeg','Página 07 del diario']]},
     4:{kind:'gallery',kicker:'CONVERSACIONES GUARDADAS',title:'Conversaciones',intro:'Dos conversaciones conservadas en capturas de pantalla. Pulsa para leerlas en grande.',items:[['caja02-chat-01.jpeg','Conversación · 8 de abril de 2023'],['caja02-chat-02.jpeg','Conversación · 23 de mayo de 2023']]},
     10:{kind:'gallery',kicker:'ÁLBUM DE RECUERDOS',title:'Lo que quedó de nosotros',intro:'Dos fotografías de una historia. Toca cada recuerdo para verlo con detalle.',items:[['caja02-foto-01.png','Fotografía I'],['caja02-foto-02.png','Fotografía II']]},
@@ -16,7 +16,7 @@
     12:{kind:'gallery',kicker:'PALABRAS QUE COSTÓ ESCRIBIR',title:'Pedir ayuda',intro:'Tres mensajes. Una conversación que también forma parte de esta historia.',items:[['caja12-mensaje-01.jpeg','Mensaje I'],['caja12-mensaje-02.jpeg','Mensaje II'],['caja12-mensaje-03.jpeg','Respuesta']]},
     13:{kind:'sketches',kicker:'TRES LUGARES · TRES MOMENTOS',title:'Lugares dibujados a mano',intro:'Tres páginas de un cuaderno. Tres lugares que guardan su propia historia.',items:[['caja13-solagua.jpeg','Solagua','Las pistas de fútbol','Solagua · Leganés'],['caja13-zarzaquemada.jpeg','Zarzaquemada','Mi habitación por las noches','Zarzaquemada · Leganés'],['caja13-castizo.jpeg','Castizo','Cuando voy a tomarme los dobles solo','Castizo']]},
     14:{kind:'notebook',kicker:'UNA PÁGINA PERSONAL',title:'problemas',intro:'Preparandome para saber qué decirle a la psicóloga.',file:'caja14-problemas.jpeg'},
-    15:{kind:'album',kicker:'CAJA 15 · EPÍLOGO',title:'Álbum de recuerdos',intro:'Treinta y seis fotografías. Una historia que se recorre página a página.'}
+    15:{kind:'video-solo',kicker:'UNA PROSA POÉTICA · CAJA 15',title:'EL AGUJERO',intro:'Ponte los cascos, túmbate y prepárate para entrar a mi cabeza.',file:'caja02-el-agujero.mp4'}
   };
   const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};
   const a=(src,alt,cls)=>{const i=el('img',cls);i.src=root+src;i.alt=alt;i.loading='lazy';i.decoding='async';return i;};
@@ -105,7 +105,7 @@
       }
       const wrap=el('div','tdn-agujero');const frame=el('div','tdn-agujero__frame');
       const video=el('video','tdn-agujero__video');video.controls=true;video.preload='metadata';video.playsInline=true;
-      video.setAttribute('aria-label','EL AGUJERO, cortometraje de la Caja 02');
+      video.setAttribute('aria-label','EL AGUJERO, cortometraje de la Caja 15');
       const source=el('source');source.src=root+data.file;source.type='video/mp4';video.append(source);
       video.append(document.createTextNode('Tu navegador no admite la reproducción de vídeo.'));
       frame.append(video);wrap.append(frame,el('p','tdn-agujero__note','Una experiencia para escuchar con calma. Reproducción bajo tu control.'));

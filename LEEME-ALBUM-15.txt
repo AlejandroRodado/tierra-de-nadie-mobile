@@ -1,6 +1,0 @@
-ÁLBUM CAJA NUMERO 15
-36 fotografías en contenido-cajas/album-15/01.jpeg a 36.jpeg.
-El orden es numérico, no alfabético.
-Para añadir descripciones: editar el array descriptions en cajas-v093.js, en el bloque kind===album. Cada entrada corresponde a una fotografía, del 1 al 36.
-Se mantiene la contraseña actual de la caja 15.
-Las imágenes alojadas en una web pública son accesibles por URL aunque la caja esté bloqueada mediante JavaScript. No publiques fotografías privadas sin autorización y sin controles de acceso adecuados.

@@ -1,7 +1,0 @@
-Tierra de Nadie v0.10.1 — Ajuste de anchura de la Caja 13
-
-Se amplía el panel del Archivo únicamente cuando está abierto el contenido de la caja con NUMERO 13.
-En ordenador: panel de hasta 1540px, con tres dibujos en columnas.
-En tablet: dos columnas. En móvil: una columna.
-Las imágenes conservan su proporción y se pueden ampliar como antes.
-Sin cambios en contraseñas, otras cajas, álbum o animaciones.

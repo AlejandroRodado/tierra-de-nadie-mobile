@@ -1,7 +1,0 @@
-TIERRA DE NADIE · CAJA 03 · DIARIO
-
-Copia los archivos y la carpeta contenido-cajas/ en la raíz de tu proyecto, conservando la estructura.
-Sustituye cajas-v093.js y cajas-v093.css por los incluidos.
-No hace falta cambiar index.html si ya tienes enlazados esos archivos.
-Se mantienen las demás cajas de la versión v0.10.3.
-Esta actualización asigna el diario a la CAJA 03, no a la 14.
