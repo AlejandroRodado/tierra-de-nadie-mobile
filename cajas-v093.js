@@ -3,6 +3,7 @@
   const root='contenido-cajas/';
   const content={
     1:{kind:'notebook',kicker:'UN TESTIMONIO PERSONAL',title:'Cronología de un empeoramiento de salud mental',intro:'Escrito durante un atardecer.',file:'caja01-cronologia.jpeg'},
+    2:{kind:'video-solo',kicker:'UNA PROSA POÉTICA · CAJA 02',title:'EL AGUJERO',intro:'Ponte los cascos, túmbate y prepárate para entrar a mi cabeza.',file:'caja02-el-agujero.mp4'},
     3:{kind:'diary',kicker:'PÁGINAS DE UN CUADERNO',title:'Diario',intro:'Las primeras pesadillas, sueños conscientes y tonterías.',items:[['caja03-diario-01.jpeg','Página 01 del diario'],['caja03-diario-02.jpeg','Página 02 del diario'],['caja03-diario-03.jpeg','Página 03 del diario'],['caja03-diario-04.jpeg','Página 04 del diario'],['caja03-diario-05.jpeg','Página 05 del diario'],['caja03-diario-06.jpeg','Página 06 del diario'],['caja03-diario-07.jpeg','Página 07 del diario']]},
     4:{kind:'gallery',kicker:'CONVERSACIONES GUARDADAS',title:'Conversaciones',intro:'Dos conversaciones conservadas en capturas de pantalla. Pulsa para leerlas en grande.',items:[['caja02-chat-01.jpeg','Conversación · 8 de abril de 2023'],['caja02-chat-02.jpeg','Conversación · 23 de mayo de 2023']]},
     10:{kind:'gallery',kicker:'ÁLBUM DE RECUERDOS',title:'Lo que quedó de nosotros',intro:'Dos fotografías de una historia. Toca cada recuerdo para verlo con detalle.',items:[['caja02-foto-01.png','Fotografía I'],['caja02-foto-02.png','Fotografía II']]},
@@ -92,6 +93,23 @@
       const audio=el('audio','tdn-caja-player');audio.controls=true;audio.preload='metadata';audio.src=root+data.file;audio.setAttribute('aria-label','Grabación de la Caja 05');card.append(audio);
       const tools=el('div','tdn-caja-audio-actions');for(const [label,delta] of [['↶ 10 s',-10],['10 s ↷',10]]){const b=el('button','',label);b.type='button';b.addEventListener('click',()=>{if(Number.isFinite(audio.duration))audio.currentTime=Math.max(0,Math.min(audio.duration,audio.currentTime+delta));});tools.append(b);}card.append(tools);
       audio.addEventListener('play',()=>visual.classList.add('playing'));audio.addEventListener('pause',()=>visual.classList.remove('playing'));
+    }
+    if(data.kind==='video-solo'){
+      if(!document.getElementById('tdn-caja02-style')){
+        const style=el('style');style.id='tdn-caja02-style';style.textContent=`
+          .tdn-agujero{max-width:960px;margin:1.8rem auto 0}
+          .tdn-agujero__frame{overflow:hidden;border:1px solid rgba(215,153,145,.38);border-radius:15px;background:#08070b;box-shadow:0 18px 55px rgba(0,0,0,.45)}
+          .tdn-agujero__video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#08070b;object-fit:contain}
+          .tdn-agujero__note{text-align:center;color:#cbaaa7;font-size:.88rem;letter-spacing:.035em;margin:1rem 0;line-height:1.65}
+        `;document.head.append(style);
+      }
+      const wrap=el('div','tdn-agujero');const frame=el('div','tdn-agujero__frame');
+      const video=el('video','tdn-agujero__video');video.controls=true;video.preload='metadata';video.playsInline=true;
+      video.setAttribute('aria-label','EL AGUJERO, cortometraje de la Caja 02');
+      const source=el('source');source.src=root+data.file;source.type='video/mp4';video.append(source);
+      video.append(document.createTextNode('Tu navegador no admite la reproducción de vídeo.'));
+      frame.append(video);wrap.append(frame,el('p','tdn-agujero__note','Una experiencia para escuchar con calma. Reproducción bajo tu control.'));
+      card.append(wrap);
     }
     if(data.kind==='video'){
       const stack=el('div','tdn-caja-videos');data.items.forEach(([file,label],i)=>{const item=el('article','tdn-caja-video');item.append(el('div','tdn-caja-video-label',`0${i+1} / 02 · ${label}`));const video=el('video','');video.controls=true;video.preload='metadata';video.playsInline=true;video.src=root+file;video.setAttribute('aria-label',label);video.addEventListener('play',()=>stack.querySelectorAll('video').forEach(v=>{if(v!==video)v.pause();}));item.append(video);stack.append(item);});card.append(stack);

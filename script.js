@@ -1353,39 +1353,55 @@ volverArchivo.addEventListener('click', () => {
 
 // SELECCIONAR CAJA
 
-function seleccionarCaja(numero) {
+let consultaCajaActual = 0;
 
-    cajaSeleccionada = cajasArchivo.find(
-        caja => caja.numero === numero
-    );
-
+async function seleccionarCaja(numero) {
+    const consulta = ++consultaCajaActual;
+    cajaSeleccionada = cajasArchivo.find(caja => caja.numero === numero);
     if (!cajaSeleccionada) return;
 
+    const caja = cajaSeleccionada;
     archivoDetalle.hidden = false;
     archivoMensaje.textContent = '';
     archivoClave.value = '';
-
-    archivoCajaTitulo.textContent =
-        `Caja ${String(numero).padStart(2, '0')}`;
-
+    archivoCajaTitulo.textContent = `Caja ${String(numero).padStart(2, '0')}`;
     archivoCajaDescripcion.textContent =
         'Introduce la contraseña que has descubierto al leer el capítulo.';
 
+    // Mostrar el formulario por defecto: nunca conceder acceso basándose
+    // únicamente en un estado local o en un botón oculto.
+    archivoFormClave.hidden = false;
+    archivoRevelacion.hidden = true;
+    archivoRevelacion.replaceChildren();
+
     if (cajasAbiertas.has(numero)) {
-        revelarCaja(cajaSeleccionada);
+        revelarCaja(caja);
     } else {
-        archivoFormClave.hidden = false;
-        archivoRevelacion.hidden = true;
-        archivoRevelacion.replaceChildren();
+        archivoMensaje.textContent = 'Comprobando acceso de administrador…';
+        try {
+            // RPC existente en el proyecto, validada por Supabase.
+            const { data: admin, error } = await db.rpc('es_admin_comentarios');
+            if (consulta !== consultaCajaActual || cajaSeleccionada !== caja) return;
+            if (!error && admin === true) {
+                archivoCajaDescripcion.textContent = 'Vista previa de administrador · sin contraseña.';
+                archivoMensaje.textContent = '';
+                revelarCaja(caja);
+            } else {
+                archivoMensaje.textContent = '';
+            }
+        } catch (error) {
+            if (consulta === consultaCajaActual) {
+                console.warn('No se pudo comprobar el acceso de administrador:', error);
+                archivoMensaje.textContent = '';
+            }
+        }
     }
 
     archivoDetalle.scrollIntoView({
-        behavior: window.matchMedia(
-            '(prefers-reduced-motion: reduce)'
-        ).matches ? 'instant' : 'smooth',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            ? 'instant' : 'smooth',
         block: 'start'
     });
-
 }
 
 
