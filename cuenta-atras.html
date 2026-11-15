@@ -1,13 +1,120 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#291424"><title>Cuenta atrás | Tierra de Nadie</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#291424;color:#fff;font-family:Montserrat,Arial,sans-serif}.escena{height:100vh;height:100dvh;position:relative;overflow:hidden;isolation:isolate}.fondo{position:absolute;inset:0;background:url('./imagenes/cuenta-atras.jpg') center/cover no-repeat;z-index:-3}.velo{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,9,25,.24),rgba(20,9,25,.08) 40%,rgba(20,9,25,.48));z-index:-2}.palabras{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}.palabra{position:absolute;top:0;left:0;white-space:nowrap;font-size:clamp(10px,1.3vw,18px);font-weight:500;letter-spacing:.11em;color:#f5d8d8;opacity:0;text-shadow:0 2px 14px #0008;will-change:transform,opacity;animation:viajar var(--duracion) linear var(--retraso) infinite}.palabra.destacada{font-weight:800;font-size:clamp(15px,2vw,27px);color:#ffc18c;text-shadow:0 0 12px #ff9c6588,0 0 30px #ff9c6544}@keyframes viajar{0%{opacity:0;transform:translate3d(var(--inicio-x),var(--inicio-y),0)}12%{opacity:var(--opacidad)}65%{opacity:var(--opacidad)}92%,100%{opacity:0;transform:translate3d(var(--final-x),var(--final-y),0)}}.titulo{position:absolute;z-index:4;top:7%;width:100%;margin:0;text-align:center;font:600 clamp(27px,5vw,56px) 'Cormorant Garamond',serif;letter-spacing:.16em;text-shadow:0 3px 20px #0008}.centro{position:absolute;z-index:4;top:45%;left:50%;transform:translate(-50%,-50%);width:min(94%,680px);text-align:center;padding:28px 10px}.centro:before{content:'';position:absolute;z-index:-1;inset:-35px -10px;background:radial-gradient(ellipse,#230c1fb8 0%,#230c1f50 48%,transparent 75%);pointer-events:none}.subtitulo{font-size:clamp(9px,1.4vw,12px);letter-spacing:.28em;font-weight:600;color:#f9c6b2;margin:0 0 19px}.contador{display:flex;justify-content:center;align-items:center;gap:clamp(2px,1.3vw,15px);font-variant-numeric:tabular-nums}.unidad{min-width:0;display:flex;flex-direction:column;align-items:center;gap:9px}.numero{font:600 clamp(39px,9vw,100px)/1 'Cormorant Garamond',serif;color:#fff4eb;text-shadow:0 0 28px #ffaa7b55}.etiqueta{font-size:clamp(7px,1.05vw,10px);letter-spacing:.12em;color:#f3d1c9}.separador{font:500 clamp(35px,7vw,80px) 'Cormorant Garamond',serif;color:#f8b998;margin-bottom:21px;opacity:.85}.pie{position:absolute;z-index:4;bottom:5%;width:100%;text-align:center;font-size:clamp(9px,1.2vw,12px);letter-spacing:.2em;color:#ffe1d2;text-shadow:0 2px 12px #000}.final{display:none}.final h2{font:600 clamp(32px,6vw,60px) 'Cormorant Garamond',serif;margin:0 0 22px}.final a{display:inline-block;color:white;text-decoration:none;padding:15px 25px;border:1px solid #ffd2becb;border-radius:3px;font-size:11px;letter-spacing:.15em;background:#280f1e88}.final a:hover{background:#96374ba6}@media(max-width:600px){.titulo{top:8%;font-size:30px}.centro{top:43%;width:100%;padding:20px 5px}.numero{font-size:clamp(40px,10.5vw,65px)}.separador{font-size:40px;margin-bottom:19px}.palabra{font-size:10px;letter-spacing:.06em}.palabra.destacada{font-size:15px}.pie{bottom:6%}}@media(prefers-reduced-motion:reduce){.palabra{animation:none;opacity:.45}}
-</style></head><body><main class="escena"><div class="fondo"></div><div class="velo"></div><div class="palabras" id="palabras"></div><h1 class="titulo">TIERRA DE NADIE</h1><section class="centro"><div id="cuenta"><p class="subtitulo">ALGO ESTÁ A PUNTO DE COMENZAR</p><div class="contador"><div class="unidad"><span class="numero" id="dias">00</span><span class="etiqueta">DÍAS</span></div><span class="separador">:</span><div class="unidad"><span class="numero" id="horas">00</span><span class="etiqueta">HORAS</span></div><span class="separador">:</span><div class="unidad"><span class="numero" id="minutos">00</span><span class="etiqueta">MINUTOS</span></div><span class="separador">:</span><div class="unidad"><span class="numero" id="segundos">00</span><span class="etiqueta">SEGUNDOS</span></div></div></div><div class="final" id="final"><h2>TIERRA DE NADIE YA ESTÁ AQUÍ</h2><a href="./index.html">ENTRAR EN EL HOSPITAL</a></div></section><p class="pie">UNA HISTORIA DE ALEJANDRO RODADO</p></main>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#291424;color:#fff;font-family:Montserrat,Arial,sans-serif}.escena{height:100vh;height:100dvh;position:relative;overflow:hidden;isolation:isolate}.fondo{position:absolute;inset:0;background:url('./imagenes/cuenta-atras.jpg') center/cover no-repeat;z-index:-3;animation:acercamiento 35s ease-in-out infinite alternate;transform-origin:center center}@keyframes acercamiento{from{transform:scale(1)}to{transform:scale(1.055)}}.velo{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,9,25,.24),rgba(20,9,25,.08) 40%,rgba(20,9,25,.48));z-index:-2}.palabras{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;-webkit-mask-image:radial-gradient(ellipse min(47vw,370px) 150px at 50% 45%,transparent 57%,rgba(0,0,0,.20) 76%,#000 100%);mask-image:radial-gradient(ellipse min(47vw,370px) 150px at 50% 45%,transparent 57%,rgba(0,0,0,.20) 76%,#000 100%)}.palabra{position:absolute;top:0;left:0;white-space:nowrap;font-size:clamp(10px,1.3vw,18px);font-weight:500;letter-spacing:.11em;color:#f5d8d8;opacity:0;text-shadow:0 2px 14px #0008;will-change:transform,opacity;animation:viajar var(--duracion) linear var(--retraso) infinite}.palabra.destacada{animation:viajar var(--duracion) linear var(--retraso) infinite,brillo 6s ease-in-out infinite; font-weight:800;font-size:clamp(15px,2vw,27px);color:#ffc18c;text-shadow:0 0 12px #ff9c6588,0 0 30px #ff9c6544}@keyframes brillo{0%,75%,100%{text-shadow:0 0 12px #ff9c6588,0 0 30px #ff9c6544}84%{text-shadow:0 0 22px #ffcd9bd9,0 0 40px #ff9c6588}}@keyframes viajar{0%{opacity:0;transform:translate3d(var(--inicio-x),var(--inicio-y),0)}12%{opacity:var(--opacidad)}65%{opacity:var(--opacidad)}92%,100%{opacity:0;transform:translate3d(var(--final-x),var(--final-y),0)}}.titulo{position:absolute;z-index:4;top:7%;width:100%;margin:0;text-align:center;font:600 clamp(27px,5vw,56px) 'Cormorant Garamond',serif;letter-spacing:.16em;text-shadow:0 3px 20px #0008}.centro{position:absolute;z-index:4;top:45%;left:50%;transform:translate(-50%,-50%);width:min(94%,680px);text-align:center;padding:28px 10px}.centro:before{content:'';position:absolute;z-index:-1;inset:-35px -10px;background:radial-gradient(ellipse,#230c1fb8 0%,#230c1f50 48%,transparent 75%);pointer-events:none}.subtitulo{display:flex;align-items:center;justify-content:center;gap:clamp(7px,2vw,22px);white-space:nowrap;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(16px,2vw,23px);letter-spacing:.17em;font-weight:500;color:#f9c6b2;margin:0 0 19px}.subtitulo:before,.subtitulo:after{content:'';height:1px;width:clamp(14px,5vw,58px);flex-shrink:0;background:linear-gradient(90deg,transparent,#dca48b)}.subtitulo:after{transform:rotate(180deg)}.contador{display:flex;justify-content:center;align-items:center;gap:clamp(2px,1.3vw,15px);font-variant-numeric:tabular-nums}.unidad{min-width:0;display:flex;flex-direction:column;align-items:center;gap:9px}.numero{font:600 clamp(44px,9vw,100px)/1.05 'Cormorant Garamond',Georgia,serif;color:#fff4eb;text-shadow:none}.etiqueta{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(11px,1.4vw,15px);letter-spacing:.14em;color:#f3d1c9}.separador{font:500 clamp(35px,7vw,75px) 'Cormorant Garamond',Georgia,serif;color:#f8b998;margin-bottom:21px;opacity:.85}.pie{position:absolute;z-index:4;bottom:5%;width:100%;text-align:center;font-size:clamp(9px,1.2vw,12px);letter-spacing:.2em;color:#ffe1d2;text-shadow:0 2px 12px #000}.final{display:none}.final h2{font:600 clamp(32px,6vw,60px) 'Cormorant Garamond',serif;margin:0 0 22px}.final a{display:inline-block;color:white;text-decoration:none;padding:15px 25px;border:1px solid #ffd2becb;border-radius:3px;font-size:11px;letter-spacing:.15em;background:#280f1e88}.final a:hover{background:#96374ba6}@media(max-width:600px){.palabras{-webkit-mask-image:radial-gradient(ellipse 48vw 112px at 50% 43%,transparent 58%,rgba(0,0,0,.14) 77%,#000 100%);mask-image:radial-gradient(ellipse 48vw 112px at 50% 43%,transparent 58%,rgba(0,0,0,.14) 77%,#000 100%)}.titulo{top:8%;font-size:30px}.centro{top:43%;width:100%;padding:20px 5px}.numero{font-size:clamp(44px,11vw,65px)}.separador{font-size:34px;margin-bottom:19px}.palabra{font-size:10px;letter-spacing:.06em}.palabra.destacada{font-size:15px}.pie{bottom:6%}.subtitulo{font-size:clamp(11px,3vw,16px);letter-spacing:.045em;gap:5px}.subtitulo:before,.subtitulo:after{width:10px}}@media(prefers-reduced-motion:reduce){.palabra{animation:none;opacity:.45}.fondo{animation:none}}
+
+/* Acceso de administrador, independiente del contador */
+.tdn-admin-entry{position:absolute;z-index:10;bottom:11%;left:50%;transform:translateX(-50%);border:1px solid #f5d6c177;color:#ffe7d8;background:#24121caa;padding:11px 17px;border-radius:3px;letter-spacing:.16em;font:600 10px Montserrat,Arial,sans-serif;cursor:pointer;white-space:nowrap}
+.tdn-admin-entry:hover{background:#4b2439ee}
+.tdn-admin-overlay[hidden]{display:none!important}
+.tdn-admin-overlay{position:fixed;z-index:100;inset:0;display:grid;place-items:center;background:#100911c9;padding:18px;backdrop-filter:blur(7px)}
+.tdn-admin-panel{position:relative;width:min(100%,410px);max-height:90dvh;overflow:auto;background:#291724;color:#fff1e8;border:1px solid #d5a48b88;padding:30px 25px;box-shadow:0 20px 70px #0008;font-family:Montserrat,Arial,sans-serif}
+.tdn-admin-panel h2{font:600 35px 'Cormorant Garamond',Georgia,serif;margin:8px 0 22px}
+.tdn-admin-panel p.tdn-admin-overline{color:#dcb69f;font-size:10px;letter-spacing:.17em}
+.tdn-admin-panel label{display:block;font-size:12px;margin:14px 0 6px}
+.tdn-admin-panel input{display:block;width:100%;padding:12px;background:#150e17;color:white;border:1px solid #c7a9a18a;border-radius:2px;font:inherit;font-size:14px}
+.tdn-admin-submit{width:100%;margin-top:20px;background:#b5826e;color:#170d12;border:0;padding:13px;cursor:pointer;font:700 11px Montserrat,Arial,sans-serif;letter-spacing:.12em}
+.tdn-admin-submit:disabled{opacity:.6;cursor:wait}
+.tdn-admin-close{position:absolute;right:15px;top:12px;border:0;background:none;color:white;font-size:26px;cursor:pointer}
+.tdn-admin-message{font-size:12px;min-height:18px;margin-top:13px;color:#ffd5bc;line-height:1.5}
+@media(max-height:540px){.tdn-admin-entry{bottom:4%}}
+</style></head><body><main class="escena"><div class="fondo"></div><div class="velo"></div><div class="palabras" id="palabras"></div><section class="centro"><div id="cuenta"><p class="subtitulo">MIÉRCOLES 18 DE NOVIEMBRE DE 2026, 21:00</p><div class="contador"><div class="unidad"><span class="numero" id="dias">00</span><span class="etiqueta">DÍAS</span></div><span class="separador">:</span><div class="unidad"><span class="numero" id="horas">00</span><span class="etiqueta">HORAS</span></div><span class="separador">:</span><div class="unidad"><span class="numero" id="minutos">00</span><span class="etiqueta">MINUTOS</span></div><span class="separador">:</span><div class="unidad"><span class="numero" id="segundos">00</span><span class="etiqueta">SEGUNDOS</span></div></div></div><div class="final" id="final"><h2>TIERRA DE NADIE YA ESTÁ AQUÍ</h2><a href="./index.html">ENTRAR EN EL HOSPITAL</a></div></section><p class="pie">UNA HISTORIA DE ALEJANDRO RODADO</p><button type="button" class="tdn-admin-entry" id="tdnAdminAbrir">ACCESO ADMINISTRADOR</button>
+<div class="tdn-admin-overlay" id="tdnAdminModal" hidden>
+  <section class="tdn-admin-panel" role="dialog" aria-modal="true" aria-labelledby="tdnAdminTitulo">
+    <button type="button" class="tdn-admin-close" id="tdnAdminCerrar" aria-label="Cerrar">×</button>
+    <p class="tdn-admin-overline">TIERRA DE NADIE · PERSONAL AUTORIZADO</p>
+    <h2 id="tdnAdminTitulo">Acceso administrador</h2>
+    <form id="tdnAdminForm">
+      <label for="tdnAdminEmail">Correo electrónico</label><input id="tdnAdminEmail" type="email" autocomplete="username" required>
+      <label for="tdnAdminPassword">Contraseña</label><input id="tdnAdminPassword" type="password" autocomplete="current-password" required>
+      <button type="submit" class="tdn-admin-submit">INICIAR SESIÓN</button>
+    </form>
+    <p class="tdn-admin-message" id="tdnAdminMensaje" role="status" aria-live="polite"></p>
+  </section>
+</div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // 18 de noviembre de 2026, 21:00, hora peninsular española.
 const FECHA_ESTRENO=new Date('2026-11-18T21:00:00+01:00');
+// Al finalizar, cargar la portada original sin mostrar una pantalla intermedia.
+if(Date.now()>=FECHA_ESTRENO.getTime()) window.location.replace('./index.html');
 const palabras=['EXAGERADO','ENAMORADO','DIFERENTE','ESCRITOR','RUBIO','RETORCIDO','INTROVERTIDO','ANSIOSO','POETA','PENSADOR','ESTUDIANTE','FEO','INÚTIL','HERMANO','HIJO','AMIGO','MISTERIOSO','SOÑADOR','SOLITARIO','SENSIBLE','INSEGURO','VALIENTE','COBARDE','CALLADO','RARO','INTENSO','FRÁGIL','FUERTE','PERDIDO','ROTO','CREATIVO','IMPERFECTO','INCOMPRENDIDO','MELANCÓLICO','NOSTÁLGICO','OBSERVADOR','IMAGINATIVO','DESPISTADO','CURIOSO','APASIONADO','TÍMIDO','MIEDOSO','INQUIETO','REFLEXIVO','VULNERABLE','HUMANO','DESCONOCIDO'];
 const destacadas=new Set(['EXAGERADO','ENAMORADO','DIFERENTE','ESCRITOR']);const capa=document.getElementById('palabras');
-function crearPalabras(){capa.replaceChildren();const w=innerWidth,h=innerHeight,cantidad=w<600?55:85;for(let i=0;i<cantidad;i++){const palabra=palabras[i%palabras.length],el=document.createElement('span');el.className='palabra'+(destacadas.has(palabra)?' destacada':'');el.textContent=palabra;const zona=i%4;let x,y;if(zona===0){x=Math.random()*w*.4;y=-50-Math.random()*h*.25}else if(zona===1){x=w*.6+Math.random()*w*.35;y=-50-Math.random()*h*.25}else if(zona===2){x=Math.random()*w*.4;y=h+Math.random()*h*.25}else{x=w*.6+Math.random()*w*.35;y=h+Math.random()*h*.25}const cx=w*.5,cy=h*(w<600?.43:.45),angle=Math.atan2(cy-y,cx-x),safe=w<600?125:230,fx=cx-Math.cos(angle)*safe,fy=cy-Math.sin(angle)*safe,duration=12+Math.random()*16;el.style.setProperty('--inicio-x',x+'px');el.style.setProperty('--inicio-y',y+'px');el.style.setProperty('--final-x',fx+'px');el.style.setProperty('--final-y',fy+'px');el.style.setProperty('--duracion',duration+'s');el.style.setProperty('--retraso',-Math.random()*duration+'s');el.style.setProperty('--opacidad',destacadas.has(palabra)?'.95':String(.35+Math.random()*.4));capa.appendChild(el)}}
-function actualizarCuenta(){const restante=FECHA_ESTRENO.getTime()-Date.now();if(restante<=0){document.getElementById('cuenta').style.display='none';document.getElementById('final').style.display='block';return}const valores=[Math.floor(restante/86400000),Math.floor(restante/3600000)%24,Math.floor(restante/60000)%60,Math.floor(restante/1000)%60];['dias','horas','minutos','segundos'].forEach((id,i)=>document.getElementById(id).textContent=String(valores[i]).padStart(2,'0'))}crearPalabras();actualizarCuenta();setInterval(actualizarCuenta,1000);let resizeTimeout;addEventListener('resize',()=>{clearTimeout(resizeTimeout);resizeTimeout=setTimeout(crearPalabras,250)});
+function crearPalabras(){
+  capa.replaceChildren();
+  const w=window.innerWidth,h=window.innerHeight;
+  // Menos palabras simultáneas, repartidas por todo el perímetro.
+  const cantidad=w<600?26:38;
+  const cx=w*.5,cy=h*(w<600?.43:.45);
+  for(let i=0;i<cantidad;i++){
+    // Las cuatro destacadas aparecen varias veces, pero sin saturar la escena.
+    const palabra=i<4?palabras[i]:palabras[4+((i-4)%(palabras.length-4))];
+    const el=document.createElement('span');
+    const especial=destacadas.has(palabra);
+    el.className='palabra'+(especial?' destacada':'');
+    el.textContent=palabra;
+    // Ocho sectores: cuatro esquinas y cuatro lados (arriba, abajo, izquierda, derecha).
+    const sector=i%8;
+    const margen=50;
+    let x,y;
+    switch(sector){
+      case 0:x=-margen;y=-margen;break;
+      case 1:x=w+ margen;y=-margen;break;
+      case 2:x=-margen;y=h+margen;break;
+      case 3:x=w+margen;y=h+margen;break;
+      case 4:x=w*(.20+Math.random()*.60);y=-margen;break;
+      case 5:x=w*(.20+Math.random()*.60);y=h+margen;break;
+      case 6:x=-margen;y=h*(.15+Math.random()*.70);break;
+      default:x=w+margen;y=h*(.15+Math.random()*.70);
+    }
+    // Pequeñas variaciones para evitar trayectorias idénticas.
+    x+=(Math.random()-.5)*Math.min(w*.20,110);
+    y+=(Math.random()-.5)*Math.min(h*.12,90);
+    // El destino queda alrededor del reloj, no encima de los números.
+    const angulo=Math.atan2(cy-y,cx-x);
+    const radioX=w<600?Math.min(w*.43,190):Math.min(w*.39,330);
+    const radioY=w<600?95:130;
+    const fx=cx-Math.cos(angulo)*radioX;
+    const fy=cy-Math.sin(angulo)*radioY;
+    const duracion=15+Math.random()*12;
+    el.style.setProperty('--inicio-x',x+'px');
+    el.style.setProperty('--inicio-y',y+'px');
+    el.style.setProperty('--final-x',fx+'px');
+    el.style.setProperty('--final-y',fy+'px');
+    el.style.setProperty('--duracion',duracion+'s');
+    el.style.setProperty('--retraso',(-Math.random()*duracion)+'s');
+    el.style.setProperty('--opacidad',especial?'.90':String(.35+Math.random()*.35));
+    capa.appendChild(el);
+  }
+}
+function actualizarCuenta(){const restante=FECHA_ESTRENO.getTime()-Date.now();if(restante<=0){window.location.replace('./index.html');return}const valores=[Math.floor(restante/86400000),Math.floor(restante/3600000)%24,Math.floor(restante/60000)%60,Math.floor(restante/1000)%60];['dias','horas','minutos','segundos'].forEach((id,i)=>document.getElementById(id).textContent=String(valores[i]).padStart(2,'0'))}crearPalabras();actualizarCuenta();setInterval(actualizarCuenta,1000);let resizeTimeout;addEventListener('resize',()=>{clearTimeout(resizeTimeout);resizeTimeout=setTimeout(crearPalabras,250)});
+
+// Reutiliza la autenticación y la RPC existentes del proyecto original.
+const tdnModal=document.getElementById('tdnAdminModal');
+const tdnOpen=document.getElementById('tdnAdminAbrir');
+const tdnClose=document.getElementById('tdnAdminCerrar');
+const tdnForm=document.getElementById('tdnAdminForm');
+const tdnMessage=document.getElementById('tdnAdminMensaje');
+let tdnAdminClient=null;
+function cerrarAdmin(){tdnModal.hidden=true;tdnForm.reset();tdnMessage.textContent='';tdnOpen.focus()}
+tdnOpen.addEventListener('click',()=>{tdnModal.hidden=false;document.getElementById('tdnAdminEmail').focus()});
+tdnClose.addEventListener('click',cerrarAdmin);
+tdnModal.addEventListener('click',e=>{if(e.target===tdnModal)cerrarAdmin()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!tdnModal.hidden)cerrarAdmin()});
+tdnForm.addEventListener('submit',async e=>{
+ e.preventDefault();
+ const submit=tdnForm.querySelector('button[type=submit]');submit.disabled=true;
+ tdnMessage.textContent='Comprobando credenciales...';
+ try{
+  if(!window.supabase)throw new Error('No se ha podido conectar con el servicio de acceso.');
+  if(!tdnAdminClient)tdnAdminClient=window.supabase.createClient('https://xahzdkklnrfdrphwdxzo.supabase.co','sb_publishable_hzZqLiatGxCcFKcNnmMH0g_2gT7nJ3C');
+  const {error}=await tdnAdminClient.auth.signInWithPassword({email:document.getElementById('tdnAdminEmail').value.trim(),password:document.getElementById('tdnAdminPassword').value});
+  document.getElementById('tdnAdminPassword').value='';
+  if(error)throw new Error('No se ha podido iniciar sesión. Revisa tus datos.');
+  const {data, error:rolError}=await tdnAdminClient.rpc('es_admin_comentarios');
+  if(rolError||data!==true){await tdnAdminClient.auth.signOut();throw new Error('Esta cuenta no tiene permisos de administrador.');}
+  tdnMessage.textContent='Acceso autorizado. Abriendo el hospital...';
+  window.location.replace('./index.html');
+ }catch(err){tdnMessage.textContent=err.message||'No se ha podido verificar el acceso.';submit.disabled=false;}
+});
 </script></body></html>
