@@ -163,7 +163,7 @@ publicacion: {
     titulo: 'Fecha de publicación',
     texto: 'Conoce la fecha de publicación el Martes 15 de diciembre de 2026 a las 21:00.',
     extra: [
-        'xx/xx/2026'
+        'xx/12/2026'
     ]
 },
 
